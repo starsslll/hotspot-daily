@@ -25,63 +25,23 @@ def fetch_weibo():
     return [{"title": item.get("word"), "rank": idx + 1} for idx, item in enumerate(data) if item.get("word")][:20]
 
 def fetch_zhihu():
-    # 定义多个可能的接口（按稳定性排序）
-    urls = [
-        "https://www.zhihu.com/api/v3/feed/topstory/hot-lists/total?limit=20",
-        "https://api.zhihu.com/topstory/hot-lists/total?limit=20",
-        "https://www.zhihu.com/api/v4/answers/",  # 这个不对，但保留以防万一
-    ]
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-        "Referer": "https://www.zhihu.com/",
-        "Accept": "application/json, text/plain, */*"
-    }
-    
-    for url in urls:
-        try:
-            print(f"尝试知乎接口: {url}")
-            resp = requests.get(url, headers=headers, timeout=10)
-            print(f"状态码: {resp.status_code}")
-            
-            if resp.status_code == 200:
-                data = resp.json()
-                # 尝试多种可能的数据路径
-                items = data.get("data") or data.get("list") or data.get("topstory") or []
-                print(f"获取到 {len(items)} 条原始数据")
-                
-                if not items:
-                    # 可能是其他结构，打印前200字符以便分析
-                    print(f"响应内容片段: {resp.text[:200]}")
-                    continue
-                
-                result = []
-                for idx, item in enumerate(items):
-                    # 多种标题提取方式
-                    title = None
-                    if "target" in item and isinstance(item["target"], dict):
-                        title = item["target"].get("title")
-                    elif "title" in item:
-                        title = item["title"]
-                    elif "question" in item and "title" in item["question"]:
-                        title = item["question"]["title"]
-                    
-                    if title:
-                        result.append({"title": title, "rank": idx + 1})
-                        if len(result) >= 20:
-                            break
-                
-                if result:
-                    print(f"知乎解析成功，获取 {len(result)} 条")
-                    return result
-                else:
-                    print(f"未解析到标题，响应内容: {resp.text[:200]}")
-            else:
-                print(f"状态码异常: {resp.status_code}")
-        except Exception as e:
-            print(f"请求异常: {e}")
-    
-    # 所有接口均失败，返回空列表并打印警告
-    print("警告：所有知乎接口均失败，返回空数据")
+    # 使用 RSSHub 公共实例（免费，但可能限流）
+    url = "https://rsshub.app/zhihu/hotlist"
+    headers = {"User-Agent": "Mozilla/5.0"}
+    try:
+        resp = requests.get(url, headers=headers, timeout=10)
+        if resp.status_code == 200:
+            import xml.etree.ElementTree as ET
+            root = ET.fromstring(resp.content)
+            items = root.findall(".//item")
+            result = []
+            for idx, item in enumerate(items[:20]):
+                title = item.find("title").text
+                if title:
+                    result.append({"title": title, "rank": idx+1})
+            return result
+    except Exception as e:
+        print(f"RSSHub知乎失败: {e}")
     return []
 
 def fetch_douyin():
