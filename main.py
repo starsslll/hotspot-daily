@@ -15,24 +15,16 @@ SIMILARITY_THRESHOLD = 0.65
 
 # ---------- 抓取函数（不变）----------
 def fetch_weibo():
-    url = "https://weibo.com/ajax/statuses/hot_band"
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-        "Referer": "https://weibo.com/"
-    }
-    resp = requests.get(url, headers=headers, timeout=10)
-    data = resp.json().get("data", {}).get("band_list", [])
-    return [{"title": item.get("word"), "rank": idx + 1} for idx, item in enumerate(data) if item.get("word")][:20]
+    url = "https://weibo.com/ajax/side/hotSearch"
+    resp = requests.get(url, timeout=10)
+    items = resp.json().get("data", {}).get("realtime", [])
+    return [{"title": i.get("word"), "rank": idx + 1} for idx, i in enumerate(items) if i.get("word")][:20]
 
 def fetch_zhihu():
     url = "https://www.zhihu.com/api/v3/feed/topstory/hot-lists/total?limit=20"
-    headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-        "Referer": "https://www.zhihu.com/"
-    }
-    resp = requests.get(url, headers=headers, timeout=10)
+    resp = requests.get(url, timeout=10, headers={"User-Agent": "Mozilla/5.0"})
     items = resp.json().get("data", [])
-    return [{"title": item["target"]["title"], "rank": idx + 1} for idx, item in enumerate(items)][:20]
+    return [{"title": i["target"]["title"], "rank": idx + 1} for idx, i in enumerate(items)]
 
 def fetch_douyin():
     url = "https://www.iesdouyin.com/web/api/v2/hotsearch/billboard/word/?count=20"
