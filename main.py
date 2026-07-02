@@ -166,16 +166,18 @@ def send_email(subject, body, sender, password, recipients_list):
     msg["To"] = ", ".join(recipients_list)
     
     try:
-        server = smtplib.SMTP_SSL("smtp.qq.com", 465)
-        server.set_debuglevel(0)   # 关闭调试，恢复安静模式
+        # 改为 587 端口 + STARTTLS，比 465 更稳定
+        server = smtplib.SMTP("smtp.qq.com", 587)
+        server.starttls()
+        server.set_debuglevel(0)  # 安静模式
+        import time
+        time.sleep(1)  # 关键：延时1秒，让服务器准备就绪
         server.login(sender, password)
-        # 关键修复：显式指定信封发件人（必须和登录账号一致）
         server.sendmail(sender, recipients_list, msg.as_string())
         server.quit()
         print("邮件发送成功")
     except Exception as e:
         print(f"邮件发送失败: {e}")
-
 # ---------- 主流程 ----------
 def main():
     os.makedirs(DATA_DIR, exist_ok=True)
