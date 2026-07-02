@@ -254,22 +254,33 @@ def main():
             flat_text += f"#{i['rank']} {i['title']}\n"
 
     body = f"""
-📰 {today_str} 深度洞察日报（战略分析框架 v2.0）
+📰 {today_str} 深度洞察日报
 {'='*50}
 
 【🔴 历史重复预警】
 {alert_text}
 
---- 以下为AI四维深度分析 ---
+--- AI四维深度分析 ---
 {ai_summary}
 
---- 日常数据快照（仅供参考） ---
-【微博排名变化】
+{'='*50}
+📊 各平台 Top5 快照
+{'='*50}
+
+【微博 Top5】
+{format_platform(platforms.get('微博', []))}
+
+【知乎 Top5】
+{format_platform(platforms.get('知乎', []))}
+
+【抖音/头条 Top5】
+{format_platform(platforms.get('抖音/头条', []))}
+
+{'='*50}
+📈 微博排名变化（昨日对比）
 {change_text}
 
-{flat_text}
-
--- 本报告由 GitHub Actions 每日自动生成 | 领域：投资+科技+社会 --
+-- 本报告由 GitHub Actions 每日自动生成 --
 """
 
     # 发送邮件
