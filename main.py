@@ -164,10 +164,17 @@ def send_email(subject, body, sender, password, recipients_list):
     msg["Subject"] = Header(subject, "utf-8")
     msg["From"] = sender
     msg["To"] = ", ".join(recipients_list)
+    
     try:
-        with smtplib.SMTP_SSL("smtp.qq.com", 465) as server:
-            server.login(sender, password)
-            server.sendmail(sender, recipients_list, msg.as_string())
+        # 改为 587 端口 + STARTTLS，比 465 更稳定
+        server = smtplib.SMTP("smtp.qq.com", 587)
+        server.starttls()
+        server.set_debuglevel(0)  # 安静模式
+        import time
+        time.sleep(1)  # 关键：延时1秒，让服务器准备就绪
+        server.login(sender, password)
+        server.sendmail(sender, recipients_list, msg.as_string())
+        server.quit()
         print("邮件发送成功")
     except Exception as e:
         print(f"邮件发送失败: {e}")
