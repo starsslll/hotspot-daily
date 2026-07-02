@@ -166,10 +166,10 @@ def send_email(subject, body, sender, password, recipients_list):
     msg["To"] = ", ".join(recipients_list)
     
     try:
-        # 使用 SSL 直连（465 端口），并开启调试
         server = smtplib.SMTP_SSL("smtp.qq.com", 465)
-        server.set_debuglevel(1)   # 关键：打印所有SMTP命令和响应
+        server.set_debuglevel(0)   # 关闭调试，恢复安静模式
         server.login(sender, password)
+        # 关键修复：显式指定信封发件人（必须和登录账号一致）
         server.sendmail(sender, recipients_list, msg.as_string())
         server.quit()
         print("邮件发送成功")
