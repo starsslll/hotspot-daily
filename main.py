@@ -15,16 +15,24 @@ SIMILARITY_THRESHOLD = 0.65
 
 # ---------- 抓取函数（不变）----------
 def fetch_weibo():
-    url = "https://weibo.com/ajax/side/hotSearch"
-    resp = requests.get(url, timeout=10)
-    items = resp.json().get("data", {}).get("realtime", [])
-    return [{"title": i.get("word"), "rank": idx + 1} for idx, i in enumerate(items) if i.get("word")][:20]
+    url = "https://weibo.com/ajax/statuses/hot_band"
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "Referer": "https://weibo.com/"
+    }
+    resp = requests.get(url, headers=headers, timeout=10)
+    data = resp.json().get("data", {}).get("band_list", [])
+    return [{"title": item.get("word"), "rank": idx + 1} for idx, item in enumerate(data) if item.get("word")][:20]
 
 def fetch_zhihu():
     url = "https://www.zhihu.com/api/v3/feed/topstory/hot-lists/total?limit=20"
-    resp = requests.get(url, timeout=10, headers={"User-Agent": "Mozilla/5.0"})
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        "Referer": "https://www.zhihu.com/"
+    }
+    resp = requests.get(url, headers=headers, timeout=10)
     items = resp.json().get("data", [])
-    return [{"title": i["target"]["title"], "rank": idx + 1} for idx, i in enumerate(items)]
+    return [{"title": item["target"]["title"], "rank": idx + 1} for idx, item in enumerate(items)][:20]
 
 def fetch_douyin():
     url = "https://www.iesdouyin.com/web/api/v2/hotsearch/billboard/word/?count=20"
@@ -178,6 +186,11 @@ def send_email(subject, body, sender, password, recipients_list):
         print("邮件发送成功")
     except Exception as e:
         print(f"邮件发送失败: {e}")
+        
+def format_platform(items):
+    if not items:
+        return "  （暂无数据）"
+    return "\n".join([f"  #{i['rank']} {i['title']}" for i in items[:5]])
 # ---------- 主流程 ----------
 def main():
     os.makedirs(DATA_DIR, exist_ok=True)
@@ -240,23 +253,34 @@ def main():
         for i in items[:5]:
             flat_text += f"#{i['rank']} {i['title']}\n"
 
-    body = f"""
-📰 {today_str} 深度洞察日报（战略分析框架 v2.0）
+body = f"""
+📰 {today_str} 深度洞察日报
 {'='*50}
 
 【🔴 历史重复预警】
 {alert_text}
 
---- 以下为AI四维深度分析 ---
+--- AI四维深度分析 ---
 {ai_summary}
 
---- 日常数据快照（仅供参考） ---
-【微博排名变化】
+{'='*50}
+📊 各平台 Top5 快照
+{'='*50}
+
+【微博 Top5】
+{format_platform(platforms.get('微博', []))}
+
+【知乎 Top5】
+{format_platform(platforms.get('知乎', []))}
+
+【抖音/头条 Top5】
+{format_platform(platforms.get('抖音/头条', []))}
+
+{'='*50}
+📈 微博排名变化（昨日对比）
 {change_text}
 
-{flat_text}
-
--- 本报告由 GitHub Actions 每日自动生成 | 领域：投资+科技+社会 --
+-- 本报告由 GitHub Actions 每日自动生成 --
 """
 
     # 发送邮件
