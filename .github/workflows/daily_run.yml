@@ -2,7 +2,7 @@ name: Daily Hotspot Report
 
 on:
   schedule:
-    - cron: '*/10 * * * *'
+    - cron: '55 23 * * *'
   workflow_dispatch:
 
 permissions:
