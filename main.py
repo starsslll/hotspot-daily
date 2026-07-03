@@ -173,42 +173,123 @@ def _format_keyword_report(today_platforms, yesterday_platforms, keywords, prefi
         lines.append("  暂无追踪关键词上榜")
     return "\n".join(lines)
 
-# ---------- 历史查重 ----------
-def load_historical_titles(days=30):
-    history = {}
-    cutoff = datetime.now() - timedelta(days=days)
-    for f in glob.glob(f"{DATA_DIR}/*.json"):
-        try:
-            date_str = f[-14:-5]
-            dt = datetime.strptime(date_str, "%Y-%m-%d")
-        except:
-            continue
-        if dt >= cutoff and dt < datetime.now():
-            with open(f, "r", encoding="utf-8") as file:
-                data = json.load(file)
-                for platform, items in data.items():
-                    for item in items:
-                        title = item.get("title")
-                        if title and title not in history:
-                            history[title] = date_str
-    return history
+# ---------- 议题基因共振检测 ----------
+def check_issue_resonance(current_titles, historical_entries,
+                          l1_threshold=0.85, l2_threshold=0.65, l3_threshold=0.50,
+                          dormant_days=7, today_date=None):
+    """
+    对每个今日标题在30天历史库中找最佳匹配，按相似度输出 L1/L2/L3 分级，
+    并检测沉寂>=dormant_days后重新出现的"复活议题"。
+    historical_entries: [{"title": str, "date": "YYYY-MM-DD"}, ...] 允许重复
+    """
+    if today_date is None:
+        today_date = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
 
-def check_historical_overlap(current_titles, historical_map, threshold=0.65):
-    alerts = []
+    l1_simple, l2_incremental, l3_structural = [], [], []
+    dormant_resurrections = []
+
+    # 长标题优先匹配，防止短标题误配抢占
     sorted_titles = sorted(current_titles, key=len, reverse=True)
-    hist_items = list(historical_map.items())
+    # 历史条目按日期降序、长度降序
+    hist_sorted = sorted(historical_entries, key=lambda x: (-len(x["title"]),
+                         -(datetime.strptime(x["date"], "%Y-%m-%d") - datetime(2000, 1, 1)).days))
+
     for current_title in sorted_titles:
-        for hist_title, hist_date in hist_items:
-            ratio = difflib.SequenceMatcher(None, current_title, hist_title).ratio()
-            if ratio >= threshold:
-                alerts.append({
-                    "current": current_title,
-                    "history": hist_title,
-                    "date": hist_date,
-                    "similarity": round(ratio, 2)
-                })
+        # 找全局最佳匹配
+        best = None  # (hist_title, hist_date, similarity)
+        for entry in hist_sorted:
+            ratio = difflib.SequenceMatcher(None, current_title, entry["title"]).ratio()
+            if best is None or ratio > best[2]:
+                best = (entry["title"], entry["date"], ratio)
+            if ratio >= 0.95:  # 近乎完全相同，无需继续搜索
                 break
-    return alerts
+
+        if best is None or best[2] < l3_threshold:
+            continue
+
+        hist_title, hist_date_str, similarity = best
+        hist_dt = datetime.strptime(hist_date_str, "%Y-%m-%d")
+        days_gap = (today_date - hist_dt).days
+
+        # 分级
+        if similarity >= l1_threshold:
+            level, level_label = "L1", "简单重复"
+            target_list = l1_simple
+        elif similarity >= l2_threshold:
+            level, level_label = "L2", "增量重复"
+            target_list = l2_incremental
+        else:
+            level, level_label = "L3", "结构共振"
+            target_list = l3_structural
+
+        # 沉寂检测：最佳匹配 >7天前 且 最近7天内无任何相似条目
+        dormant = False
+        if days_gap > dormant_days:
+            recent_cutoff = today_date - timedelta(days=dormant_days)
+            has_recent = any(
+                datetime.strptime(e["date"], "%Y-%m-%d") >= recent_cutoff
+                and difflib.SequenceMatcher(None, current_title, e["title"]).ratio() >= l3_threshold
+                for e in historical_entries
+            )
+            if not has_recent:
+                dormant = True
+
+        alert = {
+            "current": current_title,
+            "history": hist_title,
+            "date": hist_date_str,
+            "similarity": round(similarity, 2),
+            "level": level,
+            "level_label": level_label,
+            "dormant": dormant,
+            "days_gap": days_gap
+        }
+        target_list.append(alert)
+        if dormant:
+            dormant_resurrections.append(alert)
+
+    total = len(l1_simple) + len(l2_incremental) + len(l3_structural)
+    return {
+        "l1_simple": l1_simple,
+        "l2_incremental": l2_incremental,
+        "l3_structural": l3_structural,
+        "dormant_resurrections": dormant_resurrections,
+        "total_matches": total,
+        "has_resonance": total > 0
+    }
+
+
+def _build_resonance_context(resonance):
+    """将结构化共振数据转为 DeepSeek prompt 中的紧凑文本上下文"""
+    lines = []
+
+    if resonance["dormant_resurrections"]:
+        lines.append("[沉寂议题复活] >7天前消失、今日重现——属于强烈信号：")
+        for d in resonance["dormant_resurrections"]:
+            lines.append(
+                f"  {d['level']} | \"{d['current']}\" <- {d['date']} \"{d['history']}\" "
+                f"(相似度{d['similarity']}, 沉寂{d['days_gap']}天)"
+            )
+
+    if resonance["l3_structural"]:
+        lines.append("[L3结构共振] 不同事件但底层议题基因相同——请强制归入隐线分析：")
+        for d in resonance["l3_structural"]:
+            tag = " [沉寂复活]" if d["dormant"] else ""
+            lines.append(f"  \"{d['current']}\" <> {d['date']} \"{d['history']}\" ({d['similarity']}){tag}")
+
+    if resonance["l2_incremental"]:
+        lines.append("[L2增量重复] 同话题但新事实/数据/角色，需更新生命周期阶段：")
+        for d in resonance["l2_incremental"]:
+            tag = " [沉寂复活]" if d["dormant"] else ""
+            lines.append(f"  \"{d['current']}\" ~ {d['date']} \"{d['history']}\" ({d['similarity']}){tag}")
+
+    if resonance["l1_simple"]:
+        lines.append(f"[L1简单重复] 同事件同来源无新信息 x{len(resonance['l1_simple'])}条（归档即可，勿占分析篇幅）")
+
+    if not resonance["has_resonance"]:
+        lines.append("[无历史共振] 今日热点与近30天历史无显著共振信号。")
+
+    return "\n".join(lines)
 
 def analyze_changes(today_data, yesterday_data):
     if not yesterday_data:
@@ -228,57 +309,51 @@ def analyze_changes(today_data, yesterday_data):
             changes.append(f"🆕 {title} (新上榜, 今日第{today_rank})")
     return "\n".join(changes[:15])
 
-# ---------- 核心分析（四大框架）----------
-def call_deepseek(platforms, change_text, alert_text, user_field, api_key):
+# ---------- 核心分析（四大框架 + 历史共振）----------
+def call_deepseek(platforms, change_text, resonance, user_field, api_key):
     # 整理今日榜单全貌
     flat_text = ""
     for name, items in platforms.items():
-        flat_text += f"\n--- {name} Top5 ---\n"
+        flat_text += f"\n[{name} Top5]\n"
         for i in items[:5]:
             flat_text += f"#{i['rank']} {i['title']}\n"
 
-    prompt = f"""
-【角色】你是兼具媒体洞察与商业决策力的资深分析师。
+    # 历史共振上下文
+    resonance_context = _build_resonance_context(resonance)
 
-【任务】基于以下今日热榜数据，执行4步强制分析。输出需严格分段，每段带小标题。
+    prompt = f"""你是冷静深刻只说干货的战略分析师。基于以下数据输出4段分析，每段以【标签】起始，总字数控制在600字以内，适合手机阅读。
 
-【今日数据】：
+[今日热榜]
 {flat_text}
-
-【昨日微博变化参考】：
+[排名变化]
 {change_text}
 
-【历史重复预警】：
-{alert_text}
+[历史共振档案]
+{resonance_context}
 
---- 请按以下4步输出分析（每步必答）---
+---
+请按顺序输出4段（每段必答，每段<=150字）：
 
-**第一步：议题生命周期预判**
-- 从今日Top3中，分别给出所处的阶段：【爆发期/发酵期/反转期/消退期】。
-- 若有处于【爆发期】的事件，请列出“为确认此事真伪/走向，接下来必须盯紧的3个关键证据或时间节点”。
+【生命周期坐标】
+对比今日Top3与历史轨迹，各自处于哪个阶段：爆发期/发酵期/反转期/消退期。若历史共振中有匹配，标注当前是对历史轨迹的\"延续\"\"加速\"还是\"转折\"。若有L3结构共振，说明其与历史事件的共同议题基因是什么。
 
-**第二步：情绪温差校准**
-- 对比“知乎（偏理性/官方）”与“微博/抖音（偏民间）”的标题措辞烈度。
-- 给出温差评级：【温和/剧烈/极端】。
-- 若评级为剧烈以上，请判断：此事是否属于“情绪资产”型事件（即事实影响小但舆论影响大）？并给出应对原则（例如：紧盯行为转化，忽略口水战）。
+【情绪温差校准】
+比较各平台标题措辞烈度差异，给出温差评级：温和/剧烈/极端。若评级为剧烈以上，判断是否属于\"情绪资产型\"事件（事实影响小但舆论影响大），给出应对原则（如：紧盯行为转化，忽略口水战）。
 
-**第三步：关联熵减归因（寻找隐线）**
-- 强行总结：今日前3个热点，共同指向哪一条“社会潜流”或“经济隐线”？
-- 为该隐线取一个4-6个字的名称（如“消费降级信号”、“AI焦虑外溢”），并写入今日的“隐线档案”。
+【关联熵减归因】
+总结今日热点共同指向的隐线，用4-6字命名（如\"AI焦虑外溢\"\"消费降级信号\"）。若历史共振中有L3结构共振或沉寂复活议题，务必将其串入隐线分析。
 
-**第四步：决策倒推沙盘（100字以内）**
-- 假设你负责相关业务/投资/生活决策，基于今日信号，请给出**一件具体可执行的小事**。
-- 结合用户的关注领域：{user_field}（包括股市/基金投资、科技产品消费、泛社会趋势）。
-- 输出必须可落地，例如：“若持仓消费电子，明日考虑减仓5%”或“本周内暂停购买新款AI硬件，待观察竞品动向”或“减少刷短视频时间，转为阅读行业白皮书”。
+【决策倒推沙盘】
+结合关注领域（{user_field}），基于今日信号+历史共振，给出1件可执行小事。必须具体可落地，100字以内。重复出现本身就是重要性信号。
 
-**输出格式要求**：每步以 `### 步骤X` 开头，清晰分段。
-"""
+输出格式：每段以【标签】起始，段间无空行。总字数不超过600字。"""
+
     url = "https://api.deepseek.com/v1/chat/completions"
     headers = {"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"}
     payload = {
         "model": "deepseek-chat",
         "messages": [
-            {"role": "system", "content": "你是冷静、深刻、只说干货的战略分析师，拒绝套话和风险警告。"},
+            {"role": "system", "content": "你是冷静、深刻、只说干货的战略分析师。拒绝套话和风险警告。输出简洁，适合手机阅读。"},
             {"role": "user", "content": prompt}
         ],
         "temperature": 0.4,
@@ -322,7 +397,7 @@ def main():
     cutoff = datetime.now() - timedelta(days=KEEP_DAYS)
     for f in glob.glob(f"{DATA_DIR}/*.json"):
         try:
-            dt = datetime.strptime(f[-14:-5], "%Y-%m-%d")
+            dt = datetime.strptime(os.path.splitext(os.path.basename(f))[0], "%Y-%m-%d")
             if dt < cutoff:
                 os.remove(f)
         except:
@@ -336,23 +411,34 @@ def main():
         "抖音/头条": fetch_douyin()
     }
     
-    # 历史查重
-    historical_map = load_historical_titles(KEEP_DAYS)
+    # ---- 议题基因共振检测（L1/L2/L3 + 沉寂复活）----
+    today_date = datetime.now().replace(hour=0, minute=0, second=0, microsecond=0)
+    # 构建历史条目列表（保留重复，供沉寂检测用）
+    historical_entries = []
+    cutoff_dt = datetime.now() - timedelta(days=KEEP_DAYS)
+    for f in glob.glob(f"{DATA_DIR}/*.json"):
+        try:
+            dt = datetime.strptime(os.path.splitext(os.path.basename(f))[0], "%Y-%m-%d")
+            if dt < cutoff_dt or dt >= datetime.now():
+                continue
+        except:
+            continue
+        with open(f, "r", encoding="utf-8") as file:
+            data = json.load(file)
+            for platform_items in data.values():
+                for item in platform_items:
+                    title = item.get("title")
+                    if title:
+                        historical_entries.append({"title": title, "date": os.path.splitext(os.path.basename(f))[0]})
+
     today_all_titles = []
     for items in platforms.values():
         for item in items:
             if item["title"] not in today_all_titles:
                 today_all_titles.append(item["title"])
-    alerts = check_historical_overlap(today_all_titles, historical_map, SIMILARITY_THRESHOLD)
-    
-    alert_text = ""
-    if alerts:
-        alert_text = "⚠️⚠️⚠️ 【重点重复/持续高热预警】⚠️⚠️⚠️\n"
-        for a in alerts:
-            alert_text += f"• “{a['current']}” 与 {a['date']} 的 “{a['history']}” 高度相似 (相似度{a['similarity']})\n"
-        alert_text += "\n（该话题可能为老梗重提或持续发酵，建议深挖背后动因）\n\n"
-    else:
-        alert_text = "✅ 【历史查重】今日热点与过去30天内容无高度重复，多为新鲜话题。\n\n"
+
+    resonance = check_issue_resonance(today_all_titles, historical_entries,
+                                      today_date=today_date)
 
     # 昨日数据（微博对比 + 关键词跨平台追踪）
     yesterday_str = (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d")
@@ -368,44 +454,47 @@ def main():
     # ---- 关键词热度追踪（自动检测 + 跨平台排名）----
     keyword_report = auto_trending_keywords(platforms, yesterday_platforms)
 
-    # 调用DeepSeek（传入用户领域）
+    # 调用DeepSeek（传入议题共振数据）
     user_interest = "股市/基金投资、科技产品消费、泛社会趋势"
     api_key = os.getenv("DEEPSEEK_API_KEY")
-    ai_summary = call_deepseek(platforms, change_text, alert_text, user_interest, api_key) if api_key else "未配置DeepSeek Key"
+    ai_summary = call_deepseek(platforms, change_text, resonance, user_interest, api_key) if api_key else "未配置DeepSeek Key"
 
-    # ---- 组装邮件（修改了两个地方） ----
-    body = f"""
-📰 {today_str} 深度洞察日报
-{'='*50}
+    # ---- 组装手机优化邮件 ----
+    # 议题共振卡片
+    if resonance["has_resonance"]:
+        resonance_card = "-- 议题共振 --\n"
+        if resonance["dormant_resurrections"]:
+            resonance_card += "!! 沉寂议题复活 !!\n"
+            for d in resonance["dormant_resurrections"]:
+                resonance_card += f"  [{d['level']}] {d['current']}\n"
+                resonance_card += f"      <- {d['date']} (沉寂{d['days_gap']}天)\n"
+        parts = []
+        if resonance["l1_simple"]:
+            parts.append(f"L1简单重复 x{len(resonance['l1_simple'])}")
+        if resonance["l2_incremental"]:
+            parts.append(f"L2增量重复 x{len(resonance['l2_incremental'])}")
+        if resonance["l3_structural"]:
+            parts.append(f"L3结构共振 x{len(resonance['l3_structural'])}")
+        resonance_card += "  " + "  ".join(parts) + "\n"
+    else:
+        resonance_card = "-- 议题共振 --\n  今日无显著历史共振\n"
 
-【🔴 历史重复预警】
-{alert_text}
+    # 平台快照（紧凑格式）
+    def _compact_platform(name, items):
+        if not items:
+            return f"{name}: (暂无)"
+        return f"{name}: " + " | ".join([f"#{i['rank']}{i['title']}" for i in items[:5]])
 
---- AI四维深度分析 ---
-{ai_summary}
-
-【🔥 关键词热度追踪】
-{keyword_report}
-
-{'='*50}
-📊 各平台 Top5 快照
-{'='*50}
-
-【微博 Top5】
-{format_platform(platforms.get('微博', []))}
-
-【百度热搜 Top5】
-{format_platform(platforms.get('百度热搜', []))}
-
-【抖音/头条 Top5】
-{format_platform(platforms.get('抖音/头条', []))}
-
-{'='*50}
-📈 微博排名变化（昨日对比）
-{change_text}
-
--- 本报告由 GitHub Actions 每日自动生成 --
-"""
+    body = f"[{today_str}] 深度洞察日报\n"
+    body += "\n" + resonance_card
+    body += f"\n-- AI分析 --\n{ai_summary}\n"
+    body += f"\n-- 关键词追踪 --\n{keyword_report}\n"
+    body += "\n-- 平台快照 --\n"
+    body += _compact_platform("微博", platforms.get("微博", [])) + "\n"
+    body += _compact_platform("百度", platforms.get("百度热搜", [])) + "\n"
+    body += _compact_platform("抖音", platforms.get("抖音/头条", [])) + "\n"
+    body += f"\n-- 排名变化 --\n{change_text}\n"
+    body += "\n-- GitHub Actions 自动生成 --"
 
     # 发送邮件
     recipients = os.getenv("RECIPIENTS", "").split(",")
