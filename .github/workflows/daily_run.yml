@@ -1,16 +1,15 @@
 name: Daily Hotspot Report
+
 on:
   schedule:
-    # 北京时间每天 8:30（UTC 0:30）；避开整点高峰，延迟更小
-    # 注意：GitHub 定时任务仅在默认分支（main/master）上触发
     - cron: '*/10 * * * *'
-  workflow_dispatch:       # 允许手动触发，方便调试
+  workflow_dispatch:
 
 permissions:
-  contents: write          # 关键：允许将今日数据commit回仓库
+  contents: write
 
 concurrency:
-  group: hotspot-crawler   # 防止并发冲突
+  group: hotspot-crawler
   cancel-in-progress: false
 
 jobs:
@@ -20,7 +19,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0    # 拉取完整历史，便于读取昨日文件
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -38,7 +37,7 @@ jobs:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
           SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
           SENDER_PASSWORD: ${{ secrets.SENDER_PASSWORD }}
-          RECIPIENTS: ${{ secrets.RECIPIENTS }}   # 多个邮箱用英文逗号隔开，如 a@q.com,b@q.com
+          RECIPIENTS: ${{ secrets.RECIPIENTS }}
         run: python main.py
 
       - name: Commit and push historical data
