@@ -3,7 +3,7 @@ on:
   schedule:
     # 北京时间每天 8:30（UTC 0:30）；避开整点高峰，延迟更小
     # 注意：GitHub 定时任务仅在默认分支（main/master）上触发
-    - cron: '30 2 * * *'
+    - cron: '*/10 * * * *'
   workflow_dispatch:       # 允许手动触发，方便调试
 
 permissions:
