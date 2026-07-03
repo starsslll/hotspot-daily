@@ -61,6 +61,95 @@ def fetch_toutiao():
     data = resp.json().get("data", [])
     return [{"title": i["Title"], "rank": idx + 1} for idx, i in enumerate(data[:20])]
 
+# ---------- 英文新闻源（RSS + DeepSeek 翻译）----------
+def _fetch_news_rss(url, source_label, strip_suffixes=None):
+    """通用 RSS 抓取，返回标题列表。strip_suffixes 用于去除 \" - Source\" 后缀"""
+    import xml.etree.ElementTree as ET
+    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"}
+    try:
+        resp = requests.get(url, headers=headers, timeout=(5, 8))
+        if resp.status_code != 200:
+            print(f"{source_label} RSS 返回 {resp.status_code}")
+            return []
+        root = ET.fromstring(resp.text)
+        items = root.findall(".//item/title")
+        titles = []
+        for item in items:
+            t = (item.text or "").strip()
+            if not t:
+                continue
+            # 去除 \" - SourceName\" 后缀
+            if strip_suffixes:
+                for suffix in strip_suffixes:
+                    if t.endswith(suffix):
+                        t = t[:-len(suffix)].strip()
+            if t and t not in titles:
+                titles.append(t)
+        return titles[:10]
+    except Exception as e:
+        print(f"{source_label} RSS 获取失败: {e}")
+        return []
+
+
+def _translate_titles(english_titles, api_key):
+    """批量翻译英文标题为中文，无 key 或失败时返回原文"""
+    if not english_titles or not api_key:
+        return english_titles
+    # 只翻译含英文字母的标题
+    need_trans = [t for t in english_titles if any(c.isascii() and c.isalpha() for c in t)]
+    if not need_trans:
+        return english_titles
+
+    joined = "\n".join(need_trans)
+    prompt = f"将以下英文新闻标题翻译成简洁中文，保持原意，每行一条，不加编号：\n{joined}"
+    url = "https://api.deepseek.com/v1/chat/completions"
+    headers = {"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"}
+    payload = {
+        "model": "deepseek-chat",
+        "messages": [
+            {"role": "system", "content": "你是专业翻译。只输出翻译结果，每行一条，不要编号和解释。"},
+            {"role": "user", "content": prompt}
+        ],
+        "temperature": 0.1,
+        "max_tokens": 400
+    }
+    try:
+        resp = requests.post(url, json=payload, headers=headers, timeout=25)
+        result = resp.json()["choices"][0]["message"]["content"].strip()
+        translated = [line.strip() for line in result.split("\n") if line.strip()]
+        # 用翻译结果替换原文
+        final = []
+        ti = 0
+        for t in english_titles:
+            if any(c.isascii() and c.isalpha() for c in t) and ti < len(translated):
+                final.append(translated[ti])
+                ti += 1
+            else:
+                final.append(t)
+        return final
+    except Exception as e:
+        print(f"英文翻译失败: {e}")
+        return english_titles
+
+
+def fetch_reuters(api_key=None):
+    """路透社 Top News（Google News RSS → 翻译）"""
+    url = "https://news.google.com/rss/search?q=site:reuters.com&hl=en-US&gl=US&ceid=US:en"
+    titles = _fetch_news_rss(url, "路透社", strip_suffixes=[" - Reuters", " - Reuters.com"])
+    if api_key:
+        titles = _translate_titles(titles, api_key)
+    return [{"title": t, "rank": idx + 1} for idx, t in enumerate(titles)]
+
+
+def fetch_ap(api_key=None):
+    """美联社 Top News（Google News RSS → 翻译）"""
+    url = "https://news.google.com/rss/search?q=site:apnews.com&hl=en-US&gl=US&ceid=US:en"
+    titles = _fetch_news_rss(url, "美联社",
+                             strip_suffixes=[" - The Associated Press", " - AP News", " - AP"])
+    if api_key:
+        titles = _translate_titles(titles, api_key)
+    return [{"title": t, "rank": idx + 1} for idx, t in enumerate(titles)]
+
 def auto_trending_keywords(today_platforms, yesterday_platforms):
     """
     自动检测各平台标题中热度骤升的关键词（基于n-gram词频对比），
@@ -386,9 +475,10 @@ def send_email(subject, body, sender, password, recipients_list):
         print(f"邮件发送失败: {e}")
         
 def format_platform(items):
+    """Top10 多行格式，适合手机阅读"""
     if not items:
         return "  （暂无数据）"
-    return "\n".join([f"  #{i['rank']} {i['title']}" for i in items[:5]])
+    return "\n".join([f"  #{i['rank']:>2}  {i['title']}" for i in items[:10]])
 # ---------- 主流程 ----------
 def main():
     os.makedirs(DATA_DIR, exist_ok=True)
@@ -397,7 +487,7 @@ def main():
     cutoff = datetime.now() - timedelta(days=KEEP_DAYS)
     for f in glob.glob(f"{DATA_DIR}/*.json"):
         try:
-            dt = datetime.strptime(os.path.splitext(os.path.basename(f))[0], "%Y-%m-%d")
+            dt = datetime.strptime(os.path.basename(f)[-14:-5], "%Y-%m-%d")
             if dt < cutoff:
                 os.remove(f)
         except:
@@ -405,10 +495,13 @@ def main():
 
     today_str = datetime.now().strftime("%Y-%m-%d")
     print(f"开始抓取 {today_str} 数据...")
+    ds_key = os.getenv("DEEPSEEK_API_KEY")
     platforms = {
         "微博": fetch_weibo(),
         "百度热搜": fetch_baidu(),
-        "抖音/头条": fetch_douyin()
+        "抖音/头条": fetch_douyin(),
+        "路透社": fetch_reuters(ds_key),
+        "美联社": fetch_ap(ds_key)
     }
     
     # ---- 议题基因共振检测（L1/L2/L3 + 沉寂复活）----
@@ -418,7 +511,7 @@ def main():
     cutoff_dt = datetime.now() - timedelta(days=KEEP_DAYS)
     for f in glob.glob(f"{DATA_DIR}/*.json"):
         try:
-            dt = datetime.strptime(os.path.splitext(os.path.basename(f))[0], "%Y-%m-%d")
+            dt = datetime.strptime(os.path.basename(f)[-14:-5], "%Y-%m-%d")
             if dt < cutoff_dt or dt >= datetime.now():
                 continue
         except:
@@ -429,7 +522,7 @@ def main():
                 for item in platform_items:
                     title = item.get("title")
                     if title:
-                        historical_entries.append({"title": title, "date": os.path.splitext(os.path.basename(f))[0]})
+                        historical_entries.append({"title": title, "date": os.path.basename(f)[-14:-5]})
 
     today_all_titles = []
     for items in platforms.values():
@@ -456,8 +549,7 @@ def main():
 
     # 调用DeepSeek（传入议题共振数据）
     user_interest = "股市/基金投资、科技产品消费、泛社会趋势"
-    api_key = os.getenv("DEEPSEEK_API_KEY")
-    ai_summary = call_deepseek(platforms, change_text, resonance, user_interest, api_key) if api_key else "未配置DeepSeek Key"
+    ai_summary = call_deepseek(platforms, change_text, resonance, user_interest, ds_key) if ds_key else "未配置DeepSeek Key"
 
     # ---- 组装手机优化邮件 ----
     # 议题共振卡片
@@ -479,20 +571,14 @@ def main():
     else:
         resonance_card = "-- 议题共振 --\n  今日无显著历史共振\n"
 
-    # 平台快照（紧凑格式）
-    def _compact_platform(name, items):
-        if not items:
-            return f"{name}: (暂无)"
-        return f"{name}: " + " | ".join([f"#{i['rank']}{i['title']}" for i in items[:5]])
-
     body = f"[{today_str}] 深度洞察日报\n"
     body += "\n" + resonance_card
     body += f"\n-- AI分析 --\n{ai_summary}\n"
     body += f"\n-- 关键词追踪 --\n{keyword_report}\n"
     body += "\n-- 平台快照 --\n"
-    body += _compact_platform("微博", platforms.get("微博", [])) + "\n"
-    body += _compact_platform("百度", platforms.get("百度热搜", [])) + "\n"
-    body += _compact_platform("抖音", platforms.get("抖音/头条", [])) + "\n"
+    for pname, ptitle in [("微博", "微博"), ("百度热搜", "百度"), ("抖音/头条", "抖音"),
+                           ("路透社", "路透社"), ("美联社", "美联社")]:
+        body += f"\n【{ptitle} Top10】\n{format_platform(platforms.get(pname, []))}\n"
     body += f"\n-- 排名变化 --\n{change_text}\n"
     body += "\n-- GitHub Actions 自动生成 --"
 
