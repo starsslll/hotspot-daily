@@ -12,7 +12,9 @@ import difflib
 DATA_DIR = "data"
 KEEP_DAYS = 30
 SIMILARITY_THRESHOLD = 0.65
-TRACK_KEYWORDS = ["AI", "裁员", "房地产", "黄金", "日元", "芯片"]  # 修改为你关注的词
+# 关键词不再写死，改为 auto_trending_keywords() 自动检测热度飙升词
+# 无昨日数据时使用以下默认词
+DEFAULT_KEYWORDS = ["AI", "芯片", "黄金", "裁员"]
 
 # ---------- 抓取函数（不变）----------
 def fetch_weibo():
@@ -59,38 +61,117 @@ def fetch_toutiao():
     data = resp.json().get("data", [])
     return [{"title": i["Title"], "rank": idx + 1} for idx, i in enumerate(data[:20])]
 
-def track_keywords(today_data, yesterday_data, keywords):
+def auto_trending_keywords(today_platforms, yesterday_platforms):
     """
-    检查今日热点中是否包含关键词，返回排名和变化情况
+    自动检测各平台标题中热度骤升的关键词（基于n-gram词频对比），
+    并跨平台追踪排名。无昨日数据时回退为默认关键词。
     """
-    today_map = {}
-    yesterday_map = {}
-    for item in today_data:
-        title = item["title"]
-        for kw in keywords:
-            if kw.lower() in title.lower():
-                today_map[kw] = item["rank"]
-    for item in yesterday_data:
-        title = item["title"]
-        for kw in keywords:
-            if kw.lower() in title.lower():
-                yesterday_map[kw] = item["rank"]
-    
-    reports = []
-    for kw in keywords:
-        if kw in today_map:
-            rank_today = today_map[kw]
-            if kw in yesterday_map:
-                rank_yesterday = yesterday_map[kw]
-                diff = rank_yesterday - rank_today  # 正数上升
-                reports.append(f"📌 {kw}：今日排名 #{rank_today}，较昨日 {'上升' if diff>0 else '下降'} {abs(diff)} 名")
-            else:
-                reports.append(f"🆕 {kw}：今日新上榜，排名 #{rank_today}")
+    import re
+
+    def all_titles(platforms):
+        titles = []
+        for items in platforms.values():
+            for item in items:
+                titles.append(item["title"])
+        return titles
+
+    today_titles = all_titles(today_platforms)
+    yesterday_titles = all_titles(yesterday_platforms)
+
+    # 无昨日数据 → 回退默认关键词，仅做今日排名
+    if not yesterday_titles:
+        return _format_keyword_report(
+            today_platforms, yesterday_platforms, DEFAULT_KEYWORDS,
+            "（首日运行，使用默认关键词）"
+        )
+
+    # 中文连续片段（2+字）频次统计 —— 比滑动窗口n-gram更干净
+    def phrase_freq(titles):
+        freq = {}
+        for title in titles:
+            # 提取2字及以上的纯中文连续片段
+            phrases = re.findall(r'[一-鿿]{2,}', title)
+            for ph in phrases:
+                freq[ph] = freq.get(ph, 0) + 1
+                # 较长片段同时拆为2-4字子串入库，兼顾短关键词（如"黄金"）
+                if len(ph) > 4:
+                    for n in (2, 3):
+                        for i in range(len(ph) - n + 1):
+                            sub = ph[i:i + n]
+                            freq[sub] = freq.get(sub, 0) + 1
+        return freq
+
+    today_freq = phrase_freq(today_titles)
+    yesterday_freq = phrase_freq(yesterday_titles)
+
+    # 得分 = 今日频次 × 增长率（增长率越高说明越"骤升"）
+    scored = []
+    for ng, tc in today_freq.items():
+        if tc < 2:
+            continue
+        yc = yesterday_freq.get(ng, 0)
+        growth = tc / max(yc, 0.5)
+        scored.append((ng, tc * growth, tc, yc))
+
+    # 去重：长词优先，添加长词时移除已被包含的短词
+    scored.sort(key=lambda x: (-len(x[0]), -x[1]))  # 按长度降序、得分降序
+    selected = []
+    for ng, _score, tc, yc in scored:
+        if any(ng in other or other in ng for other in selected):
+            continue
+        selected.append(ng)
+        if len(selected) >= 8:
+            break
+
+    # 生成热度检测说明
+    lines = ["📊 【自动检测热度骤升关键词】"]
+    for ng in selected:
+        tc = today_freq[ng]
+        yc = yesterday_freq.get(ng, 0)
+        if yc == 0:
+            lines.append(f"  🆕 {ng}（今日首次高频出现，{tc}次）")
         else:
-            # 可选：如果昨日有但今日消失，也可提示
-            if kw in yesterday_map:
-                reports.append(f"⬇️ {kw}：昨日排名 #{yesterday_map[kw]}，今日已跌出榜单")
-    return "\n".join(reports) if reports else "暂无追踪关键词上榜"
+            lines.append(f"  🔥 {ng}（{tc}次 | 昨{yc}次，热度飙升）")
+
+    return "\n".join(lines) + "\n" + _format_keyword_report(
+        today_platforms, yesterday_platforms, selected, ""
+    )
+
+
+def _format_keyword_report(today_platforms, yesterday_platforms, keywords, prefix):
+    """跨平台追踪关键词排名"""
+    lines = []
+    if prefix:
+        lines.append(prefix)
+
+    tracked = set()
+    for kw in keywords:
+        today_info = []
+        yesterday_info = []
+        for pname in today_platforms:
+            for item in today_platforms[pname]:
+                if kw.lower() in item["title"].lower():
+                    today_info.append(f"{pname}#{item['rank']}")
+                    tracked.add(kw)
+        for pname in yesterday_platforms:
+            for item in yesterday_platforms[pname]:
+                if kw.lower() in item["title"].lower():
+                    yesterday_info.append(f"{pname}#{item['rank']}")
+
+        if today_info:
+            today_str = "、".join(today_info)
+            if yesterday_info:
+                yesterday_str = "、".join(yesterday_info)
+                lines.append(f"📌 {kw}：今日 {today_str}，昨日 {yesterday_str}")
+            else:
+                lines.append(f"🆕 {kw}：今日新上榜 {today_str}")
+        elif yesterday_info:
+            yesterday_str = "、".join(yesterday_info)
+            lines.append(f"⬇️ {kw}：昨日 {yesterday_str}，今日已跌出榜单")
+
+    if len(tracked) == 0:
+        lines.append("  暂无追踪关键词上榜")
+    return "\n".join(lines)
 
 # ---------- 历史查重 ----------
 def load_historical_titles(days=30):
@@ -273,18 +354,19 @@ def main():
     else:
         alert_text = "✅ 【历史查重】今日热点与过去30天内容无高度重复，多为新鲜话题。\n\n"
 
-    # 昨日对比（微博）
+    # 昨日数据（微博对比 + 关键词跨平台追踪）
     yesterday_str = (datetime.now() - timedelta(days=1)).strftime("%Y-%m-%d")
     yesterday_path = f"{DATA_DIR}/{yesterday_str}.json"
-    yesterday_data = []
+    yesterday_platforms = {}
     if os.path.exists(yesterday_path):
         with open(yesterday_path, "r", encoding="utf-8") as f:
-            yesterday_data = json.load(f).get("微博", [])
+            yesterday_platforms = json.load(f)
+    yesterday_weibo = yesterday_platforms.get("微博", [])
     today_weibo = platforms["微博"]
-    change_text = analyze_changes(today_weibo, yesterday_data)
+    change_text = analyze_changes(today_weibo, yesterday_weibo)
 
-    # ---- 新增：关键词追踪 ----
-    keyword_report = track_keywords(today_weibo, yesterday_data, TRACK_KEYWORDS)
+    # ---- 关键词热度追踪（自动检测 + 跨平台排名）----
+    keyword_report = auto_trending_keywords(platforms, yesterday_platforms)
 
     # 调用DeepSeek（传入用户领域）
     user_interest = "股市/基金投资、科技产品消费、泛社会趋势"
