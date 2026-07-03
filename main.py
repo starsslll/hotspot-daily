@@ -30,10 +30,10 @@ def fetch_baidu():
     headers = {"User-Agent": "Mozilla/5.0"}
     try:
         resp = requests.get(url, headers=headers, timeout=8)
-        # 百度热搜页面是HTML，需要解析
+        # 百度热搜页面是SPA，数据在嵌入式JSON中
         import re
-        # 匹配热搜标题（通常在 <a class="title" ...> 中）
-        titles = re.findall(r'<a class="title" [^>]*>(.*?)</a>', resp.text)
+        # 匹配热搜标题（在 "query" 字段中）
+        titles = re.findall(r'"query":"([^"]+)"', resp.text)
         result = []
         for idx, title in enumerate(titles[:20]):
             if title.strip():
