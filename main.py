@@ -12,6 +12,7 @@ import difflib
 DATA_DIR = "data"
 KEEP_DAYS = 30
 SIMILARITY_THRESHOLD = 0.65
+TRACK_KEYWORDS = ["AI", "裁员", "房地产", "黄金", "日元", "芯片"]  # 修改为你关注的词
 
 # ---------- 抓取函数（不变）----------
 def fetch_weibo():
@@ -24,25 +25,23 @@ def fetch_weibo():
     data = resp.json().get("data", {}).get("band_list", [])
     return [{"title": item.get("word"), "rank": idx + 1} for idx, item in enumerate(data) if item.get("word")][:20]
 
-def fetch_zhihu():
-    # 使用 RSSHub 公共实例（免费，但可能限流）
-    url = "https://rsshub.app/zhihu/hotlist"
+def fetch_baidu():
+    url = "https://top.baidu.com/board?tab=realtime"
     headers = {"User-Agent": "Mozilla/5.0"}
     try:
-        resp = requests.get(url, headers=headers, timeout=10)
-        if resp.status_code == 200:
-            import xml.etree.ElementTree as ET
-            root = ET.fromstring(resp.content)
-            items = root.findall(".//item")
-            result = []
-            for idx, item in enumerate(items[:20]):
-                title = item.find("title").text
-                if title:
-                    result.append({"title": title, "rank": idx+1})
-            return result
+        resp = requests.get(url, headers=headers, timeout=8)
+        # 百度热搜页面是HTML，需要解析
+        import re
+        # 匹配热搜标题（通常在 <a class="title" ...> 中）
+        titles = re.findall(r'<a class="title" [^>]*>(.*?)</a>', resp.text)
+        result = []
+        for idx, title in enumerate(titles[:20]):
+            if title.strip():
+                result.append({"title": title.strip(), "rank": idx+1})
+        return result
     except Exception as e:
-        print(f"RSSHub知乎失败: {e}")
-    return []
+        print(f"百度热搜获取失败: {e}")
+        return []
 
 def fetch_douyin():
     url = "https://www.iesdouyin.com/web/api/v2/hotsearch/billboard/word/?count=20"
@@ -59,6 +58,39 @@ def fetch_toutiao():
     resp = requests.get(url, timeout=10, headers={"User-Agent": "Mozilla/5.0"})
     data = resp.json().get("data", [])
     return [{"title": i["Title"], "rank": idx + 1} for idx, i in enumerate(data[:20])]
+
+def track_keywords(today_data, yesterday_data, keywords):
+    """
+    检查今日热点中是否包含关键词，返回排名和变化情况
+    """
+    today_map = {}
+    yesterday_map = {}
+    for item in today_data:
+        title = item["title"]
+        for kw in keywords:
+            if kw.lower() in title.lower():
+                today_map[kw] = item["rank"]
+    for item in yesterday_data:
+        title = item["title"]
+        for kw in keywords:
+            if kw.lower() in title.lower():
+                yesterday_map[kw] = item["rank"]
+    
+    reports = []
+    for kw in keywords:
+        if kw in today_map:
+            rank_today = today_map[kw]
+            if kw in yesterday_map:
+                rank_yesterday = yesterday_map[kw]
+                diff = rank_yesterday - rank_today  # 正数上升
+                reports.append(f"📌 {kw}：今日排名 #{rank_today}，较昨日 {'上升' if diff>0 else '下降'} {abs(diff)} 名")
+            else:
+                reports.append(f"🆕 {kw}：今日新上榜，排名 #{rank_today}")
+        else:
+            # 可选：如果昨日有但今日消失，也可提示
+            if kw in yesterday_map:
+                reports.append(f"⬇️ {kw}：昨日排名 #{yesterday_map[kw]}，今日已跌出榜单")
+    return "\n".join(reports) if reports else "暂无追踪关键词上榜"
 
 # ---------- 历史查重 ----------
 def load_historical_titles(days=30):
@@ -219,7 +251,7 @@ def main():
     print(f"开始抓取 {today_str} 数据...")
     platforms = {
         "微博": fetch_weibo(),
-        "知乎": fetch_zhihu(),
+        "百度热搜": fetch_baidu(),
         "抖音/头条": fetch_douyin()
     }
     
@@ -251,18 +283,15 @@ def main():
     today_weibo = platforms["微博"]
     change_text = analyze_changes(today_weibo, yesterday_data)
 
+    # ---- 新增：关键词追踪 ----
+    keyword_report = track_keywords(today_weibo, yesterday_data, TRACK_KEYWORDS)
+
     # 调用DeepSeek（传入用户领域）
-    user_interest = "股市/基金投资、科技产品消费、泛社会趋势"  # 已按你的acd组合设定
+    user_interest = "股市/基金投资、科技产品消费、泛社会趋势"
     api_key = os.getenv("DEEPSEEK_API_KEY")
     ai_summary = call_deepseek(platforms, change_text, alert_text, user_interest, api_key) if api_key else "未配置DeepSeek Key"
 
-    # 组装邮件
-    flat_text = ""
-    for name, items in platforms.items():
-        flat_text += f"\n--- {name} Top5 ---\n"
-        for i in items[:5]:
-            flat_text += f"#{i['rank']} {i['title']}\n"
-
+    # ---- 组装邮件（修改了两个地方） ----
     body = f"""
 📰 {today_str} 深度洞察日报
 {'='*50}
@@ -273,6 +302,9 @@ def main():
 --- AI四维深度分析 ---
 {ai_summary}
 
+【🔥 关键词热度追踪】
+{keyword_report}
+
 {'='*50}
 📊 各平台 Top5 快照
 {'='*50}
@@ -280,8 +312,8 @@ def main():
 【微博 Top5】
 {format_platform(platforms.get('微博', []))}
 
-【知乎 Top5】
-{format_platform(platforms.get('知乎', []))}
+【百度热搜 Top5】
+{format_platform(platforms.get('百度热搜', []))}
 
 【抖音/头条 Top5】
 {format_platform(platforms.get('抖音/头条', []))}
