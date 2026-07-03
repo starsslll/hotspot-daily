@@ -1,6 +1,6 @@
 name: Daily Hotspot Report
 
-"on":
+on:
   schedule:
     - cron: '*/10 * * * *'
   workflow_dispatch:
