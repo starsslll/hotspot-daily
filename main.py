@@ -169,6 +169,25 @@ def fetch_36kr():
     return [{"title": t, "rank": idx + 1} for idx, t in enumerate(titles)]
 
 
+def fetch_reuters(api_key=None):
+    """路透社 Top News（Google News RSS → 翻译）"""
+    url = "https://news.google.com/rss/search?q=site:reuters.com&hl=en-US&gl=US&ceid=US:en"
+    titles = _fetch_news_rss(url, "路透社", strip_suffixes=[" - Reuters", " - Reuters.com"])
+    if api_key:
+        titles = _translate_titles(titles, api_key)
+    return [{"title": t, "rank": idx + 1} for idx, t in enumerate(titles)]
+
+
+def fetch_ap(api_key=None):
+    """美联社 Top News（Google News RSS → 翻译）"""
+    url = "https://news.google.com/rss/search?q=site:apnews.com&hl=en-US&gl=US&ceid=US:en"
+    titles = _fetch_news_rss(url, "美联社",
+                             strip_suffixes=[" - The Associated Press", " - AP News", " - AP"])
+    if api_key:
+        titles = _translate_titles(titles, api_key)
+    return [{"title": t, "rank": idx + 1} for idx, t in enumerate(titles)]
+
+
 # ---------- 关键词扩展搜索 ----------
 def search_keyword_news(keywords, api_key=None):
     """对检测到的热度关键词，搜索 Google News 获取更多相关标题"""
@@ -548,6 +567,8 @@ def main():
         "微博": fetch_weibo(),
         "百度热搜": fetch_baidu(),
         "抖音/头条": fetch_douyin(),
+        "路透社": fetch_reuters(ds_key),
+        "美联社": fetch_ap(ds_key),
         "BBC": fetch_bbc(ds_key),
         "CNN": fetch_cnn(ds_key),
         "华尔街日报": fetch_wsj(ds_key),
@@ -634,6 +655,7 @@ def main():
         body += "\n".join(f"  · {t}" for t in extra_news[:20]) + "\n"
     body += "\n-- 平台快照 --\n"
     for pname, ptitle in [("微博", "微博"), ("百度热搜", "百度"), ("抖音/头条", "抖音"),
+                           ("路透社", "路透社"), ("美联社", "美联社"),
                            ("BBC", "BBC"), ("CNN", "CNN"),
                            ("华尔街日报", "华尔街日报"), ("36氪", "36氪")]:
         body += f"\n【{ptitle} Top10】\n{format_platform(platforms.get(pname, []))}\n"
