@@ -64,7 +64,7 @@ def fetch_toutiao():
     data = resp.json().get("data", [])
     return [{"title": i["Title"], "rank": idx + 1} for idx, i in enumerate(data[:20])]
 
-# ---------- 英文新闻源（RSS + DeepSeek 翻译）----------
+# ---------- RSS 抓取 & 翻译工具（关键词扩展搜索用）----------
 def _fetch_news_rss(url, source_label, strip_suffixes=None):
     """通用 RSS 抓取，返回标题列表。strip_suffixes 用于去除 \" - Source\" 后缀"""
     import xml.etree.ElementTree as ET
@@ -662,8 +662,6 @@ def main():
         "微博": fetch_weibo(),
         "百度热搜": fetch_baidu(),
         "抖音/头条": fetch_douyin(),
-        "知乎": fetch_zhihu(),
-        "B站": fetch_bilibili(),
         "路透社": fetch_reuters(ds_key),
         "美联社": fetch_ap(ds_key),
         "BBC": fetch_bbc(ds_key),
@@ -755,7 +753,6 @@ def main():
         body += "\n".join(f"  {t}" for t in extra_news[:15]) + "\n"
     body += "\n-- 平台快照 --\n"
     for pname, ptitle in [("微博", "微博"), ("百度热搜", "百度"), ("抖音/头条", "抖音"),
-                           ("知乎", "知乎"), ("B站", "B站"),
                            ("路透社", "路透社"), ("美联社", "美联社"),
                            ("BBC", "BBC"), ("CNN", "CNN"),
                            ("华尔街日报", "华尔街日报"), ("36氪", "36氪")]:
