@@ -515,7 +515,7 @@ def call_deepseek(platforms, change_text, resonance, user_field, api_key, extra_
     # 历史共振上下文
     resonance_context = _build_resonance_context(resonance)
 
-    prompt = f"""你是冷静深刻只说干货的战略分析师。基于以下数据输出4段分析，每段以【标签】起始，总字数控制在600字以内，适合手机阅读。
+    prompt = f"""你是冷静深刻只说干货的战略分析师。基于以下数据输出4段分析，每段以【标签】起始，总字数控制在1000字以内，适合手机阅读。
 
 [今日热榜]
 {flat_text}
@@ -527,7 +527,7 @@ def call_deepseek(platforms, change_text, resonance, user_field, api_key, extra_
 {resonance_context}
 
 ---
-请按顺序输出4段（每段必答，每段<=150字）：
+请按顺序输出4段（每段必答，每段<=250字）：
 
 【生命周期坐标】
 对比今日Top3与历史轨迹，各自处于哪个阶段：爆发期/发酵期/反转期/消退期。若历史共振中有匹配，标注当前是对历史轨迹的\"延续\"\"加速\"还是\"转折\"。若有L3结构共振，说明其与历史事件的共同议题基因是什么。
@@ -541,7 +541,7 @@ def call_deepseek(platforms, change_text, resonance, user_field, api_key, extra_
 【决策倒推沙盘】
 结合关注领域（{user_field}），基于今日信号+历史共振，给出1件可执行小事。必须具体可落地，100字以内。重复出现本身就是重要性信号。
 
-输出格式：每段以【标签】起始，段间无空行。总字数不超过600字。"""
+输出格式：每段以【标签】起始，段间无空行。总字数不超过1000字。"""
 
     url = "https://api.deepseek.com/v1/chat/completions"
     headers = {"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"}
