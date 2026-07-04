@@ -8,6 +8,7 @@ import requests
 import glob
 import difflib
 import jieba
+from urllib.parse import quote
 
 # ---------- 配置 ----------
 DATA_DIR = "data"
@@ -151,6 +152,62 @@ def fetch_ap(api_key=None):
         titles = _translate_titles(titles, api_key)
     return [{"title": t, "rank": idx + 1} for idx, t in enumerate(titles)]
 
+def fetch_bbc(api_key=None):
+    """BBC Top News（Google News RSS → 翻译）"""
+    url = "https://news.google.com/rss/search?q=site:bbc.com&hl=en-US&gl=US&ceid=US:en"
+    titles = _fetch_news_rss(url, "BBC", strip_suffixes=[" - BBC.com", " - BBC News", " - BBC"])
+    if api_key:
+        titles = _translate_titles(titles, api_key)
+    return [{"title": t, "rank": idx + 1} for idx, t in enumerate(titles)]
+
+
+def fetch_cnn(api_key=None):
+    """CNN Top News（Google News RSS → 翻译）"""
+    url = "https://news.google.com/rss/search?q=site:cnn.com&hl=en-US&gl=US&ceid=US:en"
+    titles = _fetch_news_rss(url, "CNN", strip_suffixes=[" - CNN", " - CNN.com"])
+    if api_key:
+        titles = _translate_titles(titles, api_key)
+    return [{"title": t, "rank": idx + 1} for idx, t in enumerate(titles)]
+
+
+def fetch_wsj(api_key=None):
+    """华尔街日报 Top News（Google News RSS → 翻译）"""
+    url = "https://news.google.com/rss/search?q=site:wsj.com&hl=en-US&gl=US&ceid=US:en"
+    titles = _fetch_news_rss(url, "华尔街日报",
+                             strip_suffixes=[" - WSJ", " - The Wall Street Journal"])
+    if api_key:
+        titles = _translate_titles(titles, api_key)
+    return [{"title": t, "rank": idx + 1} for idx, t in enumerate(titles)]
+
+
+def fetch_36kr():
+    """36氪 RSS（中文科技财经，无需翻译）"""
+    url = "https://36kr.com/feed"
+    titles = _fetch_news_rss(url, "36氪")
+    return [{"title": t, "rank": idx + 1} for idx, t in enumerate(titles)]
+
+
+# ---------- 关键词扩展搜索 ----------
+def search_keyword_news(keywords, api_key=None):
+    """对检测到的热度关键词，搜索 Google News 获取更多相关标题"""
+    all_titles = []
+    for kw in keywords[:5]:
+        encoded = quote(kw)
+        url = f"https://news.google.com/rss/search?q={encoded}&hl=zh-CN&gl=CN&ceid=CN:zh-Hans"
+        titles = _fetch_news_rss(url, f"关键词搜索:{kw}")
+        all_titles.extend(titles)
+    # 去重保序
+    seen = set()
+    unique = []
+    for t in all_titles:
+        if t not in seen:
+            seen.add(t)
+            unique.append(t)
+    if api_key:
+        unique = _translate_titles(unique, api_key)
+    return unique
+
+
 def auto_trending_keywords(today_platforms, yesterday_platforms):
     """
     自动检测各平台标题中热度骤升的关键词（基于n-gram词频对比），
@@ -173,7 +230,7 @@ def auto_trending_keywords(today_platforms, yesterday_platforms):
         return _format_keyword_report(
             today_platforms, yesterday_platforms, DEFAULT_KEYWORDS,
             "（首日运行，使用默认关键词）"
-        )
+        ), DEFAULT_KEYWORDS
 
     # 中文分词频次统计 —— jieba 分词 + 完整中文片段双路入库
     def phrase_freq(titles):
@@ -227,7 +284,7 @@ def auto_trending_keywords(today_platforms, yesterday_platforms):
 
     return "\n".join(lines) + "\n" + _format_keyword_report(
         today_platforms, yesterday_platforms, selected, ""
-    )
+    ), selected
 
 
 def _format_keyword_report(today_platforms, yesterday_platforms, keywords, prefix):
@@ -402,7 +459,7 @@ def analyze_changes(today_data, yesterday_data):
     return "\n".join(changes[:15])
 
 # ---------- 核心分析（四大框架 + 历史共振）----------
-def call_deepseek(platforms, change_text, resonance, user_field, api_key):
+def call_deepseek(platforms, change_text, resonance, user_field, api_key, extra_news_titles=None):
     # 整理今日榜单全貌
     flat_text = ""
     for name, items in platforms.items():
@@ -410,15 +467,21 @@ def call_deepseek(platforms, change_text, resonance, user_field, api_key):
         for i in items[:5]:
             flat_text += f"#{i['rank']} {i['title']}\n"
 
+    # 关键词扩展阅读上下文
+    extra_context = ""
+    if extra_news_titles:
+        extra_context = "\n[关键词扩展阅读]\n" + "\n".join(f"  · {t}" for t in extra_news_titles[:30])
+
     # 历史共振上下文
     resonance_context = _build_resonance_context(resonance)
 
-    prompt = f"""你是冷静深刻只说干货的战略分析师。基于以下数据输出4段分析，每段以【标签】起始，总字数控制在1000字以内，适合手机阅读。
+    prompt = f"""你是冷静深刻只说干货的战略分析师。基于以下数据输出4段分析，每段以【标签】起始，总字数控制在600字以内，适合手机阅读。
 
 [今日热榜]
 {flat_text}
 [排名变化]
 {change_text}
+{extra_context}
 
 [历史共振档案]
 {resonance_context}
@@ -504,7 +567,11 @@ def main():
         "百度热搜": fetch_baidu(),
         "抖音/头条": fetch_douyin(),
         "路透社": fetch_reuters(ds_key),
-        "美联社": fetch_ap(ds_key)
+        "美联社": fetch_ap(ds_key),
+        "BBC": fetch_bbc(ds_key),
+        "CNN": fetch_cnn(ds_key),
+        "华尔街日报": fetch_wsj(ds_key),
+        "36氪": fetch_36kr(),
     }
     
     # ---- 议题基因共振检测（L1/L2/L3 + 沉寂复活）----
@@ -548,11 +615,15 @@ def main():
     change_text = analyze_changes(today_weibo, yesterday_weibo)
 
     # ---- 关键词热度追踪（自动检测 + 跨平台排名）----
-    keyword_report = auto_trending_keywords(platforms, yesterday_platforms)
+    keyword_report, keywords = auto_trending_keywords(platforms, yesterday_platforms)
 
-    # 调用DeepSeek（传入议题共振数据）
+    # ---- 关键词扩展搜索（Google News RSS 深度搜索）----
+    extra_news = search_keyword_news(keywords, ds_key) if ds_key else []
+
+    # 调用DeepSeek（传入议题共振数据 + 扩展新闻）
     user_interest = "股市/基金投资、科技产品消费、泛社会趋势"
-    ai_summary = call_deepseek(platforms, change_text, resonance, user_interest, ds_key) if ds_key else "未配置DeepSeek Key"
+    ai_summary = call_deepseek(platforms, change_text, resonance, user_interest, ds_key,
+                               extra_news_titles=extra_news) if ds_key else "未配置DeepSeek Key"
 
     # ---- 组装手机优化邮件 ----
     # 议题共振卡片
@@ -578,9 +649,14 @@ def main():
     body += "\n" + resonance_card
     body += f"\n-- AI分析 --\n{ai_summary}\n"
     body += f"\n-- 关键词追踪 --\n{keyword_report}\n"
+    if extra_news:
+        body += f"\n-- 关键词扩展阅读（{len(extra_news)}条）--\n"
+        body += "\n".join(f"  · {t}" for t in extra_news[:20]) + "\n"
     body += "\n-- 平台快照 --\n"
     for pname, ptitle in [("微博", "微博"), ("百度热搜", "百度"), ("抖音/头条", "抖音"),
-                           ("路透社", "路透社"), ("美联社", "美联社")]:
+                           ("路透社", "路透社"), ("美联社", "美联社"),
+                           ("BBC", "BBC"), ("CNN", "CNN"),
+                           ("华尔街日报", "华尔街日报"), ("36氪", "36氪")]:
         body += f"\n【{ptitle} Top10】\n{format_platform(platforms.get(pname, []))}\n"
     body += f"\n-- 排名变化 --\n{change_text}\n"
     body += "\n-- GitHub Actions 自动生成 --"
