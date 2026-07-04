@@ -8,6 +8,7 @@ import requests
 import glob
 import difflib
 import jieba
+import re
 from urllib.parse import quote
 
 # ---------- 配置 ----------
@@ -206,6 +207,101 @@ def search_keyword_news(keywords, api_key=None):
     if api_key:
         unique = _translate_titles(unique, api_key)
     return unique
+
+
+# ---------- 第三层：中文社交媒体 ----------
+def fetch_zhihu():
+    """知乎热榜（中文深度讨论）"""
+    url = "https://www.zhihu.com/api/v3/feed/topstory/hot-lists/total?limit=20"
+    headers = {"User-Agent": "Mozilla/5.0"}
+    try:
+        resp = requests.get(url, headers=headers, timeout=10)
+        data = resp.json().get("data", [])
+        titles = []
+        for item in data[:20]:
+            target = item.get("target", {})
+            title = (target.get("title") or "").strip()
+            if title and title not in titles:
+                titles.append(title)
+        return [{"title": t, "rank": idx + 1} for idx, t in enumerate(titles)]
+    except Exception as e:
+        print(f"知乎热榜获取失败: {e}")
+        return []
+
+
+def fetch_bilibili():
+    """B站热门排行"""
+    url = "https://api.bilibili.com/x/web-interface/ranking/v2?rid=0&type=all"
+    headers = {"User-Agent": "Mozilla/5.0", "Referer": "https://www.bilibili.com/"}
+    try:
+        resp = requests.get(url, headers=headers, timeout=10)
+        items = resp.json().get("data", {}).get("list", [])
+        return [{"title": item.get("title", "").strip(), "rank": idx + 1}
+                for idx, item in enumerate(items[:20]) if item.get("title")]
+    except Exception as e:
+        print(f"B站热榜获取失败: {e}")
+        return []
+
+
+def search_weibo_news(keywords):
+    """微博关键词搜索（搜相关帖子摘要）"""
+    all_texts = []
+    for kw in keywords[:3]:
+        encoded = quote(kw)
+        url = f"https://m.weibo.cn/api/container/getIndex?containerid=100103type%3D1%26q%3D{encoded}&page_type=searchall"
+        headers = {"User-Agent": "Mozilla/5.0", "Referer": "https://m.weibo.cn/"}
+        try:
+            resp = requests.get(url, headers=headers, timeout=8)
+            cards = resp.json().get("data", {}).get("cards", [])
+            for card in cards[:5]:
+                for cg in card.get("card_group", []):
+                    text = cg.get("mblog", {}).get("text", "")
+                    if text:
+                        clean = re.sub(r'<[^>]+>', '', text)[:100]
+                        if clean not in all_texts:
+                            all_texts.append(clean)
+        except Exception as e:
+            print(f"微博搜索'{kw}'失败: {e}")
+    return all_texts
+
+
+# ---------- AI 去重总结 ----------
+def _summarize_extra_news(titles, api_key):
+    """用 DeepSeek 对扩展搜索标题去重，同事件合并为一句话要点"""
+    if not titles or not api_key:
+        return titles[:15]
+    if len(titles) <= 5:
+        return titles
+
+    joined = "\n".join(titles[:40])
+    prompt = f"""以下是关键词搜索返回的相关新闻标题，很多是同一事件的重复报道。请：
+1. 去除重复——同一事件的多条报道合并为1条
+2. 每条用一句话概括核心事实
+3. 按重要性排序
+4. 输出格式：每行一条，以 · 开头，不超过12条
+
+标题列表：
+{joined}"""
+
+    url = "https://api.deepseek.com/v1/chat/completions"
+    headers = {"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"}
+    payload = {
+        "model": "deepseek-chat",
+        "messages": [
+            {"role": "system", "content": "你是信息整理专家。只输出去重总结结果，每行一条要点，以 · 开头。"},
+            {"role": "user", "content": prompt}
+        ],
+        "temperature": 0.2,
+        "max_tokens": 500
+    }
+    try:
+        resp = requests.post(url, json=payload, headers=headers, timeout=30)
+        result = resp.json()["choices"][0]["message"]["content"].strip()
+        lines = [l.strip() for l in result.split("\n") if l.strip().startswith("·")]
+        return lines if lines else titles[:12]
+    except Exception as e:
+        print(f"扩展新闻总结失败: {e}")
+        return titles[:15]
 
 
 def auto_trending_keywords(today_platforms, yesterday_platforms):
@@ -470,7 +566,7 @@ def call_deepseek(platforms, change_text, resonance, user_field, api_key, extra_
     # 关键词扩展阅读上下文
     extra_context = ""
     if extra_news_titles:
-        extra_context = "\n[关键词扩展阅读]\n" + "\n".join(f"  · {t}" for t in extra_news_titles[:30])
+        extra_context = "\n[关键词扩展要点（AI去重总结）]\n" + "\n".join(f"  {t}" for t in extra_news_titles[:20])
 
     # 历史共振上下文
     resonance_context = _build_resonance_context(resonance)
@@ -566,6 +662,8 @@ def main():
         "微博": fetch_weibo(),
         "百度热搜": fetch_baidu(),
         "抖音/头条": fetch_douyin(),
+        "知乎": fetch_zhihu(),
+        "B站": fetch_bilibili(),
         "路透社": fetch_reuters(ds_key),
         "美联社": fetch_ap(ds_key),
         "BBC": fetch_bbc(ds_key),
@@ -617,8 +715,11 @@ def main():
     # ---- 关键词热度追踪（自动检测 + 跨平台排名）----
     keyword_report, keywords = auto_trending_keywords(platforms, yesterday_platforms)
 
-    # ---- 关键词扩展搜索（Google News RSS 深度搜索）----
-    extra_news = search_keyword_news(keywords, ds_key) if ds_key else []
+    # ---- 关键词扩展搜索（Google News + 微博搜索 → AI去重总结）----
+    extra_news_raw = search_keyword_news(keywords, ds_key) if ds_key else []
+    weibo_extra = search_weibo_news(keywords)
+    extra_news_all = extra_news_raw + weibo_extra
+    extra_news = _summarize_extra_news(extra_news_all, ds_key) if ds_key else extra_news_all[:15]
 
     # 调用DeepSeek（传入议题共振数据 + 扩展新闻）
     user_interest = "股市/基金投资、科技产品消费、泛社会趋势"
@@ -650,10 +751,11 @@ def main():
     body += f"\n-- AI分析 --\n{ai_summary}\n"
     body += f"\n-- 关键词追踪 --\n{keyword_report}\n"
     if extra_news:
-        body += f"\n-- 关键词扩展阅读（{len(extra_news)}条）--\n"
-        body += "\n".join(f"  · {t}" for t in extra_news[:20]) + "\n"
+        body += f"\n-- 关键词扩展（AI去重总结）--\n"
+        body += "\n".join(f"  {t}" for t in extra_news[:15]) + "\n"
     body += "\n-- 平台快照 --\n"
     for pname, ptitle in [("微博", "微博"), ("百度热搜", "百度"), ("抖音/头条", "抖音"),
+                           ("知乎", "知乎"), ("B站", "B站"),
                            ("路透社", "路透社"), ("美联社", "美联社"),
                            ("BBC", "BBC"), ("CNN", "CNN"),
                            ("华尔街日报", "华尔街日报"), ("36氪", "36氪")]:
