@@ -7,6 +7,7 @@ from datetime import datetime, timedelta
 import requests
 import glob
 import difflib
+import jieba
 
 # ---------- 配置 ----------
 DATA_DIR = "data"
@@ -174,20 +175,22 @@ def auto_trending_keywords(today_platforms, yesterday_platforms):
             "（首日运行，使用默认关键词）"
         )
 
-    # 中文连续片段（2+字）频次统计 —— 比滑动窗口n-gram更干净
+    # 中文分词频次统计 —— jieba 分词 + 完整中文片段双路入库
     def phrase_freq(titles):
         freq = {}
         for title in titles:
-            # 提取2字及以上的纯中文连续片段
+            # 路1：jieba 分词，取2字及以上中文词（正确识别词边界）
+            words = jieba.lcut(title)
+            for w in words:
+                if re.match(r'^[一-鿿]{2,}$', w):
+                    freq[w] = freq.get(w, 0) + 1
+            # 路2：完整中文连续片段（兜底长专有名词，如"佛得角门将"整体）
             phrases = re.findall(r'[一-鿿]{2,}', title)
             for ph in phrases:
-                freq[ph] = freq.get(ph, 0) + 1
-                # 较长片段同时拆为2-4字子串入库，兼顾短关键词（如"黄金"）
-                if len(ph) > 4:
-                    for n in (2, 3):
-                        for i in range(len(ph) - n + 1):
-                            sub = ph[i:i + n]
-                            freq[sub] = freq.get(sub, 0) + 1
+                if ph not in freq:
+                    freq[ph] = freq.get(ph, 0) + 1
+                else:
+                    freq[ph] = freq[ph] + 1
         return freq
 
     today_freq = phrase_freq(today_titles)
@@ -410,7 +413,7 @@ def call_deepseek(platforms, change_text, resonance, user_field, api_key):
     # 历史共振上下文
     resonance_context = _build_resonance_context(resonance)
 
-    prompt = f"""你是冷静深刻只说干货的战略分析师。基于以下数据输出4段分析，每段以【标签】起始，总字数控制在600字以内，适合手机阅读。
+    prompt = f"""你是冷静深刻只说干货的战略分析师。基于以下数据输出4段分析，每段以【标签】起始，总字数控制在1000字以内，适合手机阅读。
 
 [今日热榜]
 {flat_text}
