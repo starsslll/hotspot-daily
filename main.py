@@ -591,11 +591,12 @@ def send_email(subject, body, sender, password, recipients_list):
         print("邮件发送成功")
     except Exception as e:
         print(f"邮件发送失败: {e}")
-        # 发送失败时保存邮件正文到本地，避免丢失
-        fallback_path = f"email_fallback_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt"
+        # 发送失败时保存邮件正文到项目目录，避免丢失
+        fallback_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                     f"email_fallback_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt")
         with open(fallback_path, "w", encoding="utf-8") as f:
             f.write(body)
-        print(f"邮件正文已保存至: {fallback_path}")
+        print(f"=== 邮件正文已保存至: {fallback_path} ===")
         
 def format_platform(items):
     """Top10 多行格式，适合手机阅读"""
