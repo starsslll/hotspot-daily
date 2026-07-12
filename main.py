@@ -17,6 +17,8 @@ SIMILARITY_THRESHOLD = 0.65
 # 关键词不再写死，改为 auto_trending_keywords() 自动检测热度飙升词
 # 无昨日数据时使用以下默认词
 DEFAULT_KEYWORDS = ["AI", "芯片", "黄金", "裁员"]
+# 邮件敏感词过滤（QQ邮箱内容审核可能拒收，按需添加）
+SENSITIVE_WORDS = []
 
 # ---------- 抓取函数（不变）----------
 def fetch_weibo():
@@ -560,25 +562,40 @@ def call_deepseek(platforms, change_text, resonance, user_field, api_key, extra_
     except Exception as e:
         return f"【AI分析失败】{str(e)}"
 
+def _sanitize_email_body(body):
+    """脱敏邮件正文，替换敏感词为 ***"""
+    if not SENSITIVE_WORDS:
+        return body
+    result = body
+    for word in SENSITIVE_WORDS:
+        result = result.replace(word, "***")
+    return result
+
+
 def send_email(subject, body, sender, password, recipients_list):
+    body = _sanitize_email_body(body)
     msg = MIMEText(body, "plain", "utf-8")
     msg["Subject"] = Header(subject, "utf-8")
     msg["From"] = sender
     msg["To"] = ", ".join(recipients_list)
-    
+
     try:
-        # 改为 587 端口 + STARTTLS，比 465 更稳定
         server = smtplib.SMTP("smtp.qq.com", 587)
         server.starttls()
-        server.set_debuglevel(0)  # 安静模式
+        server.set_debuglevel(0)
         import time
-        time.sleep(1)  # 关键：延时1秒，让服务器准备就绪
+        time.sleep(1)
         server.login(sender, password)
         server.sendmail(sender, recipients_list, msg.as_string())
         server.quit()
         print("邮件发送成功")
     except Exception as e:
         print(f"邮件发送失败: {e}")
+        # 发送失败时保存邮件正文到本地，避免丢失
+        fallback_path = f"email_fallback_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt"
+        with open(fallback_path, "w", encoding="utf-8") as f:
+            f.write(body)
+        print(f"邮件正文已保存至: {fallback_path}")
         
 def format_platform(items):
     """Top10 多行格式，适合手机阅读"""
