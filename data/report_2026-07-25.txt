@@ -4,43 +4,40 @@
   今日无显著历史共振
 
 -- AI分析 --
-【AI分析失败】DeepSeek返回异常: {"error": {"message": "The supported API model names are deepseek-v4-pro or deepseek-v4-flash, but you passed deepseek-chat.", "type": "invalid_request_error", "param": null, "code": "invalid_request_error"}}
+
 
 -- 关键词追踪 --
 📊 【自动检测热度骤升关键词】
   🆕 王小洪会见（今日首次高频出现，2次）
   🆕 局长帕特尔（今日首次高频出现，2次）
+  🆕 华尔街日报（今日首次高频出现，2次）
   🆕 中国男篮（今日首次高频出现，2次）
   🆕 注册资本（今日首次高频出现，2次）
   🔥 氪星晚报（2次 | 昨1次，热度飙升）
   🔥 中国女排（2次 | 昨2次，热度飙升）
   🆕 王楚钦（今日首次高频出现，2次）
-  🆕 黄灿灿（今日首次高频出现，2次）
 🆕 王小洪会见：今日新上榜 百度热搜#2、抖音/头条#1
 🆕 局长帕特尔：今日新上榜 百度热搜#2、抖音/头条#1
-🆕 中国男篮：今日新上榜 抖音/头条#16
+🆕 华尔街日报：今日新上榜 华尔街日报#1
+🆕 中国男篮：今日新上榜 抖音/头条#4
 🆕 注册资本：今日新上榜 36氪#10
 📌 氪星晚报：今日 36氪#4、36氪#10，昨日 36氪#4
-📌 中国女排：今日 微博#9，昨日 抖音/头条#40
-🆕 王楚钦：今日新上榜 微博#11、抖音/头条#18
-🆕 黄灿灿：今日新上榜 微博#14
+📌 中国女排：今日 微博#7，昨日 抖音/头条#40
+🆕 王楚钦：今日新上榜 微博#8、百度热搜#10、抖音/头条#18
 
 -- 关键词扩展（AI去重总结）--
   王小洪会见美国联邦调查局局长帕特尔 - chinanews.com.cn
-  王小洪会见美国联邦调查局局长帕特尔 同意在执法领域继续合作 - 香港電台
-  王小洪会见FBI局长帕特尔 计划秋季敏感访俄 - 中华网
-  中國公安部長王小洪會見美FBI局長帕特爾 希望深化禁毒等合作 - 世界新聞網
+  王小洪会见FBI局长帕特尔 计划秋季访俄 - 中华网
+  中国公安部长王小洪会见美FBI局长帕特尔 盼深化禁毒合作 - 世界新闻网
+  王小洪会见美国联邦调查局局长_视频_东京_新闻 - 华人头条
   现场画面：王小洪会见美国联邦调查局局长 - QQ News
-  王小洪会见美国联邦调查局局长_中国澳门_新闻 - 华人头条
-  王小洪会见FBI局长帕特尔同意深化领域务实合作｜即时新闻｜中港台｜on.cc东网 - on.cc東網
-  中美关系︱公安部长王小洪会见FBI局长帕特尔 - 星島頭條
+  王小洪会见FBI局长帕特尔 同意深化务实合作 - on.cc东网
   中美关系︱公安部长王小洪会见FBI局长帕特尔 - singtao.ca
+  中美关系︱公安部长王小洪会见FBI局长帕特尔 - 星岛头条
   #王小洪会见美国联邦调查局局长# - Sohu
-  美联邦调查局局长被曝计划今秋访俄 - 国际在线
-  相互遣返罪犯 美中在部分领域加强执法合作 - DW.com
-  外媒爆料：美国FBI局长计划今年秋季访问俄罗斯 - 京报网
-  “不同寻常且敏感”，美FBI局长被曝计划访问俄罗斯 - 新浪新闻_手机新浪网
-  美中互遣逃犯後 FBI局長赴京會晤王小洪 - 大纪元
+  中国公安部长王小洪会见FBI局长帕特尔 - 星洲日报
+  美中互遣罪犯 部分领域加强执法合作 - DW.com
+  王小洪会见美国联邦调查局局长帕特尔 同意在执法领域继续合作 - 香港電台
 
 -- 平台快照 --
 
@@ -48,13 +45,13 @@
   # 1  闫闯退赛
   # 2  西班牙21次犯规零牌
   # 3  共赴亚太数字之约
-  # 4  心有凌犀选铂智7
-  # 5  孙女的微信状态只有爷爷当真了
+  # 4  孙女的微信状态只有爷爷当真了
+  # 5  严浩翔看到王一珩淘汰的表情
   # 6  AG锁第三轮S组
-  # 7  严浩翔看到王一珩淘汰的表情
-  # 8  时光代理人时针出逃
-  # 9  中国女排vs土耳其女排
-  #10  苏新皓送给朱志鑫戒指
+  # 7  中国女排vs土耳其女排
+  # 8  王楚钦vs向鹏
+  # 9  苏新皓送给朱志鑫戒指
+  #10  iG战胜WBG
 
 【百度 Top10】
   # 1  以实干实效回应群众期盼
@@ -66,25 +63,25 @@
   # 7  重庆警方打掉境内外电诈团伙198个
   # 8  广东汕尾现惊涛骇浪 记者睁不开眼
   # 9  博三女生没结婚问亲戚：谁笑话我妈了
-  #10  那些买六座大车的人后悔了吗
+  #10  王楚钦梁靖崑1-2不敌向鹏温瑞博
 
 【抖音 Top10】
   # 1  王小洪会见FBI局长帕特尔
   # 2  台风红霞最新路径
   # 3  景德镇手工瓷业遗存申遗成功
-  # 4  淄博博山菜真的香迷糊了
-  # 5  詹姆斯宣布加盟76人
+  # 4  中国男篮vs格鲁吉亚男篮
+  # 5  淄博博山菜真的香迷糊了
   # 6  重庆警方今年打掉境内外电诈团伙198个
   # 7  携程被罚51.79亿元
   # 8  保罗乔治vs白晶百分大战
   # 9  当我打算走去赛里木湖
-  #10  台风红霞将正面袭击深汕
+  #10  苏超扬州vs徐州
 
 【路透社 Top10】
   # 1  Italy defence minister offers ousted Ukraine counterpart Fedorov adviser role
   # 2  Romania says it shot down second drone breaching its airspace
-  # 3  Greek-operated air defence system shoots down missiles over Saudi
-  # 4  Canadian intern at NATO military HQ arrested in Belgium on spying charge
+  # 3  Canadian intern at NATO military HQ arrested in Belgium on spying charge
+  # 4  Greek-operated air defence system shoots down missiles over Saudi
   # 5  Samsung Elec wins $200 billion Broadcom AI chip partnership, boosting foundry push
   # 6  Southern China braces for Typhoon Noul, suspends public transport
   # 7  Modi's education minister quits as jubilant Indian youth protesters claim victory
@@ -105,33 +102,33 @@
   #10  Cyclospora outbreak: Taco Bell cases linked to 4 more states
 
 【BBC Top10】
-  # 1  Trump orders Smithsonian to post warnings about 'inaccurate' US history
-  # 2  Watch: Inside the room as Trump reattempts press dinner
-  # 3  Trump takes swipes at press during White House Correspondents' Dinner
-  # 4  Teen who singer D4vd is accused of killing had multiple abortions, texts reveal
-  # 5  'Maybe he's a racist' - Trump critical of James
-  # 6  Saudi Arabia and Houthis trade fire as US fires on tanker in Hormuz Strait
-  # 7  Cavan: Woman dies and child in critical condition after two-vehicle collision
-  # 8  Watch: SpaceX's successful test flight and splashdown for Starship
-  # 9  Cyclospora outbreak expands to nine US states, health officials say
-  #10  Former NFL star Tony Romo arrested for driving intoxicated
+  # 1  特朗普下令史密森尼学会为“不准确”的美国历史加注警告
+  # 2  观看：特朗普再度出席记者晚宴的幕后景象
+  # 3  特朗普在白宫记者晚宴上抨击媒体
+  # 4  “也许他是种族主义者”——特朗普批评詹姆斯
+  # 5  沙特与胡塞武装交火，美军在霍尔木兹海峡向油轮开火
+  # 6  短信揭露：歌手D4vd被控杀害的少女曾多次堕胎
+  # 7  卡文郡两车相撞致一名女性死亡，一名儿童情况危急
+  # 8  观看：SpaceX星舰成功试飞并溅落
+  # 9  环孢子虫疫情蔓延至美国九个州，卫生官员称
+  #10  前NFL明星托尼·罗莫因酒后驾驶被捕
 
 【CNN Top10】
-  # 1  Maine Democrats are poised to pick their Senate nominee at an unusual party convention
-  # 2  India’s education minister resigns after days of ‘Cockroach’ youth protests over exam paper leaks
-  # 3  Trump bombed at the White House Correspondents’ Dinner — and proved its point
-  # 4  Trump jokes about a 2028 run
-  # 5  8 found dead in Michigan home after fire, some with gunshot wounds
-  # 6  What’s horned, fluffy, and ethically dubious? Yak clones
-  # 7  Trump jumps from jokes to weighing in on the war in Iran
-  # 8  Singer d4vd’s preliminary hearing sheds new light on the investigation into teen girl’s killing. Here are the takeaways
-  # 9  Trump orders signs be installed outside Smithsonian museum warning of ‘inaccurate information’
-  #10  Trump’s appetite for tariffs never faded. His next moves could reshape trade
+  # 1  劳拉·卢默自称受俄宣传蒙蔽后，转而全力支持乌克兰
+  # 2  缅因州民主党人将在特别党大会上选出参议员提名人
+  # 3  印度教育部长因考试泄题引发“蟑螂”青年抗议多日后辞职
+  # 4  特朗普在白宫记者晚宴遭炮轰，反而证实了晚宴的意义
+  # 5  特朗普开玩笑称可能2028年再选
+  # 6  密歇根州住宅火灾后发现八名死者，部分有枪伤
+  # 7  有角、毛绒、道德存疑的是什么？克隆
+  # 8  Trump jumps from jokes to weighing in on the war in Iran
+  # 9  Singer d4vd’s preliminary hearing sheds new light on the investigation into teen girl’s killing. Here are the takeaways
+  #10  Trump orders signs be installed outside Smithsonian museum warning of ‘inaccurate information’
 
 【华尔街日报 Top10】
-  # 1  Print Edition | Wall Street Journal
-  # 2  Cheap, Accurate and Lethal: Iran’s Best Missile Is Getting More Dangerous
-  # 3  Five Major Moments From President Trump’s Speech at the Correspondents’ Dinner
+  # 1  印刷版 | 华尔街日报
+  # 2  廉价精准致命：伊朗最佳导弹越发危险
+  # 3  记者晚宴特朗普演讲五大时刻
   # 4  Taylor Farms Called White House to Try to Delay Cyclospora Recall
   # 5  Trump Offers Digs—and Appreciation—to Press at Correspondents’ Dinner Do-Over
   # 6  Exclusive | Chevron Is Trying to Keep Its Kazakh Assets Out of the Russia-Ukraine War
@@ -156,17 +153,17 @@
 🆕 闫闯退赛 (新上榜, 今日第1)
 🆕 西班牙21次犯规零牌 (新上榜, 今日第2)
 🆕 共赴亚太数字之约 (新上榜, 今日第3)
-🆕 心有凌犀选铂智7 (新上榜, 今日第4)
-🆕 孙女的微信状态只有爷爷当真了 (新上榜, 今日第5)
+🆕 孙女的微信状态只有爷爷当真了 (新上榜, 今日第4)
+🆕 严浩翔看到王一珩淘汰的表情 (新上榜, 今日第5)
 🆕 AG锁第三轮S组 (新上榜, 今日第6)
-🆕 严浩翔看到王一珩淘汰的表情 (新上榜, 今日第7)
-🆕 时光代理人时针出逃 (新上榜, 今日第8)
-🆕 中国女排vs土耳其女排 (新上榜, 今日第9)
-🆕 苏新皓送给朱志鑫戒指 (新上榜, 今日第10)
-🆕 王楚钦vs向鹏 (新上榜, 今日第11)
-🆕 LV起诉厦门一楼盘四叶雕花侵权 (新上榜, 今日第12)
-🆕 李权哲高铁占座 (新上榜, 今日第13)
-🆕 黄灿灿370元做的丑美甲 (新上榜, 今日第14)
-🆕 正颌手术做反了女孩说迎接她的是毁灭 (新上榜, 今日第15)
+🆕 中国女排vs土耳其女排 (新上榜, 今日第7)
+🆕 王楚钦vs向鹏 (新上榜, 今日第8)
+🆕 苏新皓送给朱志鑫戒指 (新上榜, 今日第9)
+🆕 iG战胜WBG (新上榜, 今日第10)
+🆕 LV起诉厦门一楼盘四叶雕花侵权 (新上榜, 今日第11)
+🆕 李权哲高铁占座 (新上榜, 今日第12)
+🆕 黄灿灿370元做的丑美甲 (新上榜, 今日第13)
+🆕 正颌手术做反了女孩说迎接她的是毁灭 (新上榜, 今日第14)
+🆕 苏新皓囍神级solo (新上榜, 今日第15)
 
 -- GitHub Actions 自动生成 --
