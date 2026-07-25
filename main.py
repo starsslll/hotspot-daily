@@ -139,7 +139,7 @@ def _do_translate(titles, api_key):
     }
     for attempt in range(2):
         try:
-            resp = requests.post(url, json=payload, headers=headers, timeout=25)
+            resp = requests.post(url, json=payload, headers=headers, timeout=(10, 60))
             body = resp.json()
             if "choices" not in body:
                 print(f"翻译失败: DeepSeek返回异常 — {json.dumps(body, ensure_ascii=False)[:200]}")
@@ -269,7 +269,7 @@ def _summarize_extra_news(titles, api_key):
         "max_tokens": 500
     }
     try:
-        resp = requests.post(url, json=payload, headers=headers, timeout=30)
+        resp = requests.post(url, json=payload, headers=headers, timeout=(10, 60))
         body = resp.json()
         if "choices" not in body:
             print(f"扩展新闻总结失败: DeepSeek返回异常 — {json.dumps(body, ensure_ascii=False)[:300]}")
@@ -589,12 +589,15 @@ def call_deepseek(platforms, change_text, resonance, user_field, api_key, extra_
         "max_tokens": 900
     }
     try:
-        resp = requests.post(url, json=payload, headers=headers, timeout=40)
+        resp = requests.post(url, json=payload, headers=headers, timeout=(10, 90))
         body = resp.json()
         if "choices" not in body:
             print(f"AI分析失败: DeepSeek返回异常 — {json.dumps(body, ensure_ascii=False)[:300]}")
             return f"【AI分析失败】DeepSeek返回异常: {json.dumps(body, ensure_ascii=False)[:300]}"
         result = body["choices"][0]["message"]["content"].strip()
+        if not result:
+            print(f"AI分析失败: 返回空内容，finish_reason={body['choices'][0].get('finish_reason', 'unknown')}")
+            return "【AI分析失败】API返回空内容，可能因输入过长被截断"
         print(f"AI分析完成: {len(result)} 字符")
         return result
     except Exception as e:
