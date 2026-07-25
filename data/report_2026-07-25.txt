@@ -14,15 +14,15 @@
   🆕 注册资本（今日首次高频出现，2次）
   🔥 氪星晚报（2次 | 昨1次，热度飙升）
   🔥 中国女排（2次 | 昨2次，热度飙升）
-  🆕 演唱会（今日首次高频出现，3次）
+  🆕 王楚钦（今日首次高频出现，2次）
   🆕 黄灿灿（今日首次高频出现，2次）
 🆕 王小洪会见：今日新上榜 百度热搜#2、抖音/头条#1
 🆕 局长帕特尔：今日新上榜 百度热搜#2、抖音/头条#1
-🆕 中国男篮：今日新上榜 抖音/头条#14
+🆕 中国男篮：今日新上榜 抖音/头条#16
 🆕 注册资本：今日新上榜 36氪#10
 📌 氪星晚报：今日 36氪#4、36氪#10，昨日 36氪#4
 📌 中国女排：今日 微博#9，昨日 抖音/头条#40
-🆕 演唱会：今日新上榜 微博#18、抖音/头条#12、抖音/头条#17
+🆕 王楚钦：今日新上榜 微博#11、抖音/头条#18
 🆕 黄灿灿：今日新上榜 微博#14
 
 -- 关键词扩展（AI去重总结）--
@@ -30,15 +30,15 @@
   王小洪会见美国联邦调查局局长帕特尔 同意在执法领域继续合作 - 香港電台
   王小洪会见FBI局长帕特尔 计划秋季敏感访俄 - 中华网
   中國公安部長王小洪會見美FBI局長帕特爾 希望深化禁毒等合作 - 世界新聞網
-  王小洪会见美国联邦调查局局长_视频_东京_新闻 - 华人头条
   现场画面：王小洪会见美国联邦调查局局长 - QQ News
+  王小洪会见美国联邦调查局局长_中国澳门_新闻 - 华人头条
   王小洪会见FBI局长帕特尔同意深化领域务实合作｜即时新闻｜中港台｜on.cc东网 - on.cc東網
   中美关系︱公安部长王小洪会见FBI局长帕特尔 - 星島頭條
   中美关系︱公安部长王小洪会见FBI局长帕特尔 - singtao.ca
   #王小洪会见美国联邦调查局局长# - Sohu
-  “不同寻常且敏感”，外媒爆料：美国FBI局长计划今年秋季访问俄罗斯 - 凤凰网
   美联邦调查局局长被曝计划今秋访俄 - 国际在线
   相互遣返罪犯 美中在部分领域加强执法合作 - DW.com
+  外媒爆料：美国FBI局长计划今年秋季访问俄罗斯 - 京报网
   “不同寻常且敏感”，美FBI局长被曝计划访问俄罗斯 - 新浪新闻_手机新浪网
   美中互遣逃犯後 FBI局長赴京會晤王小洪 - 大纪元
 
@@ -46,15 +46,15 @@
 
 【微博 Top10】
   # 1  闫闯退赛
-  # 2  LV起诉厦门一楼盘四叶雕花侵权
+  # 2  西班牙21次犯规零牌
   # 3  共赴亚太数字之约
-  # 4  郁可唯为奕派M8车主交付
+  # 4  心有凌犀选铂智7
   # 5  孙女的微信状态只有爷爷当真了
   # 6  AG锁第三轮S组
   # 7  严浩翔看到王一珩淘汰的表情
-  # 8  西班牙21次犯规零牌
+  # 8  时光代理人时针出逃
   # 9  中国女排vs土耳其女排
-  #10  广东人不语只是努力防台风
+  #10  苏新皓送给朱志鑫戒指
 
 【百度 Top10】
   # 1  以实干实效回应群众期盼
@@ -72,13 +72,13 @@
   # 1  王小洪会见FBI局长帕特尔
   # 2  台风红霞最新路径
   # 3  景德镇手工瓷业遗存申遗成功
-  # 4  保罗乔治vs白晶百分大战
-  # 5  淄博博山菜真的香迷糊了
+  # 4  淄博博山菜真的香迷糊了
+  # 5  詹姆斯宣布加盟76人
   # 6  重庆警方今年打掉境内外电诈团伙198个
   # 7  携程被罚51.79亿元
-  # 8  当我打算走去赛里木湖
-  # 9  台风红霞将正面袭击深汕
-  #10  苏超扬州vs徐州
+  # 8  保罗乔治vs白晶百分大战
+  # 9  当我打算走去赛里木湖
+  #10  台风红霞将正面袭击深汕
 
 【路透社 Top10】
   # 1  Italy defence minister offers ousted Ukraine counterpart Fedorov adviser role
@@ -88,7 +88,7 @@
   # 5  Samsung Elec wins $200 billion Broadcom AI chip partnership, boosting foundry push
   # 6  Southern China braces for Typhoon Noul, suspends public transport
   # 7  Modi's education minister quits as jubilant Indian youth protesters claim victory
-  # 8  Guterres makes first visit to Syria by UN chief since before civil war
+  # 8  Guterres meets Syria's Sharaa on first visit to Damascus by UN chief in 17 years
   # 9  Suburbs around Bordeaux evacuated as wildfires rage
   #10  Kuwait's KPC signs $16 billion lease and leaseback deal for oil pipeline network
 
@@ -106,12 +106,12 @@
 
 【BBC Top10】
   # 1  Trump orders Smithsonian to post warnings about 'inaccurate' US history
-  # 2  Trump takes swipes at press during White House Correspondents' Dinner
-  # 3  Watch: Inside the room as Trump reattempts press dinner
+  # 2  Watch: Inside the room as Trump reattempts press dinner
+  # 3  Trump takes swipes at press during White House Correspondents' Dinner
   # 4  Teen who singer D4vd is accused of killing had multiple abortions, texts reveal
-  # 5  Cavan: Woman dies and child in critical condition after two-vehicle collision
-  # 6  'Maybe he's a racist' - Trump critical of James
-  # 7  Saudi Arabia and Houthis trade fire as US fires on tanker in Hormuz Strait
+  # 5  'Maybe he's a racist' - Trump critical of James
+  # 6  Saudi Arabia and Houthis trade fire as US fires on tanker in Hormuz Strait
+  # 7  Cavan: Woman dies and child in critical condition after two-vehicle collision
   # 8  Watch: SpaceX's successful test flight and splashdown for Starship
   # 9  Cyclospora outbreak expands to nine US states, health officials say
   #10  Former NFL star Tony Romo arrested for driving intoxicated
@@ -135,9 +135,9 @@
   # 4  Taylor Farms Called White House to Try to Delay Cyclospora Recall
   # 5  Trump Offers Digs—and Appreciation—to Press at Correspondents’ Dinner Do-Over
   # 6  Exclusive | Chevron Is Trying to Keep Its Kazakh Assets Out of the Russia-Ukraine War
-  # 7  Exclusive | Elon Musk’s Boring Company Eyes $20 Billion Valuation in New Funding Round
-  # 8  Exclusive | U.S. to Resume Cattle Imports From Mexico After Screwworm Ban
-  # 9  America and Iran Are Locked in a Cycle of Escalation
+  # 7  SpaceX Launches Another Starship, and This Time the Market Is Watching
+  # 8  Exclusive | Elon Musk’s Boring Company Eyes $20 Billion Valuation in New Funding Round
+  # 9  Exclusive | U.S. to Resume Cattle Imports From Mexico After Screwworm Ban
   #10  Former Star Supreme Court Lawyer Gets Six-Year Sentence in Tax Case
 
 【36氪 Top10】
@@ -154,19 +154,19 @@
 
 -- 排名变化 --
 🆕 闫闯退赛 (新上榜, 今日第1)
-🆕 LV起诉厦门一楼盘四叶雕花侵权 (新上榜, 今日第2)
+🆕 西班牙21次犯规零牌 (新上榜, 今日第2)
 🆕 共赴亚太数字之约 (新上榜, 今日第3)
-🆕 郁可唯为奕派M8车主交付 (新上榜, 今日第4)
+🆕 心有凌犀选铂智7 (新上榜, 今日第4)
 🆕 孙女的微信状态只有爷爷当真了 (新上榜, 今日第5)
 🆕 AG锁第三轮S组 (新上榜, 今日第6)
 🆕 严浩翔看到王一珩淘汰的表情 (新上榜, 今日第7)
-🆕 西班牙21次犯规零牌 (新上榜, 今日第8)
+🆕 时光代理人时针出逃 (新上榜, 今日第8)
 🆕 中国女排vs土耳其女排 (新上榜, 今日第9)
-🆕 广东人不语只是努力防台风 (新上榜, 今日第10)
-🆕 苏新皓送给朱志鑫戒指 (新上榜, 今日第11)
-🆕 李权哲高铁占座 (新上榜, 今日第12)
-🆕 正颌手术做反了女孩说迎接她的是毁灭 (新上榜, 今日第13)
+🆕 苏新皓送给朱志鑫戒指 (新上榜, 今日第10)
+🆕 王楚钦vs向鹏 (新上榜, 今日第11)
+🆕 LV起诉厦门一楼盘四叶雕花侵权 (新上榜, 今日第12)
+🆕 李权哲高铁占座 (新上榜, 今日第13)
 🆕 黄灿灿370元做的丑美甲 (新上榜, 今日第14)
-🆕 迪丽热巴还有三部待播作品 (新上榜, 今日第15)
+🆕 正颌手术做反了女孩说迎接她的是毁灭 (新上榜, 今日第15)
 
 -- GitHub Actions 自动生成 --
