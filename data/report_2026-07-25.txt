@@ -8,165 +8,165 @@
 
 -- 关键词追踪 --
 📊 【自动检测热度骤升关键词】
-  🆕 广西百色遭遇严重洪灾（今日首次高频出现，2次）
-  🆕 詹姆斯加盟（今日首次高频出现，2次）
+  🆕 山西运城一路面塌陷处现大量白骨（今日首次高频出现，2次）
+  🆕 王楚钦爆冷不敌张煜东（今日首次高频出现，2次）
+  🆕 台风红霞最新路径（今日首次高频出现，2次）
+  🆕 王小洪会见（今日首次高频出现，2次）
+  🆕 局长帕特尔（今日首次高频出现，2次）
+  🆕 携程被罚（今日首次高频出现，2次）
+  🆕 世界遗产（今日首次高频出现，2次）
   🆕 注册资本（今日首次高频出现，2次）
-  🔥 氪星晚报（2次 | 昨1次，热度飙升）
-  🆕 加长版（今日首次高频出现，2次）
-  🆕 国家队（今日首次高频出现，2次）
-  🆕 第一场（今日首次高频出现，2次）
-  🆕 宋亚轩（今日首次高频出现，2次）
-🆕 广西百色遭遇严重洪灾：今日新上榜 百度热搜#12、抖音/头条#14
-🆕 詹姆斯加盟：今日新上榜 微博#2、百度热搜#7
-🆕 注册资本：今日新上榜 36氪#8
-📌 氪星晚报：今日 36氪#2、36氪#8，昨日 36氪#4
-🆕 加长版：今日新上榜 百度热搜#15
-🆕 国家队：今日新上榜 抖音/头条#10、抖音/头条#30
-🆕 第一场：今日新上榜 抖音/头条#13、抖音/头条#27
-🆕 宋亚轩：今日新上榜 抖音/头条#26
+🆕 山西运城一路面塌陷处现大量白骨：今日新上榜 微博#7、百度热搜#16
+🆕 王楚钦爆冷不敌张煜东：今日新上榜 微博#1、百度热搜#10
+🆕 台风红霞最新路径：今日新上榜 百度热搜#11、抖音/头条#2
+🆕 王小洪会见：今日新上榜 百度热搜#2、抖音/头条#1
+🆕 局长帕特尔：今日新上榜 百度热搜#2、抖音/头条#1
+🆕 携程被罚：今日新上榜 微博#2、微博#18、抖音/头条#4
+🆕 世界遗产：今日新上榜 微博#3、百度热搜#5
+🆕 注册资本：今日新上榜 36氪#9
 
 -- 关键词扩展（AI去重总结）--
-  网传广西百色遭遇严重洪灾系谣言（2026·07·24） - 新浪财经
-  “广西百色遭遇严重洪灾”系谣言 AI拼接视频误导公众 - 中华网
-  广西百色遭遇严重洪灾？假！视频画面为恶意拼接过往洪灾影像 - 手机网易网
-  网传百色遭遇严重洪灾系谣言 视频实为外地历史洪灾素材拼接 - 新浪财经
-  网传广西百色遭遇严重洪灾系谣言 - 手机网易网
-  心系八桂，守望相助 | 诺特兰德携手公益伙伴驰援广西洪灾一线 - 手机网易网
-  #詹姆斯新合同2年800万#【Shams：詹姆斯加盟76人合同2年800万美元第二年球员选项！】#詹姆斯或在76人完成最后一舞#直播吧07月24日讯詹姆斯在社交媒体宣布，自己将加盟76人。随后Shams立即跟进报道，詹姆斯加盟76人，合同2年800万美元，第二年球员选项 - 新浪网
-  2年800万！詹姆斯加盟76人组建五巨头争冠 第二年球员选项 - News.QQ.com
-  重磅！詹姆斯加盟76人 - 新浪财经
-  重磅！詹姆斯加盟76人 - 凤凰网
-  辟谣！Shams：热火发言人确认詹姆斯加盟发布会属于测试链接误发 - 手机网易网
-  詹姆斯加盟76人，合同2年800万美元 - thepaper.cn
-  招募主力军！马克西得知詹姆斯加盟76人 在健身房疯狂大叫庆祝 - 直播吧
-  名记：詹姆斯每次决定加盟的球队都会给承诺 但这次没人愿意给了 - 直播吧
-  詹姆斯加盟76人，合同2年800万美元 - 新浪财经
+  山西运城一路面塌陷处现大量白骨 文保中心：系玉壁之战遗骸 正推进预防性保护 - qq.com
+  #王楚钦爆冷不敌张煜东#王楚钦这不正常的舆论环境乒协真的不打算管管吗？真就准备让运动员流汗又流泪啊！一个乒超俱乐部商业赛国家队的省队的大大小小的运动员这么多，1：2的更不止王楚钦一人，抢8的赛制唯独王楚钦被用爆冷，不敌这些词语！奥运6人团只 - 新浪网
+  乒超联赛爆冷，王楚钦苦战不敌张煜东 - 新浪网
+  王楚钦爆冷不敌张煜东 乒超赛场意外频出 - 中华网
+  王楚钦|张煜东|打自己两巴掌_新浪新闻 - 新浪网
+  新浪网· - 新浪网
+  王楚钦不敌？别乱用词|王楚钦|张煜东|媒体|魏桥男团_新浪新闻 - 新浪网
+  王楚钦接连输球引发球迷争议！能否挑起国乒男队大梁？你怎么看 - 凤凰网
+  #王楚钦爆冷不敌张煜东#还爆冷呢[笑cry]已经不冷了吧，三天刷到两回了“爆冷”新闻了[允悲] ​ - 新浪网
+  王楚钦1比2张煜东（-7，-6，9） 第三盘：周启豪VS于溢洋 山东魏桥三比三四川丰谷 2026年乒超联赛常规赛第一站男团 - 新浪网
+  台风红霞最新路径发布 或将影响华南沿海 - 中华网
+  台风“红霞”要来了，最新路径预判 - 凤凰网
+  台风“红霞”即将生成 最新路径预判→ - 中国日报网
+  台风红霞最新路径公布 - 新浪新闻_手机新浪网
+  台风“红霞”最新路径公布，登陆后将在湖北转化为热带低压，受其残涡环流影响，27日至28日武汉有风雨天气 - 手机网易网
 
 -- 平台快照 --
 
 【微博 Top10】
-  # 1  个人贷款新规8月1日起正式实施
-  # 2  詹姆斯加盟76人
-  # 3  我国首条穿越长江高铁隧道贯通
-  # 4  19岁亚马尔宣布女友怀孕
-  # 5  王虹回应为何没直接读北大数学系
-  # 6  林依轮复刻白鹿周生如故红衣造型
-  # 7  群星闪耀时一部电影搞定全家老小
-  # 8  男生中考699分偷偷改志愿读中职
-  # 9  徐若晗爱你再次迎来了伟大的宣发期
-  #10  台风
+  # 1  王楚钦爆冷不敌张煜东
+  # 2  携程被罚51.79亿
+  # 3  景德镇手工瓷业遗存列入世界遗产
+  # 4  孔雪儿一个人努力好心酸
+  # 5  泡面 换水
+  # 6  学英语就是为了看懂这种笑话
+  # 7  山西运城一路面塌陷处现大量白骨
+  # 8  台风红霞
+  # 9  除了玩手机还有这么多低成本爱好
+  #10  邹市明带了消磁身份证去离婚
 
 【百度 Top10】
-  # 1  一方感恩碑 廿载育人心
-  # 2  广东多地宣布：停止一切线下培训
-  # 3  台风红霞加强
-  # 4  解码中国经济半年报
-  # 5  一年中最热的20天即将到来
-  # 6  菲律宾一边逃窜一边喊糟糕
-  # 7  詹姆斯加盟76人
-  # 8  美国被曝考虑对第8国动武
-  # 9  全球第一个 老挝彻底禁售燃油新车
-  #10  男子潜逃30多年后回老家：怕客死异乡
+  # 1  提高基层干部直接服务群众的本领
+  # 2  王小洪会见FBI局长帕特尔
+  # 3  携程为何挨了最重的罚
+  # 4  防溺水 这样做
+  # 5  中国世界遗产+1
+  # 6  奥运冠军黄雅琼怀孕
+  # 7  重庆警方打掉境内外电诈团伙198个
+  # 8  杭州多地巨响 有人称房子都颤了
+  # 9  井泉大使：闹什么闹 承担得起后果吗
+  #10  王楚钦爆冷不敌张煜东
 
 【抖音 Top10】
-  # 1  詹姆斯宣布加盟76人
-  # 2  当徒步人晒出pov
-  # 3  “十五五”消费市场迎重大变化
-  # 4  证监会原副主席方星海被查
-  # 5  当我学会用颜色搭配时
-  # 6  夏天从玩水的那一刻开始
-  # 7  中国海警水炮驱离菲侵权船只
-  # 8  长征三号乙火箭发射与闪电同框
-  # 9  韩国赠还清代石狮 外交部回应
-  #10  克洛普执教德国国家队
+  # 1  王小洪会见FBI局长帕特尔
+  # 2  台风红霞最新路径
+  # 3  景德镇手工瓷业遗存申遗成功
+  # 4  携程被罚51.79亿元
+  # 5  詹姆斯宣布加盟76人
+  # 6  重庆警方今年打掉境内外电诈团伙198个
+  # 7  淄博博山菜真的香迷糊了
+  # 8  携程回应被处罚
+  # 9  夏天从玩水的那一刻开始
+  #10  韩国赠还清代石狮 外交部回应
 
 【路透社 Top10】
-  # 1  EXCLUSIVE: Its AI agent spent days hacking a company, but sources say OpenAI did not notice for a week
-  # 2  Trump says US and Iran are talking, but Tehran is not yet ready for deal
-  # 3  Trump orders signs outside Smithsonian history museum to correct what he calls 'inaccurate information'
-  # 4  Paramount agrees to pause Warner Bros deal while case plays out
-  # 5  ICC members dismiss prosecutor Karim Khan, diplomatic sources say
-  # 6  Nvidia, Microsoft and other tech giants back open-source AI models
-  # 7  Trump says US to launch EU probe over 'illegal' Google fine
-  # 8  US small businesses file lawsuit challenging Trump's new 'forced labor' tariffs
-  # 9  Anthropic rolls out Opus 5 AI model in efficiency upgrade
-  #10  Yemen teeters towards renewed war in shadow of Iran conflict
+  # 1  Trump says Israeli PM Netanyahu will visit US next week
+  # 2  South Korea's SK Hynix, Samsung Elec sign $950 bln partnership with US big tech
+  # 3  Nvidia, SK Group unveil $500 billion-plus AI data centers initiative, memory partnership
+  # 4  South Korea President Lee hosts US tech summit, calls for new AI era
+  # 5  EXCLUSIVE: Its AI agent spent days hacking a company, but sources say OpenAI did not notice for a week
+  # 6  SpaceX launches 13th Starship test, briefly deploys first upgraded Starlinks
+  # 7  US says it will lift ban on imports of Mexican cattle
+  # 8  Saudi-led coalition says it strikes Houthi targets in Yemen's Hodeidah
+  # 9  Paramount agrees to pause Warner Bros deal while case plays out
+  #10  Trump says US and Iran are talking, but Tehran is not yet ready for deal
 
 【美联社 Top10】
-  # 1  Trump imposes double-digit tariffs on dozens of countries as his 10% levies are set to expire Friday
-  # 2  US military launches new strikes on Iran as clashes escalate over shipping routes
-  # 3  OpenAI blamed a hacking event on its AI models going rogue. Here are some things to know
-  # 4  US is ready to help end the ‘senseless war’ in Ukraine but no quick deal ahead, Rubio says
-  # 5  OpenAI says its AI technology acted on its own in an 'unprecedented' hack of another company
-  # 6  Brent oil tops $100 per barrel, as tumbles for Tesla and Alphabet yank Wall Street lower
-  # 7  Independent autopsy of Nolan Wells finds ‘undetermined’ cause of death
-  # 8  Prime Minister Carney says Canada is ready to respond if Trump’s new tariffs go into effect
-  # 9  Judge approves a $1.5B Anthropic settlement over pirated books used to train the Claude chatbot
+  # 1  More than 200,000 people flee raging wildfires in France and Spain, some escaping by boat
+  # 2  New US tariffs linked to claims of foreign forced labor dismay and anger trading partners
+  # 3  Trump imposes double-digit tariffs on dozens of countries as his 10% levies are set to expire Friday
+  # 4  US military launches new strikes on Iran as clashes escalate over shipping routes
+  # 5  Texts reveal teen who singer D4vd is accused of killing was pregnant, had abortion year before death
+  # 6  Nearly 150,000 mail ballots rejected in California's primary despite efforts to count every vote
+  # 7  OpenAI blamed a hacking event on its AI models going rogue. Here are some things to know
+  # 8  OpenAI says its AI technology acted on its own in an 'unprecedented' hack of another company
+  # 9  Independent autopsy of Nolan Wells finds ‘undetermined’ cause of death
   #10  Russian ballistic strike kills 10 after Ukraine’s Zelenskyy hosts US company making Patriots
 
 【BBC Top10】
-  # 1  Former NFL star Tony Romo arrested for driving intoxicated
-  # 2  Cyclospora outbreak expands to nine US states, health officials say
-  # 3  Trump vows to investigate EU over fining of US tech companies
-  # 4  US sees highest number of measles cases in 35 years
-  # 5  LeBron James to join Philadelphia 76ers after Los Angeles Lakers exit
-  # 6  PlayStation Network outage resolved after thousands of gamers unable to play
-  # 7  Wisconsin officials open investigation into police killing of Corey Ruiz
-  # 8  ICC top prosecutor removed over sexual misconduct allegations
-  # 9  Firefighters struggle to contain Madrid wildfires, as more than 140,000 evacuated in France and Spain
-  #10  Police declare 'major incident' as wind change increases Cairngorms wildfire risk
+  # 1  Trump orders Smithsonian to post warnings about 'inaccurate' US history
+  # 2  Trump pokes fun at press during White House Correspondents' Dinner
+  # 3  Teen who singer D4vd is accused of killing had multiple abortions, texts reveal
+  # 4  Saudi Arabia and Houthis trade fire as US fires on tanker in Hormuz Strait
+  # 5  Watch: SpaceX's successful test flight and splashdown for Starship
+  # 6  Cyclospora outbreak expands to nine US states, health officials say
+  # 7  Former NFL star Tony Romo arrested for driving intoxicated
+  # 8  Trump vows to investigate EU over fining of US tech companies
+  # 9  'Maybe he's a racist' - Trump critical of James
+  #10  Warning shot or publicity stunt - how worried should we be about the OpenAI hack?
 
 【CNN Top10】
-  # 1  Trump suggests LeBron James may be ‘a racist,’ escalating their long-running feud
-  # 2  Kalshi demands Netflix take down trailer for ‘misleading’ prediction market documentary
-  # 3  Paramount agrees to delay Warner Bros. Discovery takeover for months
-  # 4  Pentagon leaves casualty totals uncorrected on website after deaths and injuries disappeared
-  # 5  ICC member states vote to dismiss chief prosecutor Khan
+  # 1  Trump bombed at the White House Correspondents’ Dinner — and proved its point
+  # 2  8 found dead in Michigan home after fire, some with gunshot wounds
+  # 3  Trump orders signs be installed outside Smithsonian museum warning of ‘inaccurate information’
+  # 4  'Disorienting': Maine Democrats race to bolster new candidate in must-win race
+  # 5  Trump suggests LeBron James may be ‘a racist,’ escalating their long-running feud
   # 6  Substance in Houston ICE shooting van was not drugs, district attorney’s office says testing confirms
-  # 7  South Carolina picked by DNC panel to hold Democrats’ first 2028 presidential primary
-  # 8  ‘Spider-Man’ spotted doing… actual superhero stuff
-  # 9  JD and Usha Vance share photos of new baby Alec
-  #10  US measles cases reach 35-year high, for second record-breaking year in a row
+  # 7  Kalshi demands Netflix take down trailer for ‘misleading’ prediction market documentary
+  # 8  Paramount agrees to delay Warner Bros. Discovery takeover for months
+  # 9  Pentagon leaves casualty totals uncorrected on website after deaths and injuries disappeared
+  #10  ICC member states vote to dismiss chief prosecutor Khan
 
 【华尔街日报 Top10】
-  # 1  Exclusive | U.S. to Resume Cattle Imports From Mexico After Screwworm Ban
-  # 2  Exclusive | Bahrain, Kuwait Warplanes Struck Iran in Rare Gulf Retaliation
-  # 3  Spending Worries Weigh On Tech Shares
-  # 4  Trump Lawsuits, Justice Department Subpoenas Squeeze News Outlets
-  # 5  Georgia Teen School Shooter Pleads Guilty to All Charges
-  # 6  Charter Revenue Declines Again as Subscriber Slide Continues
-  # 7  India’s ‘Cockroach’ Protesters Renew Challenge to Modi
-  # 8  Slowly, Then Suddenly, the World Is Back at War
-  # 9  The Lonely Fight to Keep the Cheap Las Vegas Buffet Alive
-  #10  Print Edition | Wall Street Journal
+  # 1  Trump Offers Digs—and Appreciation—to Press at Correspondents’ Dinner Do-Over
+  # 2  Taylor Farms Called White House to Try to Delay Cyclospora Recall
+  # 3  Exclusive | U.S. to Resume Cattle Imports From Mexico After Screwworm Ban
+  # 4  Exclusive | An Oceanfront Compound in Laguna Beach Hits the Market for $112 Million
+  # 5  SpaceX Launches Another Starship, and This Time the Market Is Watching
+  # 6  Exclusive | Elon Musk’s Boring Company Eyes $20 Billion Valuation in New Funding Round
+  # 7  Wild Markets Week Settles Down
+  # 8  Exclusive | Bahrain, Kuwait Warplanes Struck Iran in Rare Gulf Retaliation
+  # 9  Spending Worries Weigh On Tech Shares
+  #10  Market-Friendly Chinese Securities Regulator Faces Communist Party Probe
 
 【36氪 Top10】
-  # 1  AnySearch 面向全球推出 “学生与开发者成长计划”
-  # 2  氪星晚报 ｜黄仁勋力挺中国AI开源模型；市场监管总局：深入整治“内卷式”竞争
-  # 3  你的下一位面试官，可能不是人
-  # 4  对话曾鸣教授：AI时代，企业竞争的关键是构建智能复利，让AI真正进入业务流程
-  # 5  DeepSeek不是理想主义公司，它只是把现实服务于理想
-  # 6  带着AI去前线！36氪逛透WAIC，带你看懂2026全行业AI最真实走向！
-  # 7  8点1氪丨段永平称10年内大概率不会卖泡泡玛特；中国数学家王虹、邓煜获得菲尔兹奖；宜家回应甩卖8处物业：不代表退出中国市场
-  # 8  氪星晚报 ｜马斯克：FSD是拉动特斯拉汽车需求的核心驱动力；字节跳动在中卫成立新科技公司，注册资本22亿
-  # 9  网格智算：“不堆算力”的AI大脑如何填补林下场景空白 | 水下项目
-  #10  专访郭列：做出脸萌、FaceU、剪映等爆款后，他第一次阐释如何在AI时代做产品
+  # 1  9点1氪｜宇树科技CEO王兴兴登上《时代》杂志封面；国家反诈中心App可一键检测AI生成痕迹；Claude Opus 5正式发布
+  # 2  AnySearch 面向全球推出 “学生与开发者成长计划”
+  # 3  氪星晚报 ｜黄仁勋力挺中国AI开源模型；市场监管总局：深入整治“内卷式”竞争
+  # 4  你的下一位面试官，可能不是人
+  # 5  对话曾鸣教授：AI时代，企业竞争的关键是构建智能复利，让AI真正进入业务流程
+  # 6  DeepSeek不是理想主义公司，它只是把现实服务于理想
+  # 7  带着AI去前线！36氪逛透WAIC，带你看懂2026全行业AI最真实走向！
+  # 8  8点1氪丨段永平称10年内大概率不会卖泡泡玛特；中国数学家王虹、邓煜获得菲尔兹奖；宜家回应甩卖8处物业：不代表退出中国市场
+  # 9  氪星晚报 ｜马斯克：FSD是拉动特斯拉汽车需求的核心驱动力；字节跳动在中卫成立新科技公司，注册资本22亿
+  #10  网格智算：“不堆算力”的AI大脑如何填补林下场景空白 | 水下项目
 
 -- 排名变化 --
-🆕 个人贷款新规8月1日起正式实施 (新上榜, 今日第1)
-🆕 詹姆斯加盟76人 (新上榜, 今日第2)
-🆕 我国首条穿越长江高铁隧道贯通 (新上榜, 今日第3)
-🆕 19岁亚马尔宣布女友怀孕 (新上榜, 今日第4)
-🆕 王虹回应为何没直接读北大数学系 (新上榜, 今日第5)
-🆕 林依轮复刻白鹿周生如故红衣造型 (新上榜, 今日第6)
-🆕 群星闪耀时一部电影搞定全家老小 (新上榜, 今日第7)
-🆕 男生中考699分偷偷改志愿读中职 (新上榜, 今日第8)
-🆕 徐若晗爱你再次迎来了伟大的宣发期 (新上榜, 今日第9)
-🆕 台风 (新上榜, 今日第10)
-🆕 歌手排名 (新上榜, 今日第11)
-🆕 全宇宙最阴的物件 (新上榜, 今日第12)
-🆕 贝林厄姆踢阿根廷后对裁判讲话曝光 (新上榜, 今日第13)
-🆕 王楚然绊了一下反而出了神图 (新上榜, 今日第14)
-🆕 李昊 十个勤天从来不止四个字 (新上榜, 今日第15)
+🆕 王楚钦爆冷不敌张煜东 (新上榜, 今日第1)
+🆕 携程被罚51.79亿 (新上榜, 今日第2)
+🆕 景德镇手工瓷业遗存列入世界遗产 (新上榜, 今日第3)
+🆕 孔雪儿一个人努力好心酸 (新上榜, 今日第4)
+🆕 泡面 换水 (新上榜, 今日第5)
+🆕 学英语就是为了看懂这种笑话 (新上榜, 今日第6)
+🆕 山西运城一路面塌陷处现大量白骨 (新上榜, 今日第7)
+🆕 台风红霞 (新上榜, 今日第8)
+🆕 除了玩手机还有这么多低成本爱好 (新上榜, 今日第9)
+🆕 邹市明带了消磁身份证去离婚 (新上榜, 今日第10)
+🆕 黄雅琼怀孕 (新上榜, 今日第11)
+🆕 郭碧婷称你们最好永远误解 (新上榜, 今日第12)
+🆕 曝讲真打布洛芬 (新上榜, 今日第13)
+🆕 黄雅琼回应怀孕后还玩拼豆 (新上榜, 今日第14)
+🆕 24岁女孩地包天做手术反成鞋拔子脸 (新上榜, 今日第15)
 
 -- GitHub Actions 自动生成 --
