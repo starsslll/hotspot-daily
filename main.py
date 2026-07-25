@@ -119,7 +119,11 @@ def _translate_titles(english_titles, api_key):
     }
     try:
         resp = requests.post(url, json=payload, headers=headers, timeout=25)
-        result = resp.json()["choices"][0]["message"]["content"].strip()
+        body = resp.json()
+        if "choices" not in body:
+            print(f"英文翻译失败: DeepSeek返回异常 — {json.dumps(body, ensure_ascii=False)[:300]}")
+            return english_titles
+        result = body["choices"][0]["message"]["content"].strip()
         translated = [line.strip() for line in result.split("\n") if line.strip()]
         # 用翻译结果替换原文
         final = []
@@ -242,7 +246,11 @@ def _summarize_extra_news(titles, api_key):
     }
     try:
         resp = requests.post(url, json=payload, headers=headers, timeout=30)
-        result = resp.json()["choices"][0]["message"]["content"].strip()
+        body = resp.json()
+        if "choices" not in body:
+            print(f"扩展新闻总结失败: DeepSeek返回异常 — {json.dumps(body, ensure_ascii=False)[:300]}")
+            return titles[:15]
+        result = body["choices"][0]["message"]["content"].strip()
         lines = [l.strip() for l in result.split("\n") if l.strip().startswith("·")]
         return lines if lines else titles[:12]
     except Exception as e:
@@ -558,7 +566,10 @@ def call_deepseek(platforms, change_text, resonance, user_field, api_key, extra_
     }
     try:
         resp = requests.post(url, json=payload, headers=headers, timeout=40)
-        return resp.json()["choices"][0]["message"]["content"].strip()
+        body = resp.json()
+        if "choices" not in body:
+            return f"【AI分析失败】DeepSeek返回异常: {json.dumps(body, ensure_ascii=False)[:300]}"
+        return body["choices"][0]["message"]["content"].strip()
     except Exception as e:
         return f"【AI分析失败】{str(e)}"
 
