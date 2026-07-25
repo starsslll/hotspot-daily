@@ -77,6 +77,7 @@ def _fetch_news_rss(url, source_label, strip_suffixes=None):
             return []
         root = ET.fromstring(resp.text)
         items = root.findall(".//item/title")
+        print(f"{source_label} RSS: 获取到 {len(items)} 条标题")
         titles = []
         for item in items:
             t = (item.text or "").strip()
@@ -98,12 +99,15 @@ def _fetch_news_rss(url, source_label, strip_suffixes=None):
 def _translate_titles(english_titles, api_key):
     """批量翻译英文标题为中文，无 key 或失败时返回原文"""
     if not english_titles or not api_key:
+        print(f"翻译跳过: titles={bool(english_titles)}, key={bool(api_key)}")
         return english_titles
     # 只翻译含英文字母的标题
     need_trans = [t for t in english_titles if any(c.isascii() and c.isalpha() for c in t)]
     if not need_trans:
+        print(f"翻译跳过: 无需翻译的标题（可能已是中文）")
         return english_titles
 
+    print(f"翻译中: {len(need_trans)}/{len(english_titles)} 条待译")
     joined = "\n".join(need_trans)
     prompt = f"将以下英文新闻标题翻译成简洁中文，保持原意，每行一条，不加编号：\n{joined}"
     url = "https://api.deepseek.com/v1/chat/completions"
@@ -125,6 +129,7 @@ def _translate_titles(english_titles, api_key):
             return english_titles
         result = body["choices"][0]["message"]["content"].strip()
         translated = [line.strip() for line in result.split("\n") if line.strip()]
+        print(f"翻译完成: {len(translated)} 条结果（期望 {len(need_trans)} 条）")
         # 用翻译结果替换原文
         final = []
         ti = 0
