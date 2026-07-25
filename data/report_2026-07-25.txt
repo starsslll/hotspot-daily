@@ -4,26 +4,37 @@
   今日无显著历史共振
 
 -- AI分析 --
+【生命周期坐标】
+今日Top3（闫闯退赛/中国女排vs土耳其/共赴亚太数字之约）均处爆发期。无历史共振信号，属独立爆发事件。退赛与赛事类热度天然短半衰期，24-48小时自然消退。数字之约属政策议题，若无后续刺激，72小时退潮。三者皆无结构共振，无法判断延续或转折。
 
+【情绪温差校准】
+国际板块温差剧烈：美联社“强迫劳动关联关税”对抗情绪远超路透社对同议题的平实报道。国内板块温差温和：微博娱乐化，百度政务化，属平台常态分化。携程被罚51亿在财经平台属实质冲击，但在泛娱乐平台被淹没——这是典型的情绪资产型事件，关注点不在具体罚金，而在“平台经济整改”的叙事联想。应对原则：忽略口水战，紧盯携程股价开盘反应。
+
+【关联熵减归因】
+今日隐线：对抗叙事泛化。
+体育（中土女排对决）、贸易（美新关税引发伙伴不满）、军事（美军打击伊朗、罗马尼亚击落无人机）、地缘博弈（FBI局长会见）共同映射全球系统的对抗性升级。体育成为大国竞争的隐喻赛道，贸易工具化渗透至“强迫劳动”议题，低烈度军事摩擦常态化。这与历史“贸易战”议题存在L3结构共振，共同基因是“后全球化时代的零和博弈”。
+
+【决策倒推沙盘】
+关注携程。51亿罚单是互联网平台监管节奏的明确信号。可执行动作：开盘前浏览港交所公告原文，确认罚因细节。若涉及数据或垄断，短期回避旅游类中概；若仅为财税问题，可视作利空出尽信号，纳入观察清单。重复信号：平台经济合规成本正在实质化。
 
 -- 关键词追踪 --
 📊 【自动检测热度骤升关键词】
   🆕 土耳其女排（今日首次高频出现，2次）
   🔥 中国女排（4次 | 昨2次，热度飙升）
   🆕 中国男篮（今日首次高频出现，2次）
+  🆕 前所未有（今日首次高频出现，2次）
   🆕 注册资本（今日首次高频出现，2次）
   🔥 氪星晚报（2次 | 昨1次，热度飙升）
   🆕 演唱会（今日首次高频出现，4次）
-  🆕 谢霆锋（今日首次高频出现，2次）
-  🆕 王楚钦（今日首次高频出现，2次）
-🆕 土耳其女排：今日新上榜 微博#9、抖音/头条#17
-📌 中国女排：今日 微博#9、抖音/头条#17，昨日 抖音/头条#40
-🆕 中国男篮：今日新上榜 抖音/头条#6
+  🔥 西班牙（4次 | 昨2次，热度飙升）
+🆕 土耳其女排：今日新上榜 微博#2、抖音/头条#11
+📌 中国女排：今日 微博#2、抖音/头条#11，昨日 抖音/头条#40
+🆕 中国男篮：今日新上榜 抖音/头条#5
+🆕 前所未有：今日新上榜 美联社#7
 🆕 注册资本：今日新上榜 36氪#10
 📌 氪星晚报：今日 36氪#4、36氪#10，昨日 36氪#4
-🆕 演唱会：今日新上榜 微博#7、抖音/头条#12、抖音/头条#16、抖音/头条#46
-🆕 谢霆锋：今日新上榜 微博#7、抖音/头条#12
-🆕 王楚钦：今日新上榜 微博#11、百度热搜#8、抖音/头条#18
+🆕 演唱会：今日新上榜 微博#7、抖音/头条#12、抖音/头条#17、抖音/头条#49
+📌 西班牙：今日 微博#6、百度热搜#18、美联社#2，昨日 微博#12
 
 -- 关键词扩展（AI去重总结）--
   世联赛总决赛｜25日战土耳其，“黑八”后中国女排可否延续神奇 - 手机网易网
@@ -34,23 +45,23 @@
   一场3-1！土耳其女排逆转加拿大，球迷认清3个事实，总决赛没冷门 - 手机网易网
   世联赛四强定3席：土耳其3-1逆转加拿大，半决赛或对阵中国女排 - 手机网易网
   中国女排半决赛硬刚土耳其！2026世界女排联赛总决赛赛程出炉 - 新浪网
-  今晚中国女排对阵土耳其！CCTV5全程直播，大胆预测中国女排取胜 - 手机新浪网
-  冲击决赛！今日19点30分中国女排战土耳其 上次交手2-3惜败 - Sohu
-  唐欣现在还没办法换。。。前排换过了。目前12扣1中3失1被拦拿到1分，11个一传2失，到位率45%完美率27%。#中国女排vs土耳其女排##2026年世界女排联赛 - 新浪网
+  今晚中国女排对阵土耳其！CCTV5全程直播，大胆预测中国女排获胜
+  冲击决赛！今日19点30分中国女排战土耳其 上次交手2-3惜败
+  唐欣现在还没办法换。。。前排换过了。目前12扣1中3失1被拦拿到1分，11个一传2失，到位率45%完美率27%
   中国女排力克美国！姑娘们激动相拥泪洒赛场 - 手机网易网
 
 -- 平台快照 --
 
 【微博 Top10】
   # 1  闫闯退赛
-  # 2  西班牙21次犯规零牌
+  # 2  中国女排vs土耳其女排
   # 3  共赴亚太数字之约
-  # 4  遇事不慌比个YEYE
+  # 4  郁可唯为奕派M8车主交付
   # 5  苏新皓囍神级solo
-  # 6  AG对战LGDNBW
+  # 6  西班牙21次犯规零牌
   # 7  谢霆锋演唱会状态
-  # 8  孙女的微信状态只有爷爷当真了
-  # 9  中国女排vs土耳其女排
+  # 8  这些中暑急救误区千万别踩
+  # 9  孙女的微信状态只有爷爷当真了
   #10  AG 醒醒
 
 【百度 Top10】
@@ -70,36 +81,36 @@
   # 2  携程被罚51.79亿元
   # 3  景德镇手工瓷业遗存申遗成功
   # 4  淄博博山菜真的香迷糊了
-  # 5  苏超扬州vs徐州
-  # 6  中国男篮vs格鲁吉亚男篮
-  # 7  台风红霞将正面袭击深汕
+  # 5  中国男篮vs格鲁吉亚男篮
+  # 6  台风红霞将正面袭击深汕
+  # 7  苏超扬州vs徐州
   # 8  保罗乔治vs白晶百分大战
   # 9  当我打算走去赛里木湖
   #10  苏超常州vs泰州
 
 【路透社 Top10】
   # 1  Italy defence minister offers ousted Ukraine counterpart Fedorov adviser role
-  # 2  Romania says it shot down second drone breaching its airspace
-  # 3  Canadian intern at NATO military HQ arrested in Belgium on spying charge
-  # 4  Greek-operated air defence system shoots down missiles over Saudi
-  # 5  Southern China braces for Typhoon Noul, suspends public transport
-  # 6  Thousands evacuated as wildfires approach the city of Bordeaux
-  # 7  Samsung Elec wins $200 billion Broadcom AI chip partnership, boosting foundry push
+  # 2  Samsung Elec wins $200 billion Broadcom AI chip partnership, boosting foundry push
+  # 3  Romania says it shot down second drone breaching its airspace
+  # 4  Canadian intern at NATO military HQ arrested in Belgium on spying charge
+  # 5  Greek-operated air defence system shoots down missiles over Saudi
+  # 6  Southern China braces for Typhoon Noul, suspends public transport
+  # 7  Thousands evacuated as wildfires approach the city of Bordeaux
   # 8  Modi's education minister quits as jubilant Indian youth protesters claim victory
   # 9  Guterres meets Syria's Sharaa on first visit to Damascus by UN chief in 17 years
   #10  Kuwait's KPC signs $16 billion lease and leaseback deal for oil pipeline network
 
 【美联社 Top10】
-  # 1  New US tariffs linked to claims of foreign forced labor dismay and anger trading partners
-  # 2  More than 200,000 people flee raging wildfires in France and Spain, some escaping by boat
-  # 3  Trump imposes double-digit tariffs on dozens of countries as his 10% levies are set to expire Friday
-  # 4  US military launches new strikes on Iran as clashes escalate over shipping routes
-  # 5  UNESCO adds West Bank site and Lebanese castles to World Heritage List despite Israeli objections
-  # 6  Texts reveal teen who singer D4vd is accused of killing was pregnant, had abortion year before death
-  # 7  OpenAI says its AI technology acted on its own in an 'unprecedented' hack of another company
-  # 8  Prime Minister Carney says Canada is ready to respond if Trump’s new tariffs go into effect
-  # 9  OpenAI blamed a hacking event on its AI models going rogue. Here are some things to know
-  #10  Independent autopsy of Nolan Wells finds ‘undetermined’ cause of death
+  # 1  美国新关税被指与海外强迫劳动有关，令贸易伙伴不满愤怒
+  # 2  逾20万人逃离法国和西班牙肆虐野火，部分人乘船逃生
+  # 3  特朗普对数十国加征两位数关税，其10%基准关税将于周五到期
+  # 4  美军对伊朗发动新一轮打击，航运路线冲突升级
+  # 5  不顾以色列反对，联合国教科文组织将西岸遗址和黎巴嫩城堡列入世界遗产
+  # 6  短信显示，被指遭歌手D4vd杀害的少女怀孕，死前一年曾堕胎
+  # 7  OpenAI称其AI技术在另一起公司遭“前所未有”的黑客攻击中自主行动
+  # 8  总理卡尼表示若特朗普新关税生效，加拿大准备回应
+  # 9  OpenAI将一起黑客事件归咎于其AI模型失控，需知如下
+  #10  独立尸检报告称诺兰·韦尔斯死因“未定”
 
 【BBC Top10】
   # 1  Fleeing a wall of flames: Tourists describe France wildfires escape
@@ -109,18 +120,18 @@
   # 5  Teen who singer D4vd is accused of killing had multiple abortions, texts reveal
   # 6  'Maybe he's a racist' - Trump critical of James
   # 7  Saudi Arabia and Houthis trade fire as US fires on tanker in Hormuz Strait
-  # 8  Woman dies and child injured in collision between car and truck
+  # 8  Cavan: Woman dies and child injured in two-vehicle collision
   # 9  Watch: SpaceX's successful test flight and splashdown for Starship
   #10  Cyclospora outbreak expands to nine US states, health officials say
 
 【CNN Top10】
-  # 1  受俄宣传迷惑后，劳拉·卢默表态全力挺乌
-  # 2  缅因州民主党人将在特殊党代会上敲定参议员提名人
-  # 3  考卷泄题引发“蟑螂”青年抗议数日后，印度教育部长辞职
-  # 4  特朗普在白宫记者晚宴上现场被讽——反证其观点
-  # 5  特朗普戏言2028年再选
-  # 6  密歇根住宅火灾后发现8人死亡，部分人带有枪伤
-  # 7  有角、毛茸茸、伦理有疑——牦牛克隆体
+  # 1  After being ‘bamboozled by Russian propaganda,’ Laura Loomer says she’s all in for Ukraine
+  # 2  Maine Democrats are poised to pick their Senate nominee at an unusual party convention
+  # 3  India’s education minister resigns after days of ‘Cockroach’ youth protests over exam paper leaks
+  # 4  Trump bombed at the White House Correspondents’ Dinner — and proved its point
+  # 5  Trump jokes about a 2028 run
+  # 6  8 found dead in Michigan home after fire, some with gunshot wounds
+  # 7  What’s horned, fluffy, and ethically dubious? Yak clones
   # 8  Trump jumps from jokes to weighing in on the war in Iran
   # 9  Singer d4vd’s preliminary hearing sheds new light on the investigation into teen girl’s killing. Here are the takeaways
   #10  Trump orders signs be installed outside Smithsonian museum warning of ‘inaccurate information’
@@ -151,19 +162,19 @@
 
 -- 排名变化 --
 🆕 闫闯退赛 (新上榜, 今日第1)
-🆕 西班牙21次犯规零牌 (新上榜, 今日第2)
+🆕 中国女排vs土耳其女排 (新上榜, 今日第2)
 🆕 共赴亚太数字之约 (新上榜, 今日第3)
-🆕 遇事不慌比个YEYE (新上榜, 今日第4)
+🆕 郁可唯为奕派M8车主交付 (新上榜, 今日第4)
 🆕 苏新皓囍神级solo (新上榜, 今日第5)
-🆕 AG对战LGDNBW (新上榜, 今日第6)
+🆕 西班牙21次犯规零牌 (新上榜, 今日第6)
 🆕 谢霆锋演唱会状态 (新上榜, 今日第7)
-🆕 孙女的微信状态只有爷爷当真了 (新上榜, 今日第8)
-🆕 中国女排vs土耳其女排 (新上榜, 今日第9)
+🆕 这些中暑急救误区千万别踩 (新上榜, 今日第8)
+🆕 孙女的微信状态只有爷爷当真了 (新上榜, 今日第9)
 🆕 AG 醒醒 (新上榜, 今日第10)
 🆕 王楚钦vs向鹏 (新上榜, 今日第11)
-🆕 李权哲高铁占座 (新上榜, 今日第12)
-🆕 严浩翔看到王一珩淘汰的表情 (新上榜, 今日第13)
-🆕 正颌手术做反了女孩说迎接她的是毁灭 (新上榜, 今日第14)
-🆕 黄灿灿370元做的丑美甲 (新上榜, 今日第15)
+🆕 6分06秒结束比赛 (新上榜, 今日第12)
+🆕 台风海浪打断广东水泥柱 (新上榜, 今日第13)
+🆕 李权哲高铁占座 (新上榜, 今日第14)
+🆕 严浩翔看到王一珩淘汰的表情 (新上榜, 今日第15)
 
 -- GitHub Actions 自动生成 --
