@@ -119,7 +119,7 @@ def _translate_titles(english_titles, api_key):
             {"role": "user", "content": prompt}
         ],
         "temperature": 0.1,
-        "max_tokens": 400
+        "max_tokens": 1200
     }
     try:
         resp = requests.post(url, json=payload, headers=headers, timeout=25)
@@ -573,8 +573,11 @@ def call_deepseek(platforms, change_text, resonance, user_field, api_key, extra_
         resp = requests.post(url, json=payload, headers=headers, timeout=40)
         body = resp.json()
         if "choices" not in body:
+            print(f"AI分析失败: DeepSeek返回异常 — {json.dumps(body, ensure_ascii=False)[:300]}")
             return f"【AI分析失败】DeepSeek返回异常: {json.dumps(body, ensure_ascii=False)[:300]}"
-        return body["choices"][0]["message"]["content"].strip()
+        result = body["choices"][0]["message"]["content"].strip()
+        print(f"AI分析完成: {len(result)} 字符")
+        return result
     except Exception as e:
         return f"【AI分析失败】{str(e)}"
 
