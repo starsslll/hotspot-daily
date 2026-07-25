@@ -4,50 +4,40 @@
   今日无显著历史共振
 
 -- AI分析 --
-【生命周期坐标】
-微博#1闫闯退赛、#2西班牙21次犯规零牌均为爆发期，体育争议瞬间引爆，无历史铺垫。#3共赴亚太数字之约处于发酵期，数字议题持续升温。#4谢霆锋演唱会、#5 6分06秒结束比赛属瞬时爆发，生命周期极短。百度#1以实干实效回应期盼为政策延续，消退期。#2王小洪会见FBI局长为突发外交，爆发期。抖音#1携程被罚51.79亿为爆发期，监管重锤突袭。整体看，今日热点多为孤立爆发，无历史共振可匹配，缺乏L3结构共振。
 
-【情绪温差校准】
-携程被罚51.79亿在抖音标题措辞烈度剧烈，属于“情绪资产型”事件——处罚数字冲击强，但实际业务影响待评估，舆论易放大恐慌。应对原则：紧盯企业合规调整与订单数据转化，忽略短期情绪宣泄。西班牙21次犯规零牌在微博语境烈度剧烈，亦属情绪资产，事实是单场判罚，舆论极易滑向“公平性质疑”，需区分竞技争议与规则讨论，避免卷入民族情绪对骂。总体温差评级：剧烈，集中在体育和商业监管板块。
-
-【关联熵减归因】
-今日热点共同隐线为“规则断裂感”。体育判罚争议、企业天价罚单、外交会见、台风路径，均指向对现有规则（竞技、商业、安全）的信任摇晃。历史共振档案虽无直接匹配，但“规则断裂感”是近年反复出现的L3结构基因：从平台反垄断到赛事公平性质疑，本质都是公众对系统公正性的焦虑外溢。可命名为“规则断裂感”。
-
-【决策倒推沙盘】
-携程被罚信号+“规则断裂感”隐线，提示监管对平台经济仍保持高压。可执行小事：打开携程App，实际测试酒店、机票预订流程有无捆绑搭售变化，记录体验。若变清爽，说明企业已提前整改，利空出尽；若依旧，则后续风险未释放，暂缓介入。重复出现本身就是重要性信号。
 
 -- 关键词追踪 --
 📊 【自动检测热度骤升关键词】
   🆕 第二代身份证内部根本没有磁条（今日首次高频出现，2次）
   🆕 土耳其女排（今日首次高频出现，3次）
-  🆕 华尔街日报（今日首次高频出现，3次）
+  🆕 华尔街日报（今日首次高频出现，2次）
   🔥 中国女排（8次 | 昨2次，热度飙升）
   🆕 中国男篮（今日首次高频出现，2次）
-  🆕 教育部长（今日首次高频出现，2次）
   🆕 注册资本（今日首次高频出现，2次）
   🔥 氪星晚报（2次 | 昨1次，热度飙升）
-🆕 第二代身份证内部根本没有磁条：今日新上榜 微博#15、百度热搜#19
+  🆕 演唱会（今日首次高频出现，3次）
+🆕 第二代身份证内部根本没有磁条：今日新上榜 微博#14、百度热搜#19
 🆕 土耳其女排：今日新上榜 微博#10、微博#17、百度热搜#11、抖音/头条#10
-🆕 华尔街日报：今日新上榜 CNN#10、华尔街日报#1
+🆕 华尔街日报：今日新上榜 华尔街日报#1
 📌 中国女排：今日 微博#10、微博#17、百度热搜#11、抖音/头条#10，昨日 抖音/头条#40
-🆕 中国男篮：今日新上榜 抖音/头条#6
-🆕 教育部长：今日新上榜 路透社#8、CNN#3
+🆕 中国男篮：今日新上榜 抖音/头条#5
 🆕 注册资本：今日新上榜 36氪#10
 📌 氪星晚报：今日 36氪#4、36氪#10，昨日 36氪#4
+🆕 演唱会：今日新上榜 微博#6、抖音/头条#12、抖音/头条#17
 
 -- 关键词扩展（AI去重总结）--
+  第二代身份证内部根本没有磁条：不存在被手机消磁一说 - 驱动之家
   身份证消磁是误解|第二代身份证|邹市明|无线射频识别技术_新浪新闻 - 新浪网
-  二代身份证|邹市明|rfid_新浪新闻 - 新浪网
+  二代身份证、邹市明、RFID 新浪新闻
   “科学”流言｜身份证会被手机消磁？ - 京报网
+  手机能消磁身份证吗？不可能，根本没磁条
   新安全 - 人民日报
   二代身份证和手机放一起会消磁吗 身份证到底会不会被手机消磁？ - 中华网
-  买卖黑链条曝光！伪造的身份证究竟从哪来？ - Sohu
+  买卖黑产曝光！伪造身份证从何而来？
   没有身份的隐形人： 中国无户籍群体调研报告 作者：孟元新 - 维权网
   入网吧要验身份证 广州网吧实名制尚有3大问题 - 搜狐网
   中国女排半决赛硬刚土耳其！2026世界女排联赛总决赛赛程出炉 - 新浪网
-  今晚中国女排对阵土耳其！CCTV5全程直播，大胆预测中国女排取胜 - 手机新浪网
-  中国女排0比3不敌土耳其 将与意大利争夺季军 - 京报网
-  冲击决赛！今日19点30分中国女排战土耳其 上次交手2-3惜败 - Sohu
+  今晚中国女排战土耳其，CCTV5直播，预测取胜
 
 -- 平台快照 --
 
@@ -55,19 +45,19 @@
   # 1  闫闯退赛
   # 2  西班牙21次犯规零牌
   # 3  共赴亚太数字之约
-  # 4  谢霆锋演唱会状态
+  # 4  苏新皓囍神级solo
   # 5  6分06秒结束比赛
-  # 6  苏新皓囍神级solo
-  # 7  孙女的微信状态只有爷爷当真了
-  # 8  王楚钦vs向鹏
-  # 9  AG 醒醒
-  #10  中国女排vs土耳其女排
+  # 6  谢霆锋演唱会状态
+  # 7  群星闪耀时一部电影搞定全家老小
+  # 8  正颌手术做反了女孩说迎接她的是毁灭
+  # 9  孙女的微信状态只有爷爷当真了
+  #10  中国女排0比3土耳其女排
 
 【百度 Top10】
-  # 1  以实干实效回应群众期盼
+  # 1  中国共产党为什么能
   # 2  王小洪会见FBI局长帕特尔
   # 3  上百斤重水泥柱被巨浪拍断冲上岸
-  # 4  防溺水 这样做
+  # 4  景德镇用小写的c惊艳全球
   # 5  阿凡提扮演者吐依贡去世 享年80岁
   # 6  携程发布十九项整改措施
   # 7  重庆警方打掉境内外电诈团伙198个
@@ -80,72 +70,72 @@
   # 2  台风红霞最新路径
   # 3  海上“超级心脏”就位
   # 4  淄博博山菜真的香迷糊了
-  # 5  詹姆斯宣布加盟76人
-  # 6  中国男篮vs格鲁吉亚男篮
-  # 7  苏超常州vs泰州
+  # 5  中国男篮vs格鲁吉亚男篮
+  # 6  苏超常州vs泰州
+  # 7  台风红霞将正面袭击深汕
   # 8  当我打算走去赛里木湖
-  # 9  台风红霞将正面袭击深汕
+  # 9  詹姆斯宣布加盟76人
   #10  中国女排vs土耳其女排
 
 【路透社 Top10】
-  # 1  意大利防长邀请遭解职乌克兰防长费多罗夫担任顾问
-  # 2  三星电子赢得2000亿美元博通AI芯片合作，助推代工业务
-  # 3  北约军事总部加拿大实习生在比利时被控间谍罪被捕
-  # 4  罗马尼亚称击落第二架侵犯领空的无人机
-  # 5  希腊运营的防空系统在沙特上空击落导弹
-  # 6  中国南方严阵以待台风“诺尔”，暂停公共交通
-  # 7  野火逼近波尔多，数千人撤离
-  # 8  莫迪政府教育部长辞职，印度青年抗议者欢呼胜利
-  # 9  古特雷斯会晤叙利亚沙拉，联合国秘书长17年来首访大马士革
-  #10  科威特石油公司签署160亿美元石油管网售后回租协议
+  # 1  Italy defence minister offers ousted Ukraine counterpart Fedorov adviser role
+  # 2  Samsung Elec wins $200 billion Broadcom AI chip partnership, boosting foundry push
+  # 3  Canadian intern at NATO military HQ arrested in Belgium on spying charge
+  # 4  Romania says it shot down second drone breaching its airspace
+  # 5  Greek-operated air defence system shoots down missiles over Saudi
+  # 6  Southern China braces for Typhoon Noul, suspends public transport
+  # 7  Thousands evacuated as wildfires approach the city of Bordeaux
+  # 8  Modi's education minister quits as jubilant Indian youth protesters claim victory
+  # 9  Guterres meets Syria's Sharaa on first visit to Damascus by UN chief in 17 years
+  #10  Kuwait's KPC signs $16 billion lease and leaseback deal for oil pipeline network
 
 【美联社 Top10】
-  # 1  美国新关税涉强迫劳动指控，贸易伙伴不满愤怒
-  # 2  超20万人逃离法西野火，部分乘船逃生
-  # 3  特朗普对数十国征两位数关税，10%关税周五到期
-  # 4  美军再袭伊朗，航道冲突升级
-  # 5  UNESCO adds West Bank site and Lebanese castles to World Heritage List despite Israeli objections
-  # 6  Texts reveal teen who singer D4vd is accused of killing was pregnant, had abortion year before death
-  # 7  OpenAI says its AI technology acted on its own in an 'unprecedented' hack of another company
-  # 8  Prime Minister Carney says Canada is ready to respond if Trump’s new tariffs go into effect
-  # 9  OpenAI blamed a hacking event on its AI models going rogue. Here are some things to know
-  #10  Independent autopsy of Nolan Wells finds ‘undetermined’ cause of death
+  # 1  美国以外国强迫劳动为由加征新关税，令贸易伙伴失望愤怒
+  # 2  法西山火肆虐致超20万人撤离，部分乘船逃生
+  # 3  特朗普对数十国加征两位数关税，其10%关税周五到期
+  # 4  美军再袭伊朗，航运路线冲突升级
+  # 5  教科文组织不顾以色列反对将西岸遗址及黎巴嫩城堡列入世遗
+  # 6  短信显示被歌手D4vd杀害的少女曾怀孕，死前一年堕胎
+  # 7  加总理卡尼称若特朗普新关税生效，加拿大准备反制
+  # 8  OpenAI称其AI技术自主行动入侵另一公司，事件前所未有
+  # 9  OpenAI将黑客事件归咎于AI模型失控，要点须知
+  #10  独立尸检认定诺兰·韦尔斯死因“未确定”
 
 【BBC Top10】
-  # 1  逃离火海：游客讲述法国山火逃生经历
-  # 2  特朗普下令史密森尼学会对“不准确”的美国历史张贴警告
-  # 3  镜头直击：特朗普再赴记者晚宴的后台画面
-  # 4  特朗普在白宫记者协会晚宴上抨击媒体
-  # 5  歌手D4vd被控杀害少女，短信显示其曾多次堕胎
-  # 6  “或许他就是种族主义者”——特朗普批评詹姆斯
-  # 7  沙特与胡塞武装交火，美军在霍尔木兹海峡向油轮开火
-  # 8  轿车与卡车相撞，一女子身亡儿童受伤
-  # 9  BBC音频 | BBC新闻 | 2026年7月25日 11:01 GMT
-  #10  直击：SpaceX星舰试飞成功并溅落
+  # 1  Fleeing a wall of flames: Tourists describe France wildfires escape
+  # 2  Trump orders Smithsonian to post warnings about 'inaccurate' US history
+  # 3  Watch: Inside the room as Trump reattempts press dinner
+  # 4  Trump takes swipes at press during White House Correspondents' Dinner
+  # 5  Teen who singer D4vd is accused of killing had multiple abortions, texts reveal
+  # 6  Saudi Arabia and Houthis trade fire as US fires on tanker in Hormuz Strait
+  # 7  'Maybe he's a racist' - Trump critical of James
+  # 8  BBC Audio | BBC News | 25/07/2026 11:01 GMT
+  # 9  Woman dies and child injured in collision between car and truck
+  #10  Watch: SpaceX's successful test flight and splashdown for Starship
 
 【CNN Top10】
-  # 1  被俄罗斯宣传“洗脑”后，劳拉·卢默称全力支持乌克兰
-  # 2  缅因州民主党将在不寻常的党大会上选出参议员提名人
-  # 3  印度教育部长因试卷泄密引发青年“蟑螂”抗议后辞职
-  # 4  特朗普在白宫记者晚宴上炸场——恰恰印证了其观点
-  # 5  特朗普开玩笑称2028年再选
-  # 6  密歇根州住宅火灾后发现8人死亡，部分受枪伤
-  # 7  有角、毛茸茸，还伦理可疑？牦牛克隆体
-  # 8  特朗普从讲笑话转向就伊朗战争表态
-  # 9  歌手d4vd预审听证为少女遇害案调查带来新线索，要点梳理
-  #10  华尔街日报记者因报道特朗普与爱泼斯坦关系获奖
+  # 1  After being ‘bamboozled by Russian propaganda,’ Laura Loomer says she’s all in for Ukraine
+  # 2  Maine Democrats are poised to pick their Senate nominee at an unusual party convention
+  # 3  India’s education minister resigns after days of ‘Cockroach’ youth protests over exam paper leaks
+  # 4  Trump bombed at the White House Correspondents’ Dinner — and proved its point
+  # 5  Trump jokes about a 2028 run
+  # 6  8 found dead in Michigan home after fire, some with gunshot wounds
+  # 7  What’s horned, fluffy, and ethically dubious? Yak clones
+  # 8  Trump jumps from jokes to weighing in on the war in Iran
+  # 9  The world’s longest flight is put to the test
+  #10  Singer d4vd’s preliminary hearing sheds new light on the investigation into teen girl’s killing. Here are the takeaways
 
 【华尔街日报 Top10】
   # 1  印刷版 | 华尔街日报
-  # 2  廉价、精准且致命：伊朗最佳导弹日趋危险
-  # 3  特朗普总统记者晚宴演讲的五大关键时刻
-  # 4  独家 | 雪佛龙试图使其哈萨克资产免于卷入俄乌战争
-  # 5  泰勒农场致电白宫试图推迟环孢子虫召回
-  # 6  特朗普在记者晚宴重演中向媒体既挖苦又致谢
-  # 7  独家 | 马斯克旗下Boring Company新一轮融资目标估值200亿美元
-  # 8  SpaceX再度发射星舰，这次市场紧盯
-  # 9  与父母断绝关系是糟糕的建议吗？
-  #10  独家 | 美国将在螺旋虫禁令后恢复从墨西哥进口牛
+  # 2  廉价、精准、致命：伊朗最先进导弹愈发危险
+  # 3  特朗普在记者晚宴演讲的五大重要时刻
+  # 4  独家 | 雪佛龙试图使其哈萨克资产远离俄乌战争
+  # 5  泰勒农场致电白宫试图推迟环孢菌召回
+  # 6  特朗普在记者晚宴重办中调侃并感谢媒体
+  # 7  独家 | 马斯克的无聊公司新一轮融资估值瞄准200亿美元
+  # 8  SpaceX再次发射星舰，这次市场在关注
+  # 9  与父母断绝关系是坏建议吗？
+  #10  独家 | 美国将在螺旋蝇禁令后恢复从墨西哥进口牛
 
 【36氪 Top10】
   # 1  从月之暗面出走，他用AI技术帮人找对象，徐新投资 | 涌现新项目
@@ -163,17 +153,17 @@
 🆕 闫闯退赛 (新上榜, 今日第1)
 🆕 西班牙21次犯规零牌 (新上榜, 今日第2)
 🆕 共赴亚太数字之约 (新上榜, 今日第3)
-🆕 谢霆锋演唱会状态 (新上榜, 今日第4)
+🆕 苏新皓囍神级solo (新上榜, 今日第4)
 🆕 6分06秒结束比赛 (新上榜, 今日第5)
-🆕 苏新皓囍神级solo (新上榜, 今日第6)
-🆕 孙女的微信状态只有爷爷当真了 (新上榜, 今日第7)
-🆕 王楚钦vs向鹏 (新上榜, 今日第8)
-🆕 AG 醒醒 (新上榜, 今日第9)
-🆕 中国女排vs土耳其女排 (新上榜, 今日第10)
-🆕 李权哲高铁占座 (新上榜, 今日第11)
-🆕 正颌手术做反了女孩说迎接她的是毁灭 (新上榜, 今日第12)
+🆕 谢霆锋演唱会状态 (新上榜, 今日第6)
+🆕 群星闪耀时一部电影搞定全家老小 (新上榜, 今日第7)
+🆕 正颌手术做反了女孩说迎接她的是毁灭 (新上榜, 今日第8)
+🆕 孙女的微信状态只有爷爷当真了 (新上榜, 今日第9)
+🆕 中国女排0比3土耳其女排 (新上榜, 今日第10)
+🆕 AG 醒醒 (新上榜, 今日第11)
+🆕 李权哲高铁占座 (新上榜, 今日第12)
 🆕 黄灿灿370元做的丑美甲 (新上榜, 今日第13)
-🆕 严浩翔看到王一珩淘汰的表情 (新上榜, 今日第14)
-🆕 第二代身份证内部根本没有磁条 (新上榜, 今日第15)
+🆕 第二代身份证内部根本没有磁条 (新上榜, 今日第14)
+🆕 杨幂就剩两部待播剧了 (新上榜, 今日第15)
 
 -- GitHub Actions 自动生成 --
