@@ -152,10 +152,10 @@ def _do_translate(titles, api_key):
             print(f"翻译行数不匹配: 期望{len(titles)}, 实际{len(translated)}（第{attempt+1}次）")
             if attempt == 0:
                 # 重试：强调必须逐行输出
-                payload["messages"].append(
+                payload["messages"].extend([
                     {"role": "assistant", "content": result},
                     {"role": "user", "content": f"你只输出了{len(translated)}行，但需要恰好{len(titles)}行。请重新输出全部{len(titles)}条翻译，每行一条。"}
-                )
+                ])
         except Exception as e:
             print(f"翻译异常: {e}")
             return titles
