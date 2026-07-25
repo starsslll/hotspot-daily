@@ -108,41 +108,60 @@ def _translate_titles(english_titles, api_key):
         return english_titles
 
     print(f"翻译中: {len(need_trans)}/{len(english_titles)} 条待译")
-    joined = "\n".join(need_trans)
-    prompt = f"将以下英文新闻标题翻译成简洁中文，保持原意，每行一条，不加编号：\n{joined}"
+    translated = _do_translate(need_trans, api_key)
+
+    # 用翻译结果替换原文
+    final = []
+    ti = 0
+    for t in english_titles:
+        if any(c.isascii() and c.isalpha() for c in t) and ti < len(translated):
+            final.append(translated[ti])
+            ti += 1
+        else:
+            final.append(t)
+    return final
+
+
+def _do_translate(titles, api_key):
+    """调用 DeepSeek 翻译，校验行数，不匹配则重试一次"""
+    joined = "\n".join(titles)
+    prompt = f"将以下{len(titles)}条英文新闻标题翻译成简洁中文，保持原意，必须恰好输出{len(titles)}行，每行一条，不加编号：\n{joined}"
     url = "https://api.deepseek.com/v1/chat/completions"
     headers = {"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"}
     payload = {
         "model": "deepseek-v4-pro",
         "messages": [
-            {"role": "system", "content": "你是专业翻译。只输出翻译结果，每行一条，不要编号和解释。"},
+            {"role": "system", "content": f"你是专业翻译。必须恰好输出{len(titles)}行翻译，每行一条。不要编号、不要解释、不要空行。"},
             {"role": "user", "content": prompt}
         ],
-        "temperature": 0.1,
-        "max_tokens": 1200
+        "temperature": 0.0,
+        "max_tokens": 2000
     }
-    try:
-        resp = requests.post(url, json=payload, headers=headers, timeout=25)
-        body = resp.json()
-        if "choices" not in body:
-            print(f"英文翻译失败: DeepSeek返回异常 — {json.dumps(body, ensure_ascii=False)[:300]}")
-            return english_titles
-        result = body["choices"][0]["message"]["content"].strip()
-        translated = [line.strip() for line in result.split("\n") if line.strip()]
-        print(f"翻译完成: {len(translated)} 条结果（期望 {len(need_trans)} 条）")
-        # 用翻译结果替换原文
-        final = []
-        ti = 0
-        for t in english_titles:
-            if any(c.isascii() and c.isalpha() for c in t) and ti < len(translated):
-                final.append(translated[ti])
-                ti += 1
-            else:
-                final.append(t)
-        return final
-    except Exception as e:
-        print(f"英文翻译失败: {e}")
-        return english_titles
+    for attempt in range(2):
+        try:
+            resp = requests.post(url, json=payload, headers=headers, timeout=25)
+            body = resp.json()
+            if "choices" not in body:
+                print(f"翻译失败: DeepSeek返回异常 — {json.dumps(body, ensure_ascii=False)[:200]}")
+                return titles
+            result = body["choices"][0]["message"]["content"].strip()
+            translated = [line.strip() for line in result.split("\n") if line.strip()]
+            if len(translated) == len(titles):
+                print(f"翻译完成: {len(translated)} 条")
+                return translated
+            print(f"翻译行数不匹配: 期望{len(titles)}, 实际{len(translated)}（第{attempt+1}次）")
+            if attempt == 0:
+                # 重试：强调必须逐行输出
+                payload["messages"].append(
+                    {"role": "assistant", "content": result},
+                    {"role": "user", "content": f"你只输出了{len(translated)}行，但需要恰好{len(titles)}行。请重新输出全部{len(titles)}条翻译，每行一条。"}
+                )
+        except Exception as e:
+            print(f"翻译异常: {e}")
+            return titles
+    # 两次都不匹配，返回已有的
+    print(f"翻译降级: 返回{len(translated)}条（期望{len(titles)}条）")
+    return translated if len(translated) >= len(titles) else translated + titles[len(translated):]
 
 
 def fetch_bbc(api_key=None):
