@@ -8,36 +8,36 @@
 
 -- 关键词追踪 --
 📊 【自动检测热度骤升关键词】
-  🆕 王小洪会见（今日首次高频出现，2次）
-  🆕 局长帕特尔（今日首次高频出现，2次）
-  🆕 华尔街日报（今日首次高频出现，2次）
+  🆕 土耳其女排（今日首次高频出现，2次）
+  🔥 中国女排（4次 | 昨2次，热度飙升）
   🆕 中国男篮（今日首次高频出现，2次）
   🆕 注册资本（今日首次高频出现，2次）
   🔥 氪星晚报（2次 | 昨1次，热度飙升）
-  🔥 中国女排（2次 | 昨2次，热度飙升）
+  🆕 演唱会（今日首次高频出现，4次）
+  🆕 谢霆锋（今日首次高频出现，2次）
   🆕 王楚钦（今日首次高频出现，2次）
-🆕 王小洪会见：今日新上榜 百度热搜#2、抖音/头条#1
-🆕 局长帕特尔：今日新上榜 百度热搜#2、抖音/头条#1
-🆕 华尔街日报：今日新上榜 华尔街日报#1
-🆕 中国男篮：今日新上榜 抖音/头条#4
+🆕 土耳其女排：今日新上榜 微博#9、抖音/头条#17
+📌 中国女排：今日 微博#9、抖音/头条#17，昨日 抖音/头条#40
+🆕 中国男篮：今日新上榜 抖音/头条#6
 🆕 注册资本：今日新上榜 36氪#10
 📌 氪星晚报：今日 36氪#4、36氪#10，昨日 36氪#4
-📌 中国女排：今日 微博#7，昨日 抖音/头条#40
-🆕 王楚钦：今日新上榜 微博#8、百度热搜#10、抖音/头条#18
+🆕 演唱会：今日新上榜 微博#7、抖音/头条#12、抖音/头条#16、抖音/头条#46
+🆕 谢霆锋：今日新上榜 微博#7、抖音/头条#12
+🆕 王楚钦：今日新上榜 微博#11、百度热搜#8、抖音/头条#18
 
 -- 关键词扩展（AI去重总结）--
-  王小洪会见美国联邦调查局局长帕特尔 - chinanews.com.cn
-  王小洪会见FBI局长帕特尔 计划秋季访俄 - 中华网
-  中国公安部长王小洪会见美FBI局长帕特尔 盼深化禁毒合作 - 世界新闻网
-  王小洪会见美国联邦调查局局长_视频_东京_新闻 - 华人头条
-  现场画面：王小洪会见美国联邦调查局局长 - QQ News
-  王小洪会见FBI局长帕特尔 同意深化务实合作 - on.cc东网
-  中美关系︱公安部长王小洪会见FBI局长帕特尔 - singtao.ca
-  中美关系︱公安部长王小洪会见FBI局长帕特尔 - 星岛头条
-  #王小洪会见美国联邦调查局局长# - Sohu
-  中国公安部长王小洪会见FBI局长帕特尔 - 星洲日报
-  美中互遣罪犯 部分领域加强执法合作 - DW.com
-  王小洪会见美国联邦调查局局长帕特尔 同意在执法领域继续合作 - 香港電台
+  世联赛总决赛｜25日战土耳其，“黑八”后中国女排可否延续神奇 - 手机网易网
+  瓦尔加斯力挽狂澜！土耳其女排让一追三击退加拿大，闯入半决赛 - 手机网易网
+  中国女排赢美国赢得荡气回肠，战土耳其能否保持拦防与关键分意志 - 手机网易网
+  中国女排离重返亚洲第一差1胜！半决赛再战土耳其，做好2点可复仇 - 手机网易网
+  世联赛总决赛土耳其3-1胜加拿大，前三场1/4决赛无冷门，中国女排能逆袭吗？ - 手机网易网
+  一场3-1！土耳其女排逆转加拿大，球迷认清3个事实，总决赛没冷门 - 手机网易网
+  世联赛四强定3席：土耳其3-1逆转加拿大，半决赛或对阵中国女排 - 手机网易网
+  中国女排半决赛硬刚土耳其！2026世界女排联赛总决赛赛程出炉 - 新浪网
+  今晚中国女排对阵土耳其！CCTV5全程直播，大胆预测中国女排取胜 - 手机新浪网
+  冲击决赛！今日19点30分中国女排战土耳其 上次交手2-3惜败 - Sohu
+  唐欣现在还没办法换。。。前排换过了。目前12扣1中3失1被拦拿到1分，11个一传2失，到位率45%完美率27%。#中国女排vs土耳其女排##2026年世界女排联赛 - 新浪网
+  中国女排力克美国！姑娘们激动相拥泪洒赛场 - 手机网易网
 
 -- 平台快照 --
 
@@ -45,48 +45,48 @@
   # 1  闫闯退赛
   # 2  西班牙21次犯规零牌
   # 3  共赴亚太数字之约
-  # 4  孙女的微信状态只有爷爷当真了
-  # 5  严浩翔看到王一珩淘汰的表情
-  # 6  AG锁第三轮S组
-  # 7  中国女排vs土耳其女排
-  # 8  王楚钦vs向鹏
-  # 9  苏新皓送给朱志鑫戒指
-  #10  iG战胜WBG
+  # 4  遇事不慌比个YEYE
+  # 5  苏新皓囍神级solo
+  # 6  AG对战LGDNBW
+  # 7  谢霆锋演唱会状态
+  # 8  孙女的微信状态只有爷爷当真了
+  # 9  中国女排vs土耳其女排
+  #10  AG 醒醒
 
 【百度 Top10】
   # 1  以实干实效回应群众期盼
   # 2  王小洪会见FBI局长帕特尔
-  # 3  台风红霞出现眼壁
+  # 3  上百斤重水泥柱被巨浪拍断冲上岸
   # 4  防溺水 这样做
   # 5  阿凡提扮演者吐依贡去世 享年80岁
-  # 6  女装退货率达80% 责任不在消费者
+  # 6  携程发布十九项整改措施
   # 7  重庆警方打掉境内外电诈团伙198个
-  # 8  广东汕尾现惊涛骇浪 记者睁不开眼
+  # 8  王楚钦梁靖崑1-2不敌向鹏温瑞博
   # 9  博三女生没结婚问亲戚：谁笑话我妈了
-  #10  王楚钦梁靖崑1-2不敌向鹏温瑞博
+  #10  粉色蓝莓1斤640元 和普通蓝莓差20倍
 
 【抖音 Top10】
-  # 1  王小洪会见FBI局长帕特尔
-  # 2  台风红霞最新路径
+  # 1  台风红霞最新路径
+  # 2  携程被罚51.79亿元
   # 3  景德镇手工瓷业遗存申遗成功
-  # 4  中国男篮vs格鲁吉亚男篮
-  # 5  淄博博山菜真的香迷糊了
-  # 6  重庆警方今年打掉境内外电诈团伙198个
-  # 7  携程被罚51.79亿元
+  # 4  淄博博山菜真的香迷糊了
+  # 5  苏超扬州vs徐州
+  # 6  中国男篮vs格鲁吉亚男篮
+  # 7  台风红霞将正面袭击深汕
   # 8  保罗乔治vs白晶百分大战
   # 9  当我打算走去赛里木湖
-  #10  苏超扬州vs徐州
+  #10  苏超常州vs泰州
 
 【路透社 Top10】
   # 1  Italy defence minister offers ousted Ukraine counterpart Fedorov adviser role
   # 2  Romania says it shot down second drone breaching its airspace
   # 3  Canadian intern at NATO military HQ arrested in Belgium on spying charge
   # 4  Greek-operated air defence system shoots down missiles over Saudi
-  # 5  Samsung Elec wins $200 billion Broadcom AI chip partnership, boosting foundry push
-  # 6  Southern China braces for Typhoon Noul, suspends public transport
-  # 7  Modi's education minister quits as jubilant Indian youth protesters claim victory
-  # 8  Guterres meets Syria's Sharaa on first visit to Damascus by UN chief in 17 years
-  # 9  Suburbs around Bordeaux evacuated as wildfires rage
+  # 5  Southern China braces for Typhoon Noul, suspends public transport
+  # 6  Thousands evacuated as wildfires approach the city of Bordeaux
+  # 7  Samsung Elec wins $200 billion Broadcom AI chip partnership, boosting foundry push
+  # 8  Modi's education minister quits as jubilant Indian youth protesters claim victory
+  # 9  Guterres meets Syria's Sharaa on first visit to Damascus by UN chief in 17 years
   #10  Kuwait's KPC signs $16 billion lease and leaseback deal for oil pipeline network
 
 【美联社 Top10】
@@ -94,48 +94,48 @@
   # 2  More than 200,000 people flee raging wildfires in France and Spain, some escaping by boat
   # 3  Trump imposes double-digit tariffs on dozens of countries as his 10% levies are set to expire Friday
   # 4  US military launches new strikes on Iran as clashes escalate over shipping routes
-  # 5  Texts reveal teen who singer D4vd is accused of killing was pregnant, had abortion year before death
-  # 6  OpenAI says its AI technology acted on its own in an 'unprecedented' hack of another company
-  # 7  Prime Minister Carney says Canada is ready to respond if Trump’s new tariffs go into effect
-  # 8  OpenAI blamed a hacking event on its AI models going rogue. Here are some things to know
-  # 9  Independent autopsy of Nolan Wells finds ‘undetermined’ cause of death
-  #10  Cyclospora outbreak: Taco Bell cases linked to 4 more states
+  # 5  UNESCO adds West Bank site and Lebanese castles to World Heritage List despite Israeli objections
+  # 6  Texts reveal teen who singer D4vd is accused of killing was pregnant, had abortion year before death
+  # 7  OpenAI says its AI technology acted on its own in an 'unprecedented' hack of another company
+  # 8  Prime Minister Carney says Canada is ready to respond if Trump’s new tariffs go into effect
+  # 9  OpenAI blamed a hacking event on its AI models going rogue. Here are some things to know
+  #10  Independent autopsy of Nolan Wells finds ‘undetermined’ cause of death
 
 【BBC Top10】
-  # 1  特朗普下令史密森尼学会为“不准确”的美国历史加注警告
-  # 2  观看：特朗普再度出席记者晚宴的幕后景象
-  # 3  特朗普在白宫记者晚宴上抨击媒体
-  # 4  “也许他是种族主义者”——特朗普批评詹姆斯
-  # 5  沙特与胡塞武装交火，美军在霍尔木兹海峡向油轮开火
-  # 6  短信揭露：歌手D4vd被控杀害的少女曾多次堕胎
-  # 7  卡文郡两车相撞致一名女性死亡，一名儿童情况危急
-  # 8  观看：SpaceX星舰成功试飞并溅落
-  # 9  环孢子虫疫情蔓延至美国九个州，卫生官员称
-  #10  前NFL明星托尼·罗莫因酒后驾驶被捕
+  # 1  Fleeing a wall of flames: Tourists describe France wildfires escape
+  # 2  Trump orders Smithsonian to post warnings about 'inaccurate' US history
+  # 3  Watch: Inside the room as Trump reattempts press dinner
+  # 4  Trump takes swipes at press during White House Correspondents' Dinner
+  # 5  Teen who singer D4vd is accused of killing had multiple abortions, texts reveal
+  # 6  'Maybe he's a racist' - Trump critical of James
+  # 7  Saudi Arabia and Houthis trade fire as US fires on tanker in Hormuz Strait
+  # 8  Woman dies and child injured in collision between car and truck
+  # 9  Watch: SpaceX's successful test flight and splashdown for Starship
+  #10  Cyclospora outbreak expands to nine US states, health officials say
 
 【CNN Top10】
-  # 1  劳拉·卢默自称受俄宣传蒙蔽后，转而全力支持乌克兰
-  # 2  缅因州民主党人将在特别党大会上选出参议员提名人
-  # 3  印度教育部长因考试泄题引发“蟑螂”青年抗议多日后辞职
-  # 4  特朗普在白宫记者晚宴遭炮轰，反而证实了晚宴的意义
-  # 5  特朗普开玩笑称可能2028年再选
-  # 6  密歇根州住宅火灾后发现八名死者，部分有枪伤
-  # 7  有角、毛绒、道德存疑的是什么？克隆
+  # 1  受俄宣传迷惑后，劳拉·卢默表态全力挺乌
+  # 2  缅因州民主党人将在特殊党代会上敲定参议员提名人
+  # 3  考卷泄题引发“蟑螂”青年抗议数日后，印度教育部长辞职
+  # 4  特朗普在白宫记者晚宴上现场被讽——反证其观点
+  # 5  特朗普戏言2028年再选
+  # 6  密歇根住宅火灾后发现8人死亡，部分人带有枪伤
+  # 7  有角、毛茸茸、伦理有疑——牦牛克隆体
   # 8  Trump jumps from jokes to weighing in on the war in Iran
   # 9  Singer d4vd’s preliminary hearing sheds new light on the investigation into teen girl’s killing. Here are the takeaways
   #10  Trump orders signs be installed outside Smithsonian museum warning of ‘inaccurate information’
 
 【华尔街日报 Top10】
-  # 1  印刷版 | 华尔街日报
-  # 2  廉价精准致命：伊朗最佳导弹越发危险
-  # 3  记者晚宴特朗普演讲五大时刻
+  # 1  Print Edition | Wall Street Journal
+  # 2  Cheap, Accurate and Lethal: Iran’s Best Missile Is Getting More Dangerous
+  # 3  Five Major Moments From President Trump’s Speech at the Correspondents’ Dinner
   # 4  Taylor Farms Called White House to Try to Delay Cyclospora Recall
   # 5  Trump Offers Digs—and Appreciation—to Press at Correspondents’ Dinner Do-Over
-  # 6  Exclusive | Chevron Is Trying to Keep Its Kazakh Assets Out of the Russia-Ukraine War
-  # 7  SpaceX Launches Another Starship, and This Time the Market Is Watching
-  # 8  Exclusive | Elon Musk’s Boring Company Eyes $20 Billion Valuation in New Funding Round
+  # 6  Exclusive | Elon Musk’s Boring Company Eyes $20 Billion Valuation in New Funding Round
+  # 7  Exclusive | Chevron Is Trying to Keep Its Kazakh Assets Out of the Russia-Ukraine War
+  # 8  SpaceX Launches Another Starship, and This Time the Market Is Watching
   # 9  Exclusive | U.S. to Resume Cattle Imports From Mexico After Screwworm Ban
-  #10  Former Star Supreme Court Lawyer Gets Six-Year Sentence in Tax Case
+  #10  America and Iran Are Locked in a Cycle of Escalation
 
 【36氪 Top10】
   # 1  从月之暗面出走，他用AI技术帮人找对象，徐新投资 | 涌现新项目
@@ -153,17 +153,17 @@
 🆕 闫闯退赛 (新上榜, 今日第1)
 🆕 西班牙21次犯规零牌 (新上榜, 今日第2)
 🆕 共赴亚太数字之约 (新上榜, 今日第3)
-🆕 孙女的微信状态只有爷爷当真了 (新上榜, 今日第4)
-🆕 严浩翔看到王一珩淘汰的表情 (新上榜, 今日第5)
-🆕 AG锁第三轮S组 (新上榜, 今日第6)
-🆕 中国女排vs土耳其女排 (新上榜, 今日第7)
-🆕 王楚钦vs向鹏 (新上榜, 今日第8)
-🆕 苏新皓送给朱志鑫戒指 (新上榜, 今日第9)
-🆕 iG战胜WBG (新上榜, 今日第10)
-🆕 LV起诉厦门一楼盘四叶雕花侵权 (新上榜, 今日第11)
+🆕 遇事不慌比个YEYE (新上榜, 今日第4)
+🆕 苏新皓囍神级solo (新上榜, 今日第5)
+🆕 AG对战LGDNBW (新上榜, 今日第6)
+🆕 谢霆锋演唱会状态 (新上榜, 今日第7)
+🆕 孙女的微信状态只有爷爷当真了 (新上榜, 今日第8)
+🆕 中国女排vs土耳其女排 (新上榜, 今日第9)
+🆕 AG 醒醒 (新上榜, 今日第10)
+🆕 王楚钦vs向鹏 (新上榜, 今日第11)
 🆕 李权哲高铁占座 (新上榜, 今日第12)
-🆕 黄灿灿370元做的丑美甲 (新上榜, 今日第13)
+🆕 严浩翔看到王一珩淘汰的表情 (新上榜, 今日第13)
 🆕 正颌手术做反了女孩说迎接她的是毁灭 (新上榜, 今日第14)
-🆕 苏新皓囍神级solo (新上榜, 今日第15)
+🆕 黄灿灿370元做的丑美甲 (新上榜, 今日第15)
 
 -- GitHub Actions 自动生成 --
