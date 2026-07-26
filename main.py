@@ -248,11 +248,10 @@ def _summarize_extra_news(titles, api_key):
         return titles
 
     joined = "\n".join(titles[:40])
-    prompt = f"""以下是关键词搜索返回的相关新闻标题，很多是同一事件的重复报道。请：
-1. 去除重复——同一事件的多条报道合并为1条
-2. 每条用一句话概括核心事实
-3. 按重要性排序
-4. 输出格式：每行一条，以 · 开头，不超过12条
+    prompt = f"""以下是关键词搜索返回的新闻标题，同一事件会被多家媒体重复报道。请严格去重合并：
+1. 识别同一事件的标题，合并为1条一句话要点
+2. 每条以 · 开头，不超过10条
+3. 按重要性排序，不重要的可省略
 
 标题列表：
 {joined}"""
@@ -262,7 +261,7 @@ def _summarize_extra_news(titles, api_key):
     payload = {
         "model": "deepseek-v4-pro",
         "messages": [
-            {"role": "system", "content": "你是信息整理专家。只输出去重总结结果，每行一条要点，以 · 开头。"},
+            {"role": "system", "content": "你是信息整理专家。将重复报道合并为一句话要点。每行以 · 开头。"},
             {"role": "user", "content": prompt}
         ],
         "temperature": 0.2,
@@ -275,8 +274,18 @@ def _summarize_extra_news(titles, api_key):
             print(f"扩展新闻总结失败: DeepSeek返回异常 — {json.dumps(body, ensure_ascii=False)[:300]}")
             return titles[:15]
         result = body["choices"][0]["message"]["content"].strip()
-        lines = [l.strip() for l in result.split("\n") if l.strip().startswith("·")]
-        return lines if lines else titles[:12]
+        # 优先取以 · 开头的行，若没有则取全部有效行
+        dot_lines = [l.strip() for l in result.split("\n") if l.strip().startswith("·")]
+        if dot_lines:
+            print(f"扩展新闻去重: {len(titles)} → {len(dot_lines)} 条要点")
+            return dot_lines
+        # 降级：取所有非空行
+        fallback = [l.strip() for l in result.split("\n") if l.strip()]
+        if fallback:
+            print(f"扩展新闻去重(无·前缀): {len(titles)} → {len(fallback)} 条")
+            return fallback[:12]
+        print(f"扩展新闻去重失败: API返回空内容，降级使用原始标题")
+        return titles[:12]
     except Exception as e:
         print(f"扩展新闻总结失败: {e}")
         return titles[:15]
