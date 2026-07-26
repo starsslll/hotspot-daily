@@ -488,7 +488,7 @@ def _build_resonance_context(resonance):
 
     if resonance["dormant_resurrections"]:
         lines.append("[沉寂议题复活] >7天前消失、今日重现——属于强烈信号：")
-        for d in resonance["dormant_resurrections"]:
+        for d in resonance["dormant_resurrections"][:5]:
             lines.append(
                 f"  {d['level']} | \"{d['current']}\" <- {d['date']} \"{d['history']}\" "
                 f"(相似度{d['similarity']}, 沉寂{d['days_gap']}天)"
@@ -496,13 +496,13 @@ def _build_resonance_context(resonance):
 
     if resonance["l3_structural"]:
         lines.append("[L3结构共振] 不同事件但底层议题基因相同——请强制归入隐线分析：")
-        for d in resonance["l3_structural"]:
+        for d in resonance["l3_structural"][:5]:
             tag = " [沉寂复活]" if d["dormant"] else ""
             lines.append(f"  \"{d['current']}\" <> {d['date']} \"{d['history']}\" ({d['similarity']}){tag}")
 
     if resonance["l2_incremental"]:
         lines.append("[L2增量重复] 同话题但新事实/数据/角色，需更新生命周期阶段：")
-        for d in resonance["l2_incremental"]:
+        for d in resonance["l2_incremental"][:5]:
             tag = " [沉寂复活]" if d["dormant"] else ""
             lines.append(f"  \"{d['current']}\" ~ {d['date']} \"{d['history']}\" ({d['similarity']}){tag}")
 
@@ -537,45 +537,40 @@ def call_deepseek(platforms, change_text, resonance, user_field, api_key, extra_
     # 整理今日榜单全貌
     flat_text = ""
     for name, items in platforms.items():
-        flat_text += f"\n[{name} Top5]\n"
-        for i in items[:5]:
+        flat_text += f"\n[{name} Top3]\n"
+        for i in items[:3]:
             flat_text += f"#{i['rank']} {i['title']}\n"
 
     # 关键词扩展阅读上下文
     extra_context = ""
     if extra_news_titles:
-        extra_context = "\n[关键词扩展阅读（AI去重总结）]\n" + "\n".join(f"  {t}" for t in extra_news_titles[:20])
+        extra_context = "\n[关键词扩展阅读（AI去重总结）]\n" + "\n".join(f"  {t}" for t in extra_news_titles[:10])
 
     # 历史共振上下文
     resonance_context = _build_resonance_context(resonance)
 
-    prompt = f"""你是冷静深刻只说干货的战略分析师。基于以下数据输出4段分析，每段以【标签】起始，总字数控制在1000字以内，适合手机阅读。
+    prompt = f"""基于以下数据输出4段分析，每段以【标签】起始，每段<=200字。
 
 [今日热榜]
 {flat_text}
 [排名变化]
 {change_text}
 {extra_context}
-
-[历史共振档案]
+[历史共振]
 {resonance_context}
 
 ---
-请按顺序输出4段（每段必答，每段<=250字）：
-
 【生命周期坐标】
-对比今日Top3与历史轨迹，各自处于哪个阶段：爆发期/发酵期/反转期/消退期。若历史共振中有匹配，标注当前是对历史轨迹的\"延续\"\"加速\"还是\"转折\"。若有L3结构共振，说明其与历史事件的共同议题基因是什么。
+Top3各处于爆发期/发酵期/反转期/消退期？历史共振中标注延续/加速/转折。L3结构共振的共同议题基因？
 
 【情绪温差校准】
-比较各平台标题措辞烈度差异，给出温差评级：温和/剧烈/极端。若评级为剧烈以上，判断是否属于\"情绪资产型\"事件（事实影响小但舆论影响大），给出应对原则（如：紧盯行为转化，忽略口水战）。
+各平台措辞烈度评级：温和/剧烈/极端。剧烈以上判断是否\"情绪资产型\"（影响小舆论大），给出应对原则。
 
 【关联熵减归因】
-总结今日热点共同指向的隐线，用4-6字命名（如\"AI焦虑外溢\"\"消费降级信号\"）。若历史共振中有L3结构共振或沉寂复活议题，务必将其串入隐线分析。
+今日热点共同隐线，4-6字命名。L3结构共振或沉寂复活务必串入。
 
 【决策倒推沙盘】
-结合关注领域（{user_field}），基于今日信号+历史共振，给出1件可执行小事。必须具体可落地，100字以内。重复出现本身就是重要性信号。
-
-输出格式：每段以【标签】起始，段间无空行。总字数不超过1000字。"""
+关注领域（{user_field}）的可执行小建议，100字内。重复出现=重要性信号。"""
 
     url = "https://api.deepseek.com/v1/chat/completions"
     headers = {"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"}
@@ -586,7 +581,7 @@ def call_deepseek(platforms, change_text, resonance, user_field, api_key, extra_
             {"role": "user", "content": prompt}
         ],
         "temperature": 0.4,
-        "max_tokens": 900
+        "max_tokens": 1500
     }
     try:
         resp = requests.post(url, json=payload, headers=headers, timeout=(10, 90))
