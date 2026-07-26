@@ -263,7 +263,7 @@ def _summarize_extra_news(titles, api_key):
         is_dup = False
         for existing in unique:
             ratio = difflib.SequenceMatcher(None, t, existing).ratio()
-            if ratio > 0.55:  # 相似度 >55% 视为同事件
+            if ratio > 0.45:  # 相似度 >45% 视为同事件
                 is_dup = True
                 break
         if not is_dup:
@@ -561,40 +561,26 @@ def call_deepseek(platforms, change_text, resonance, user_field, api_key, extra_
     # 整理今日榜单全貌
     flat_text = ""
     for name, items in platforms.items():
-        flat_text += f"\n[{name} Top3]\n"
-        for i in items[:3]:
+        flat_text += f"\n[{name} Top2]\n"
+        for i in items[:2]:
             flat_text += f"#{i['rank']} {i['title']}\n"
-
-    # 关键词扩展阅读上下文
-    extra_context = ""
-    if extra_news_titles:
-        extra_context = "\n[关键词扩展阅读（AI去重总结）]\n" + "\n".join(f"  {t}" for t in extra_news_titles[:10])
 
     # 历史共振上下文
     resonance_context = _build_resonance_context(resonance)
 
-    prompt = f"""基于以下数据输出4段分析，每段以【标签】起始，每段<=200字。
+    prompt = f"""基于以下数据输出4段分析，每段以【标签】起始，每段<=150字。
 
 [今日热榜]
 {flat_text}
 [排名变化]
 {change_text}
-{extra_context}
 [历史共振]
 {resonance_context}
 
----
-【生命周期坐标】
-Top3各处于爆发期/发酵期/反转期/消退期？历史共振中标注延续/加速/转折。L3结构共振的共同议题基因？
-
-【情绪温差校准】
-各平台措辞烈度评级：温和/剧烈/极端。剧烈以上判断是否\"情绪资产型\"（影响小舆论大），给出应对原则。
-
-【关联熵减归因】
-今日热点共同隐线，4-6字命名。L3结构共振或沉寂复活务必串入。
-
-【决策倒推沙盘】
-关注领域（{user_field}）的可执行小建议，100字内。重复出现=重要性信号。"""
+【生命周期坐标】Top2各处于爆发期/发酵期/反转期/消退期？历史共振标注延续/加速/转折。
+【情绪温差】各平台措辞烈度评级：温和/剧烈/极端。剧烈以上判断是否\"情绪资产型\"。
+【隐线归因】今日热点共同隐线，4-6字命名。
+【决策沙盘】关注领域{user_field}的可执行小建议，100字内。"""
 
     url = "https://api.deepseek.com/v1/chat/completions"
     headers = {"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"}
