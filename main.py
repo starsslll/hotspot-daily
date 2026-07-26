@@ -241,27 +241,49 @@ def search_keyword_news(keywords, api_key=None):
 
 # ---------- AI 去重总结 ----------
 def _summarize_extra_news(titles, api_key):
-    """用 DeepSeek 对扩展搜索标题去重，同事件合并为一句话要点"""
-    if not titles or not api_key:
-        return titles[:15]
-    if len(titles) <= 5:
-        return titles
+    """先用本地相似度去重，再用 DeepSeek 总结为要点"""
+    if not titles:
+        return []
 
-    joined = "\n".join(titles[:40])
-    prompt = f"""以下是关键词搜索返回的新闻标题，同一事件会被多家媒体重复报道。请严格去重合并：
-1. 识别同一事件的标题，合并为1条一句话要点
-2. 每条以 · 开头，不超过10条
-3. 按重要性排序，不重要的可省略
+    # 第一步：清洗标题（去来源后缀、去特殊字符）
+    cleaned = []
+    for t in titles:
+        # 去除 " - SourceName" 后缀
+        t = t.strip()
+        # 去除 @ 提及和 hashtag 噪音
+        import re
+        t = re.sub(r'[@｜\|]\S+', '', t)  # 去掉 @xxx |xxx 之类
+        t = re.sub(r'\s+', ' ', t).strip()
+        if t and len(t) > 4:
+            cleaned.append(t)
 
-标题列表：
-{joined}"""
+    # 第二步：本地相似度去重，合并重复报道
+    unique = []
+    for t in cleaned:
+        is_dup = False
+        for existing in unique:
+            ratio = difflib.SequenceMatcher(None, t, existing).ratio()
+            if ratio > 0.55:  # 相似度 >55% 视为同事件
+                is_dup = True
+                break
+        if not is_dup:
+            unique.append(t)
+
+    print(f"扩展新闻本地去重: {len(titles)} → {len(unique)} 条")
+
+    # 第三步：如果还有 API key 且条目够多，用 AI 总结为一句话要点
+    if not api_key or len(unique) <= 3:
+        return unique[:10]
+
+    joined = "\n".join(unique[:20])
+    prompt = f"将以下新闻标题按事件分组，每组用一句话概括核心事实，以 · 开头，最多8条：\n{joined}"
 
     url = "https://api.deepseek.com/v1/chat/completions"
     headers = {"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"}
     payload = {
         "model": "deepseek-v4-pro",
         "messages": [
-            {"role": "system", "content": "你是信息整理专家。将重复报道合并为一句话要点。每行以 · 开头。"},
+            {"role": "system", "content": "你是信息整理专家。将同类新闻合并为一句话要点，每行以 · 开头。"},
             {"role": "user", "content": prompt}
         ],
         "temperature": 0.2,
@@ -271,24 +293,17 @@ def _summarize_extra_news(titles, api_key):
         resp = requests.post(url, json=payload, headers=headers, timeout=(10, 60))
         body = resp.json()
         if "choices" not in body:
-            print(f"扩展新闻总结失败: DeepSeek返回异常 — {json.dumps(body, ensure_ascii=False)[:300]}")
-            return titles[:15]
+            print(f"扩展新闻总结失败: DeepSeek返回异常 — {json.dumps(body, ensure_ascii=False)[:200]}")
+            return unique[:10]
         result = body["choices"][0]["message"]["content"].strip()
-        # 优先取以 · 开头的行，若没有则取全部有效行
-        dot_lines = [l.strip() for l in result.split("\n") if l.strip().startswith("·")]
-        if dot_lines:
-            print(f"扩展新闻去重: {len(titles)} → {len(dot_lines)} 条要点")
-            return dot_lines
-        # 降级：取所有非空行
-        fallback = [l.strip() for l in result.split("\n") if l.strip()]
-        if fallback:
-            print(f"扩展新闻去重(无·前缀): {len(titles)} → {len(fallback)} 条")
-            return fallback[:12]
-        print(f"扩展新闻去重失败: API返回空内容，降级使用原始标题")
-        return titles[:12]
+        lines = [l.strip() for l in result.split("\n") if l.strip()]
+        if lines:
+            print(f"扩展新闻AI总结: {len(unique)} → {len(lines)} 条要点")
+            return lines[:10]
+        return unique[:10]
     except Exception as e:
         print(f"扩展新闻总结失败: {e}")
-        return titles[:15]
+        return unique[:10]
 
 
 def auto_trending_keywords(today_platforms, yesterday_platforms):
