@@ -241,42 +241,27 @@ def search_keyword_news(keywords, api_key=None):
 
 # ---------- AI 去重总结 ----------
 def _summarize_extra_news(titles, api_key):
-    """先用本地相似度去重，再用 DeepSeek 总结为要点"""
+    """将关键词扩展搜索的标题交给 AI 去重总结为要点"""
     if not titles:
         return []
 
-    # 第一步：清洗标题（去来源后缀、去特殊字符）
+    # 清洗标题（去来源后缀、去特殊字符）
     cleaned = []
     for t in titles:
-        # 去除 " - SourceName" 后缀
         t = t.strip()
-        # 去除 @ 提及和 hashtag 噪音
         import re
-        t = re.sub(r'[@｜\|]\S+', '', t)  # 去掉 @xxx |xxx 之类
+        t = re.sub(r'[@｜\|]\S+', '', t)
         t = re.sub(r'\s+', ' ', t).strip()
         if t and len(t) > 4:
             cleaned.append(t)
 
-    # 第二步：本地相似度去重，合并重复报道
-    unique = []
-    for t in cleaned:
-        is_dup = False
-        for existing in unique:
-            ratio = difflib.SequenceMatcher(None, t, existing).ratio()
-            if ratio > 0.45:  # 相似度 >45% 视为同事件
-                is_dup = True
-                break
-        if not is_dup:
-            unique.append(t)
+    # 无 API key 时直接返回清洗后的标题
+    if not api_key or len(cleaned) <= 3:
+        return cleaned[:10]
 
-    print(f"扩展新闻本地去重: {len(titles)} → {len(unique)} 条")
-
-    # 第三步：如果还有 API key 且条目够多，用 AI 总结为一句话要点
-    if not api_key or len(unique) <= 3:
-        return unique[:10]
-
-    joined = "\n".join(unique[:20])
-    prompt = f"将以下新闻标题按事件分组，每组用一句话概括核心事实，以 · 开头，最多8条：\n{joined}"
+    # 交给 AI 去重 + 分组总结
+    joined = "\n".join(cleaned[:30])
+    prompt = f"以下是同一话题的相关新闻标题，请去重后按事件分组，每组用一句话概括核心事实，以 · 开头，最多8条：\n{joined}"
 
     url = "https://api.deepseek.com/v1/chat/completions"
     headers = {"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"}
@@ -294,16 +279,16 @@ def _summarize_extra_news(titles, api_key):
         body = resp.json()
         if "choices" not in body:
             print(f"扩展新闻总结失败: DeepSeek返回异常 — {json.dumps(body, ensure_ascii=False)[:200]}")
-            return unique[:10]
+            return cleaned[:10]
         result = body["choices"][0]["message"]["content"].strip()
         lines = [l.strip() for l in result.split("\n") if l.strip()]
         if lines:
-            print(f"扩展新闻AI总结: {len(unique)} → {len(lines)} 条要点")
+            print(f"扩展新闻AI总结: {len(cleaned)} → {len(lines)} 条要点")
             return lines[:10]
-        return unique[:10]
+        return cleaned[:10]
     except Exception as e:
         print(f"扩展新闻总结失败: {e}")
-        return unique[:10]
+        return cleaned[:10]
 
 
 def auto_trending_keywords(today_platforms, yesterday_platforms):
