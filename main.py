@@ -135,7 +135,8 @@ def _do_translate(titles, api_key):
             {"role": "user", "content": prompt}
         ],
         "temperature": 0.0,
-        "max_tokens": 2000
+        # deepseek-v4-pro 是推理模型，max_tokens 同时覆盖推理+回答，太少会在思考阶段就耗尽导致空内容
+        "max_tokens": 4000
     }
     for attempt in range(2):
         try:
@@ -144,7 +145,12 @@ def _do_translate(titles, api_key):
             if "choices" not in body:
                 print(f"翻译失败: DeepSeek返回异常 — {json.dumps(body, ensure_ascii=False)[:200]}")
                 return titles
-            result = body["choices"][0]["message"]["content"].strip()
+            result = (body["choices"][0]["message"].get("content") or "").strip()
+            if not result:
+                # 空内容：推理 token 耗尽或内容被过滤，直接回退原文，不再重试浪费调用
+                fr = body["choices"][0].get("finish_reason", "unknown")
+                print(f"翻译失败: DeepSeek返回空内容(finish_reason={fr})，回退原文")
+                return titles
             translated = [line.strip() for line in result.split("\n") if line.strip()]
             if len(translated) == len(titles):
                 print(f"翻译完成: {len(translated)} 条")
@@ -220,13 +226,23 @@ def fetch_ap(api_key=None):
 
 # ---------- 关键词扩展搜索 ----------
 def search_keyword_news(keywords, api_key=None):
-    """对检测到的热度关键词，搜索 Google News 获取更多相关标题"""
+    """对检测到的热度关键词，搜索 Google News 获取更多相关标题；
+    自动关键词结果过少（RSS 抓取失败）时用默认词补搜，保证扩展内容稳定出现"""
     all_titles = []
-    for kw in keywords[:5]:
+    search_kws = [kw for kw in keywords[:5] if kw]
+    for kw in search_kws:
         encoded = quote(kw)
         url = f"https://news.google.com/rss/search?q={encoded}&hl=zh-CN&gl=CN&ceid=CN:zh-Hans"
         titles = _fetch_news_rss(url, f"关键词搜索:{kw}")
         all_titles.extend(titles)
+    if len(all_titles) < 3:
+        for kw in DEFAULT_KEYWORDS:
+            if kw in search_kws:
+                continue
+            encoded = quote(kw)
+            url = f"https://news.google.com/rss/search?q={encoded}&hl=zh-CN&gl=CN&ceid=CN:zh-Hans"
+            titles = _fetch_news_rss(url, f"关键词搜索:{kw}")
+            all_titles.extend(titles)
     # 去重保序
     seen = set()
     unique = []
@@ -255,6 +271,14 @@ def _summarize_extra_news(titles, api_key):
         if t and len(t) > 4:
             cleaned.append(t)
 
+    # 模糊去重：相似标题只保留一条，避免"关键词扩展"出现重复内容（AI 失败回退原文时尤其重要）
+    deduped = []
+    for t in cleaned:
+        if any(difflib.SequenceMatcher(None, t, d).ratio() > 0.8 for d in deduped):
+            continue
+        deduped.append(t)
+    cleaned = deduped
+
     # 无 API key 时直接返回清洗后的标题
     if not api_key or len(cleaned) <= 3:
         return cleaned[:10]
@@ -272,7 +296,7 @@ def _summarize_extra_news(titles, api_key):
             {"role": "user", "content": prompt}
         ],
         "temperature": 0.2,
-        "max_tokens": 500
+        "max_tokens": 1000
     }
     try:
         resp = requests.post(url, json=payload, headers=headers, timeout=(10, 60))
@@ -280,7 +304,11 @@ def _summarize_extra_news(titles, api_key):
         if "choices" not in body:
             print(f"扩展新闻总结失败: DeepSeek返回异常 — {json.dumps(body, ensure_ascii=False)[:200]}")
             return cleaned[:10]
-        result = body["choices"][0]["message"]["content"].strip()
+        result = (body["choices"][0]["message"].get("content") or "").strip()
+        if not result:
+            fr = body["choices"][0].get("finish_reason", "unknown")
+            print(f"扩展新闻总结失败: DeepSeek返回空内容(finish_reason={fr})，回退原文")
+            return cleaned[:10]
         lines = [l.strip() for l in result.split("\n") if l.strip()]
         if lines:
             print(f"扩展新闻AI总结: {len(cleaned)} → {len(lines)} 条要点")
@@ -543,22 +571,23 @@ def analyze_changes(today_data, yesterday_data):
 
 # ---------- 核心分析（四大框架 + 历史共振）----------
 def call_deepseek(platforms, change_text, resonance, user_field, api_key, extra_news_titles=None):
-    # 整理今日榜单全貌
-    flat_text = ""
-    for name, items in platforms.items():
-        flat_text += f"\n[{name} Top2]\n"
-        for i in items[:2]:
-            flat_text += f"#{i['rank']} {i['title']}\n"
-
     # 历史共振上下文
     resonance_context = _build_resonance_context(resonance)
 
-    prompt = f"""基于以下数据输出4段分析，每段以【标签】起始，每段<=150字。
+    def _build_prompt(top_n=2, include_changes=True):
+        """按精简程度组装 prompt，空内容重试时缩小输入规模"""
+        flat_text = ""
+        for name, items in platforms.items():
+            flat_text += f"\n[{name} Top{top_n}]\n"
+            for i in items[:top_n]:
+                flat_text += f"#{i['rank']} {i['title']}\n"
+        change = change_text if include_changes else "（省略）"
+        return f"""基于以下数据输出4段分析，每段以【标签】起始，每段<=150字。
 
 [今日热榜]
 {flat_text}
 [排名变化]
-{change_text}
+{change}
 [历史共振]
 {resonance_context}
 
@@ -573,25 +602,34 @@ def call_deepseek(platforms, change_text, resonance, user_field, api_key, extra_
         "model": "deepseek-v4-pro",
         "messages": [
             {"role": "system", "content": "你是冷静、深刻、只说干货的战略分析师。拒绝套话和风险警告。输出简洁，适合手机阅读。"},
-            {"role": "user", "content": prompt}
+            {"role": "user", "content": _build_prompt()}
         ],
         "temperature": 0.4,
-        "max_tokens": 1500
+        # 推理模型：max_tokens 同时覆盖推理+回答，太小会先在思考阶段耗尽，导致 content 为空（finish_reason=length）
+        "max_tokens": 4000
     }
-    try:
-        resp = requests.post(url, json=payload, headers=headers, timeout=(10, 90))
-        body = resp.json()
-        if "choices" not in body:
-            print(f"AI分析失败: DeepSeek返回异常 — {json.dumps(body, ensure_ascii=False)[:300]}")
-            return f"【AI分析失败】DeepSeek返回异常: {json.dumps(body, ensure_ascii=False)[:300]}"
-        result = body["choices"][0]["message"]["content"].strip()
-        if not result:
-            print(f"AI分析失败: 返回空内容，finish_reason={body['choices'][0].get('finish_reason', 'unknown')}")
-            return "【AI分析失败】API返回空内容，可能因输入过长被截断"
-        print(f"AI分析完成: {len(result)} 字符")
-        return result
-    except Exception as e:
-        return f"【AI分析失败】{str(e)}"
+    for attempt in range(2):
+        try:
+            resp = requests.post(url, json=payload, headers=headers, timeout=(10, 120))
+            body = resp.json()
+            if "choices" not in body:
+                print(f"AI分析失败: DeepSeek返回异常 — {json.dumps(body, ensure_ascii=False)[:300]}")
+                return f"【AI分析失败】DeepSeek返回异常: {json.dumps(body, ensure_ascii=False)[:300]}"
+            choice = body["choices"][0]
+            result = (choice["message"].get("content") or "").strip()
+            if result:
+                print(f"AI分析完成: {len(result)} 字符")
+                return result
+            finish_reason = choice.get("finish_reason", "unknown")
+            print(f"AI分析失败: 返回空内容，finish_reason={finish_reason}（第{attempt+1}次）")
+            if attempt == 0:
+                # 输入或输出过长导致截断：重试用精简 prompt（各平台仅Top1、去掉排名变化）
+                payload["messages"][1]["content"] = _build_prompt(top_n=1, include_changes=False)
+                continue
+            return "【AI分析失败】API返回空内容，可能因输入过长或输出被截断"
+        except Exception as e:
+            return f"【AI分析失败】{str(e)}"
+    return "【AI分析失败】重试后仍无有效输出"
 
 def _sanitize_email_body(body):
     """脱敏邮件正文，替换敏感词为 ***"""
