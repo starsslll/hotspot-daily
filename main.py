@@ -96,6 +96,19 @@ def _fetch_news_rss(url, source_label, strip_suffixes=None):
         return []
 
 
+def _empty_content_hint(choice):
+    """诊断 DeepSeek 空内容原因：finish_reason + 是否推理阶段耗尽（reasoning_content 非空）+ 用量"""
+    msg = choice.get("message", {})
+    hint = f"finish_reason={choice.get('finish_reason', 'unknown')}"
+    rc = msg.get("reasoning_content") or ""
+    if rc:
+        hint += f", reasoning_content_len={len(rc)}"
+    usage = choice.get("usage")
+    if usage:
+        hint += f", completion_tokens={usage.get('completion_tokens', '?')}"
+    return hint
+
+
 def _translate_titles(english_titles, api_key):
     """批量翻译英文标题为中文，无 key 或失败时返回原文"""
     if not english_titles or not api_key:
@@ -148,8 +161,7 @@ def _do_translate(titles, api_key):
             result = (body["choices"][0]["message"].get("content") or "").strip()
             if not result:
                 # 空内容：推理 token 耗尽或内容被过滤，直接回退原文，不再重试浪费调用
-                fr = body["choices"][0].get("finish_reason", "unknown")
-                print(f"翻译失败: DeepSeek返回空内容(finish_reason={fr})，回退原文")
+                print(f"翻译失败: DeepSeek返回空内容({_empty_content_hint(body['choices'][0])})，回退原文")
                 return titles
             translated = [line.strip() for line in result.split("\n") if line.strip()]
             if len(translated) == len(titles):
@@ -257,66 +269,75 @@ def search_keyword_news(keywords, api_key=None):
 
 # ---------- AI 去重总结 ----------
 def _summarize_extra_news(titles, api_key):
-    """将关键词扩展搜索的标题交给 AI 去重总结为要点"""
+    """将关键词扩展搜索的标题交给 AI 去重总结为要点；AI 失败时回退为清洗去重后的原文"""
     if not titles:
         return []
 
-    # 清洗标题（去来源后缀、去特殊字符）
-    cleaned = []
-    for t in titles:
+    def _clean(t):
         t = t.strip()
         import re
-        t = re.sub(r'[@｜\|]\S+', '', t)
-        t = re.sub(r'\s+', ' ', t).strip()
+        # 去 "@xxx"、"| xxx" 片段（Google News 标题常带来源标注）
+        t = re.sub(r'[@｜|]\s*\S+', '', t)
+        # 去末尾 " - 来源名"（各文章来源不同，无法用固定白名单，用通用规则）
+        t = re.sub(r'\s+[-–—]\s+[^-–—]+$', '', t)
+        return re.sub(r'\s+', ' ', t).strip()
+
+    cleaned = []
+    for t in titles:
+        t = _clean(t)
         if t and len(t) > 4:
             cleaned.append(t)
 
-    # 模糊去重：相似标题只保留一条，避免"关键词扩展"出现重复内容（AI 失败回退原文时尤其重要）
+    # 去重：精确 / 包含 / 模糊，相似标题只保留一条（AI 失败回退原文时避免重复）
     deduped = []
     for t in cleaned:
-        if any(difflib.SequenceMatcher(None, t, d).ratio() > 0.8 for d in deduped):
+        if any(t == d or t in d or d in t
+               or difflib.SequenceMatcher(None, t, d).ratio() > 0.72 for d in deduped):
             continue
         deduped.append(t)
     cleaned = deduped
 
-    # 无 API key 时直接返回清洗后的标题
+    # 无 API key 或标题太少时，直接返回清洗去重后的标题
     if not api_key or len(cleaned) <= 3:
         return cleaned[:10]
 
     # 交给 AI 去重 + 分组总结
-    joined = "\n".join(cleaned[:30])
-    prompt = f"以下是同一话题的相关新闻标题，请去重后按事件分组，每组用一句话概括核心事实，以 · 开头，最多8条：\n{joined}"
-
     url = "https://api.deepseek.com/v1/chat/completions"
     headers = {"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"}
     payload = {
         "model": "deepseek-v4-pro",
         "messages": [
             {"role": "system", "content": "你是信息整理专家。将同类新闻合并为一句话要点，每行以 · 开头。"},
-            {"role": "user", "content": prompt}
+            {"role": "user", "content": ""}
         ],
         "temperature": 0.2,
-        "max_tokens": 1000
+        # 推理模型：max_tokens 同时覆盖推理+回答
+        "max_tokens": 2000
     }
-    try:
-        resp = requests.post(url, json=payload, headers=headers, timeout=(10, 60))
-        body = resp.json()
-        if "choices" not in body:
-            print(f"扩展新闻总结失败: DeepSeek返回异常 — {json.dumps(body, ensure_ascii=False)[:200]}")
-            return cleaned[:10]
-        result = (body["choices"][0]["message"].get("content") or "").strip()
-        if not result:
-            fr = body["choices"][0].get("finish_reason", "unknown")
-            print(f"扩展新闻总结失败: DeepSeek返回空内容(finish_reason={fr})，回退原文")
-            return cleaned[:10]
-        lines = [l.strip() for l in result.split("\n") if l.strip()]
-        if lines:
-            print(f"扩展新闻AI总结: {len(cleaned)} → {len(lines)} 条要点")
-            return lines[:10]
-        return cleaned[:10]
-    except Exception as e:
-        print(f"扩展新闻总结失败: {e}")
-        return cleaned[:10]
+    for attempt in range(2):
+        # 空内容重试时缩小输入规模（30条 → 15条），降低推理压力
+        sample = cleaned[:15] if attempt else cleaned[:30]
+        prompt = (f"以下是同一话题的相关新闻标题，请去重后按事件分组，每组用一句话概括核心事实，"
+                  f"以 · 开头，最多8条：\n" + "\n".join(sample))
+        payload["messages"][1]["content"] = prompt
+        try:
+            resp = requests.post(url, json=payload, headers=headers, timeout=(10, 60))
+            body = resp.json()
+            if "choices" not in body:
+                print(f"扩展新闻总结失败: DeepSeek返回异常 — {json.dumps(body, ensure_ascii=False)[:200]}")
+                break
+            result = (body["choices"][0]["message"].get("content") or "").strip()
+            if result:
+                lines = [l.strip() for l in result.split("\n") if l.strip()]
+                if lines:
+                    print(f"扩展新闻AI总结: {len(cleaned)} → {len(lines)} 条要点")
+                    return lines[:10]
+            print(f"扩展新闻总结失败: 返回空内容({_empty_content_hint(body['choices'][0])})（第{attempt+1}次）")
+        except Exception as e:
+            print(f"扩展新闻总结失败: {e}")
+            break
+    print(f"扩展新闻降级: 返回清洗去重后的标题 {len(cleaned[:10])} 条")
+    return cleaned[:10]
 
 
 def auto_trending_keywords(today_platforms, yesterday_platforms):
@@ -620,8 +641,7 @@ def call_deepseek(platforms, change_text, resonance, user_field, api_key, extra_
             if result:
                 print(f"AI分析完成: {len(result)} 字符")
                 return result
-            finish_reason = choice.get("finish_reason", "unknown")
-            print(f"AI分析失败: 返回空内容，finish_reason={finish_reason}（第{attempt+1}次）")
+            print(f"AI分析失败: 返回空内容({_empty_content_hint(choice)})（第{attempt+1}次）")
             if attempt == 0:
                 # 输入或输出过长导致截断：重试用精简 prompt（各平台仅Top1、去掉排名变化）
                 payload["messages"][1]["content"] = _build_prompt(top_n=1, include_changes=False)
